@@ -1,0 +1,20 @@
+{% load static %}
+<nav class="navbar">
+    <div class="first-nav-container">
+        <a class='logo' href="#"><img src="{% static 'images/default-logo.svg'%}" alt="SVG logo icon"></a>
+        <button class="dark-mode"></button>
+    </div>
+    <div class="second-nav-container">
+        <button onclick="window.location.href='#'">CALENDER</button>
+        <button onclick="window.location.href='#'">BOARD</button>
+        <button onclick="window.location.href='#'">FOLDERS</button>
+    </div>
+    <div class="third-nav-container">
+        <img class='dropdown-icon' src="{% static 'images/userimage.svg'%}" alt="SVG profile icon">
+        <div class="nav-dropdown">
+            <a href="#">Log out/Change user</a>
+            <a href="#">Change Password</a>
+            <a href="#">Delete User</a>
+        </div>
+    </div>
+</nav>
