@@ -1,104 +1,167 @@
 /*Code for body defaults*/
 :root {
-    --white-color: rgb(198, 203, 211);
-    --blue-color: rgb(74, 131, 142);
-    --brown-color: rgb(156, 130, 91);
-    --dark-brown-color: rgb(78, 49, 6);
-    --black-color: rgb(0,0,0);
-    --lilac-color:rgb(200,168,213);
-    --dark-lilac-color:rgb(123,81,141);
+  --white-color: rgb(198, 203, 211);
+  --blue-color: rgb(74, 131, 142);
+  --brown-color: rgb(156, 130, 91);
+  --dark-brown-color: rgb(78, 49, 6);
+  --black-color: rgb(0, 0, 0);
+  --lilac-color: rgb(200, 168, 213);
+  --dark-lilac-color: rgb(123, 81, 141);
 }
 
-body{
-    margin:0;
-    height:200vh;
+body {
+  margin: 0;
+  height: 200vh;
+}
+.body-dark-mode {
+  background-color: #d8860b;
 }
 /*=================================================*/
 /*!==========CODE FOR NAVBAR STARTS HERE===========*/
 /*=================================================*/
 .navbar {
-    width:100%;
-    height:5vh;
-    background:linear-gradient(90deg, var(--white-color) 0%,var(--lilac-color))100%;
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-    position:fixed;
+  width: 100%;
+  height: 5vh;
+  background: linear-gradient(90deg, var(--white-color) 0%, var(--lilac-color))
+    100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  position: fixed;
 }
 /*code for the fist nav container starts here*/
-.first-nav-container{
-    margin-left: 2em;
+.first-nav-container {
+  margin-left: 2em;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
+.logo {
+  margin-right: 2em;
+  margin-top: 0.5rem;
+  transition: 250ms;
+}
+.logo:hover {
+  fill: rgb(113, 115, 132);
+}
+.darkmode-checkbox {
+  display: none;
+}
+.dark-mode {
+  width: 3.9rem;
+  height: 1.5rem;
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: var(--white-color);
+  position: relative;
+  cursor: pointer;
+  margin-right: 2em;
+  margin-top: 0.5rem;
+  transition: 250ms;
+  box-shadow: inset 0 5px 15px 0 rgba(0, 0, 0, 0.4),
+    inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+  display: block;
+}
+.dark-mode::after {
+  content: "";
+  position: absolute;
+  width: 1.5rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffcc89 0%, #d8860b 100%);
+  top: 1px;
+  left: 1px;
+  transition: 250ms;
+}
+.dark-mode:active::after {
+  width: 1.7rem;
+}
+
+.darkmode-checkbox:checked + .dark-mode::after {
+  left: 3.8rem;
+  background: linear-gradient(180deg, #777, #3a3a3a);
+  transform: translateX(-100%);
+}
+
+.darkmode-checkbox:checked + .dark-mode {
+  background-color: black;
+}
+.darkmode-checkbox:checked + body {
+  background-color: #3a3a3a;
+}
+
 /*code for the second nav container/ page selection buttons*/
-.second-nav-container{
-    background-color: rgb(159, 165, 168);
-    display:flex;
-    align-items: center;
-    border-radius: 10px;
+.second-nav-container {
+  background-color: rgb(159, 165, 168);
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
 }
-.second-nav-container button{
-    padding:1em;
-    padding-right: 2em;
-    padding-left: 2em;
-    border: 0;
-    color:rgb(24, 27, 31);
-    font-weight: 700;
-    background-color: rgb(174, 167, 174);
-    transition: 250ms;
+.second-nav-container button {
+  padding: 1em;
+  padding-right: 2em;
+  padding-left: 2em;
+  border: 0;
+  color: rgb(24, 27, 31);
+  font-weight: 700;
+  background-color: rgb(174, 167, 174);
+  transition: 250ms;
+  cursor: pointer;
 }
-.second-nav-container button:first-child{
-    border-top-left-radius:10px;
-    border-bottom-left-radius: 10px;
+.second-nav-container button:first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
-.second-nav-container button:last-child{
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+.second-nav-container button:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
-.second-nav-container button:hover{
-    background-color: rgb(149, 154, 157) ;
+.second-nav-container button:hover {
+  background-color: rgb(149, 154, 157);
 }
 /*code for the third nav container/dropdown menu*/
-.dropdown-icon{
-    margin-right: 1em;
-    margin-top: .5rem;
-    height: 50%;
-    width: auto;
-    align-self: center;
-    
+.dropdown-icon {
+  margin-right: .5em;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 250ms;
+  fill: black;
+}
+.nav-dropdown {
+  display: none;
+  background: linear-gradient(
+      90deg,
+      var(--white-color) 0%,
+      var(--dark-lilac-color)
+    )
+    100%;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 5vh;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.dropdown-icon:hover {
+  cursor: pointer;
+  fill: rgb(113, 115, 132);
+}
+.nav-dropdown a {
+  font-weight: 700;
+  margin-top: 1em;
+  text-decoration: none;
+  color: rgb(46, 57, 60);
+  padding: 0.5em;
+  transition: all 300ms;
+}
 
+.nav-dropdown a:not(:last-child) {
+  border-bottom: 2px solid rgb(84, 80, 80);
 }
-.nav-dropdown{
-    display:None;
-    background:linear-gradient(90deg, var(--white-color) 0%,var(--dark-lilac-color))100%;
-    flex-direction: column;
-    position: absolute;
-    right:0;
-    top:3vh;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-}
-.dropdown-icon:hover + .nav-dropdown{
-    display: flex;
-}
-.nav-dropdown:hover{
-    display: flex;
-}
-.nav-dropdown a{
-    font-weight: 700;
-    margin-top: 1em;
-    text-decoration: none;
-    color:rgb(46, 57, 60);
-    padding: 0.5em;
-    transition: all 300ms;
-}
-
-.nav-dropdown a:not(:last-child){
-    border-bottom: 2px solid rgb(84, 80, 80);
-}
-.nav-dropdown a:hover{
-    font-weight: 900;
-    color:rgb(85, 26, 91)
+.nav-dropdown a:hover {
+  font-weight: 900;
+  color: rgb(85, 26, 91);
 }
 /*code for the navbar ends here*/

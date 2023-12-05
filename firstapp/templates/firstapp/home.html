@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
     <title>home</title>
-</head>
-<body>
-
-    {% include 'firstapp/navbar.html' %}
-
-    {% if messages %}
+  </head>
+  <body>
+    {% include 'firstapp/navbar.html' %} {% if messages %}
     <ul class="messages">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
     </ul>
-    {% endif %}
-
-    {% block content %}
-
-
-    {% endblock %}
-
-</body>
-
+    {% endif %} {% block content %} {% endblock %}
+    <script>
+      const darkModeCheckbox = document.getElementById("dark-mode");
+      const bodyElement = document.body;
+      const nav_dropdown = document.querySelector(".nav-dropdown");
+      
+      darkModeCheckbox.addEventListener("change", function () {
+        bodyElement.classList.toggle(
+          "body-dark-mode",
+          darkModeCheckbox.checked
+        );
+      });
+      function displayDropdown() {
+        console.log("sdass");
+        if (nav_dropdown.style.display === "none") {
+          console.log("hello");
+          nav_dropdown.style.display = "flex";
+        } else {
+          nav_dropdown.style.display = "none";
+        }
+      }
+    </script>
+  </body>
 </html>
