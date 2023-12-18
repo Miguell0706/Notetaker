@@ -3,7 +3,7 @@
   --white-color: rgb(198, 203, 211);
   --blue-color: rgb(74, 131, 142);
   --brown-color: rgb(156, 130, 91);
-  --dark-brown-color: rgb(78, 49, 6);
+  --dark-brown-color: rgb(65, 44, 13);
   --black-color: rgb(0, 0, 0);
   --lilac-color: rgb(200, 168, 213);
   --dark-lilac-color: rgb(123, 81, 141);
@@ -12,6 +12,7 @@
 body {
   margin: 0;
   height: 200vh;
+  background-color: #9b9696;
 }
 .body-dark-mode {
   background-color: #d8860b;
@@ -21,7 +22,7 @@ body {
 /*=================================================*/
 .navbar {
   width: 100%;
-  height: 5vh;
+  height: 50px;
   background: linear-gradient(90deg, var(--white-color) 0%, var(--lilac-color))
     100%;
   display: flex;
@@ -38,6 +39,8 @@ body {
   height: 100%;
 }
 .logo {
+  height:3vh;
+  width:5vw;
   margin-right: 2em;
   margin-top: 0.5rem;
   transition: 250ms;
@@ -49,8 +52,8 @@ body {
   display: none;
 }
 .dark-mode {
-  width: 3.9rem;
-  height: 1.5rem;
+  height: 48%;
+  width:62px;
   border: 1px solid black;
   border-radius: 30px;
   background-color: var(--white-color);
@@ -66,7 +69,7 @@ body {
 .dark-mode::after {
   content: "";
   position: absolute;
-  width: 1.5rem;
+  width: 1.4rem;
   height: 1.4rem;
   border-radius: 50%;
   background: linear-gradient(180deg, #ffcc89 0%, #d8860b 100%);
@@ -91,14 +94,42 @@ body {
   background-color: #3a3a3a;
 }
 
-/*code for the second nav container/ page selection buttons*/
-.second-nav-container {
+.dark-mode svg {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  z-index: 1;
+}
+.dark-mode svg.sun {
+  left:5%;
+  top:17%;
+  fill:#fff;
+  transition: 0.3s;
+}
+
+.dark-mode svg.moon {
+  left:69%;
+  top:16%;
+  fill:#7e7e7e;
+  transition: 0.3s;
+  stroke:none;
+}
+/*code for the menu nav container/ page selection buttons*/
+.menu-container{
+  display: none;
+}
+.menu-icon {
+  width:2rem;
+  height:2rem;
+
+}
+.menu-container {
+  display:none;
   background-color: rgb(159, 165, 168);
-  display: flex;
   align-items: center;
   border-radius: 15px;
 }
-.second-nav-container button {
+.menu-container button {
   padding: 1em;
   padding-right: 2em;
   padding-left: 2em;
@@ -108,27 +139,42 @@ body {
   background-color: rgb(174, 167, 174);
   transition: 250ms;
   cursor: pointer;
-}
-.second-nav-container button:first-child {
+} 
+.menu-container button:first-child {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-.second-nav-container button:last-child {
+.menu-container button:last-child {
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-.second-nav-container button:hover {
+.menu-container button:hover {
   background-color: rgb(149, 154, 157);
 }
+/*media querei to change the menu-container and menu-icon display when at least Xpx is reached*/
+@media only screen and (min-width: 700px) {
+  .menu-container {
+    display: flex;
+  }
+  .menu-icon {
+    display:none;
+  }
+}
+/*code for the greeting of the navbar*/
+.greeting {
+  display:none;
+}
 /*code for the third nav container/dropdown menu*/
-.dropdown-icon {
+.profile-icon {
   margin-right: .5em;
-  margin-top: 1rem;
+  margin-top: .5rem;
   cursor: pointer;
   transition: 250ms;
   fill: black;
+  width:2rem;
+  height:2rem;
 }
-.nav-dropdown {
+.profile-dropdown {
   display: none;
   background: linear-gradient(
       90deg,
@@ -144,11 +190,11 @@ body {
   border-bottom-right-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
-.dropdown-icon:hover {
+.profile-icon:hover {
   cursor: pointer;
   fill: rgb(113, 115, 132);
 }
-.nav-dropdown a {
+.profile-dropdown a {
   font-weight: 700;
   margin-top: 1em;
   text-decoration: none;
@@ -157,10 +203,10 @@ body {
   transition: all 300ms;
 }
 
-.nav-dropdown a:not(:last-child) {
+.profile-dropdown a:not(:last-child) {
   border-bottom: 2px solid rgb(84, 80, 80);
 }
-.nav-dropdown a:hover {
+.profile-dropdown a:hover {
   font-weight: 900;
   color: rgb(85, 26, 91);
 }

@@ -1,6 +1,7 @@
 const darkModeCheckbox = document.getElementById("dark-mode");
 const bodyElement = document.body;
-const nav_dropdown = document.querySelector(".nav-dropdown");
+const profile_dropdown = document.querySelector(".profile-dropdown");
+const menu_container = document.querySelector(".menu-container");
 
 darkModeCheckbox.addEventListener("change", function () {
   bodyElement.classList.toggle(
@@ -8,12 +9,17 @@ darkModeCheckbox.addEventListener("change", function () {
     darkModeCheckbox.checked
   );
 });
-function displayDropdown() {
-  console.log("sdass");
-  if (nav_dropdown.style.display === "none") {
-    console.log("hello");
-    nav_dropdown.style.display = "flex";
+function displayProfile() {
+  if (profile_dropdown.style.display === "none") {
+    profile_dropdown.style.display = "flex";
   } else {
-    nav_dropdown.style.display = "none";
+    profile_dropdown.style.display = "none";
+  }
+}
+function displayMenu() {
+  if (menu_container.style.display === "none") {
+    menu_container.style.display = "flex";
+  } else {
+    menu_container.style.display = "none";
   }
 }
