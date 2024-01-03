@@ -17,9 +17,5 @@ function displayProfile() {
   }
 }
 function displayMenu() {
-  if (menu_container.style.display === "none") {
-    menu_container.style.display = "flex";
-  } else {
-    menu_container.style.display = "none";
-  }
+  menu_container.classList.toggle('opened')
 }

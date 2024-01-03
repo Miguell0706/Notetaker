@@ -1,4 +1,22 @@
 /*Code for body defaults*/
+@keyframes dropdownAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+@keyframes background-gradient {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
 :root {
   --white-color: rgb(198, 203, 211);
   --blue-color: rgb(74, 131, 142);
@@ -7,20 +25,27 @@
   --black-color: rgb(0, 0, 0);
   --lilac-color: rgb(200, 168, 213);
   --dark-lilac-color: rgb(123, 81, 141);
+  --background-gradient-light: linear-gradient(90deg, rgba(203,68,235,0.8064017843465512) 0%, rgba(247,121,240,0.9100432409291842) 31%, rgba(241,98,255,0.8512197115174195) 58%, rgba(215,102,212,1) 100%);
+  --background-gradient-dark: linear-gradient(90deg, #000000, #242424);
 }
+
 
 body {
   margin: 0;
   height: 200vh;
-  background-color: #9b9696;
+  background-image: var(--background-gradient-light);
+  background-size:300%;
+  background-position: left;
+  animation: background-gradient 120s ease infinite alternate;
 }
 .body-dark-mode {
-  background-color: #d8860b;
+  background-image: var(--background-gradient-dark);
 }
 /*=================================================*/
 /*!==========CODE FOR NAVBAR STARTS HERE===========*/
 /*=================================================*/
 .navbar {
+  position: sticky;
   width: 100%;
   height: 50px;
   background: linear-gradient(90deg, var(--white-color) 0%, var(--lilac-color))
@@ -29,7 +54,6 @@ body {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  position: fixed;
 }
 /*code for the fist nav container starts here*/
 .first-nav-container {
@@ -115,46 +139,88 @@ body {
   stroke:none;
 }
 /*code for the menu nav container/ page selection buttons*/
-.menu-container{
-  display: none;
-}
 .menu-icon {
   width:2rem;
   height:2rem;
+  transition: 250ms;
+  fill: black;
 
 }
-.menu-container {
-  display:none;
-  background-color: rgb(159, 165, 168);
-  align-items: center;
-  border-radius: 15px;
+.menu-icon:hover {
+  fill: rgb(32, 50, 212);
+  cursor: pointer;
 }
-.menu-container button {
-  padding: 1em;
-  padding-right: 2em;
-  padding-left: 2em;
-  border: 0;
-  color: rgb(24, 27, 31);
-  font-weight: 700;
+
+.menu-container {
+  position: absolute;
+  flex-direction:column;
+  top: 50px; /* Adjust based on your navbar height */
+  width:100%;
+  overflow: hidden;
+  max-height: 0; /* Set the initial height to 0 */
+  transition: max-height 0.5s ease;
+}
+
+.menu-container li {
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 10px;
   background-color: rgb(174, 167, 174);
   transition: 250ms;
   cursor: pointer;
-} 
-.menu-container button:first-child {
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  width:100%;
 }
-.menu-container button:last-child {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+
+.menu-container a {
+  color: white;
+  text-decoration: none;
 }
-.menu-container button:hover {
-  background-color: rgb(149, 154, 157);
+
+.menu-container a:hover {
+  text-decoration: underline;
+}
+.menu-container.opened {
+  display:flex;
+  max-height: 100px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.menu-container:not(.opened) {
+  transition: max-height 0s;
 }
 /*media querei to change the menu-container and menu-icon display when at least Xpx is reached*/
 @media only screen and (min-width: 700px) {
   .menu-container {
-    display: flex;
+    position: relative;
+    top:0;
+    display:flex;
+    width: auto;
+    overflow: revert;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 15px;
+  }
+  .menu-container button {
+    width:auto;
+    padding: 1em;
+    padding-right: 2em;
+    padding-left: 2em;
+    border: 0;
+    color: rgb(24, 27, 31);
+    font-weight: 700;
+    background-color: rgb(174, 167, 174);
+    transition: 250ms;
+    cursor: pointer;
+  } 
+  .menu-container button:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+  }
+  .menu-container button:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .menu-container button:hover {
+    background-color: rgb(149, 154, 157);
   }
   .menu-icon {
     display:none;
@@ -168,7 +234,6 @@ body {
 .profile-icon {
   margin-right: .5em;
   margin-top: .5rem;
-  cursor: pointer;
   transition: 250ms;
   fill: black;
   width:2rem;
