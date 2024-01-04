@@ -1,14 +1,4 @@
 /*Code for body defaults*/
-@keyframes dropdownAnimation {
-  from {
-    opacity: 0;
-    transform: translateY(-100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
 @keyframes background-gradient {
   0% {
     background-position: left;
@@ -143,16 +133,22 @@ body {
   width:2rem;
   height:2rem;
   transition: 250ms;
-  fill: black;
 
 }
+.menu-icon path {
+  stroke: black;
+  transition: 250ms;
+}
+.menu-icon:hover path {
+  stroke:rgb(113, 115, 132);
+}
 .menu-icon:hover {
-  fill: rgb(32, 50, 212);
   cursor: pointer;
 }
 
 .menu-container {
   position: absolute;
+  display:flex;
   flex-direction:column;
   top: 50px; /* Adjust based on your navbar height */
   width:100%;
@@ -180,12 +176,11 @@ body {
   text-decoration: underline;
 }
 .menu-container.opened {
-  display:flex;
   max-height: 100px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 .menu-container:not(.opened) {
-  transition: max-height 0s;
+  transition: max-height 0.5s;
 }
 /*media querei to change the menu-container and menu-icon display when at least Xpx is reached*/
 @media only screen and (min-width: 700px) {
@@ -240,20 +235,30 @@ body {
   height:2rem;
 }
 .profile-dropdown {
-  display: none;
   background: linear-gradient(
-      90deg,
-      var(--white-color) 0%,
-      var(--dark-lilac-color)
-    )
-    100%;
+    90deg,
+    var(--white-color) 0%,
+    var(--dark-lilac-color)
+  )
+  100%;
+  display: flex;
+  overflow: hidden;
   flex-direction: column;
   position: absolute;
-  right: 0;
+  max-width: 0;
   top: 5vh;
+  right: 0; /* Align to the right */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  transition: max-width 0.5s;
+}
+.profile-dropdown.opened {
+  max-width: 200px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.profile-dropdown:not(.opened) {
+  transition: max-width 0.5s;
 }
 .profile-icon:hover {
   cursor: pointer;

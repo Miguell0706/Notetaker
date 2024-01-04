@@ -10,11 +10,7 @@ darkModeCheckbox.addEventListener("change", function () {
   );
 });
 function displayProfile() {
-  if (profile_dropdown.style.display === "none") {
-    profile_dropdown.style.display = "flex";
-  } else {
-    profile_dropdown.style.display = "none";
-  }
+  profile_dropdown.classList.toggle('opened')
 }
 function displayMenu() {
   menu_container.classList.toggle('opened')
