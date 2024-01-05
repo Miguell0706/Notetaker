@@ -12,6 +12,18 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    position: relative;
+
+}
+body::after{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    content: '';
+    background: linear-gradient(0deg, rgba(0,0,0,0.8064017843465512) 0%, transparent 100%);
+;
+    opacity: 0.5;
+    z-index: -1;
 
 }
 .container{
@@ -40,11 +52,22 @@ body {
     font-style: italic;
     color:rgb(228, 218, 205);
     font-size:20px;
-
+    max-height: 100px;
 }
 .input_box {
     position: relative;
     width: 100%;
+}
+.eye {
+    position: absolute;
+    right:15px;
+    bottom:10px;
+}
+.eye-closed {
+    display:block;
+}
+.eye-opened {
+    display:none;
 }
 .input_box label {
     position:absolute;
@@ -72,5 +95,4 @@ body {
     border-bottom: 3px solid rgb(2, 2, 2,.5);
     transition: 0.5s;
     outline: none;
-    pointer-events: none;
 }
