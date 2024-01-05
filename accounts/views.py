@@ -2,8 +2,6 @@ from django.shortcuts import render
 
 # Create your views here.
 def login_page(request):
-    context = {}
+    login=True
+    context = {'login':login}
     return render(request, 'accounts/login.html',context)
-def register(request):
-    context = {}
-    return render(request, 'accounts/register.html',context)

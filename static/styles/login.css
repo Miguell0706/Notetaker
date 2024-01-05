@@ -1,0 +1,76 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('../images/sakura_tree.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.container{
+    height:700px;
+    width:500px;
+    background:transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 3px solid rgb(206, 203, 203,.2);
+    backdrop-filter: blur(10px);
+}
+.container h1{
+    color:rgb(234, 231, 231);
+}
+.quote {
+    display:block;
+    margin:0;
+    padding:0;
+    font-family: 'Playgair Display',serif;
+    font-style: italic;
+    color:rgb(228, 218, 205);
+    font-size:20px;
+
+}
+.input_box {
+    position: relative;
+    width: 100%;
+}
+.input_box label {
+    position:absolute;
+    top: 50%;
+    left:10px;
+    transform: translateY(-50%);
+    transition: 250ms ease;
+}
+.input_box input:focus~label,
+.input_box input:valid~label {
+    top:0;
+}
+.input_fields{
+    display:block;
+    height:2.5rem;
+    width:95%;
+    margin:auto;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    color:rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255,0);
+    border:none;
+    border-bottom: 3px solid rgb(2, 2, 2,.5);
+    transition: 0.5s;
+    outline: none;
+    pointer-events: none;
+}

@@ -1,2 +1,40 @@
-<p>Login page</p>
-<a href="{% url 'accounts:register' %}">Register</a>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <title>Login/Register</title>
+</head>
+<body>
+    <div class="container">
+        {% if login%}
+            <h1>Sign in</h1>
+            <p class='quote' id="quote"></p>
+            <form action="{% url 'accounts:login' %}" method="POST">
+                <div class="input_box">
+                    <input class='input_fields' type="text" name="username" id="username" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="input_box">
+                    <input class='input_fields' type="password" name="password" id="password" required>
+                    <label for="password">Password</label>
+                </div>
+                {% csrf_token %}
+            </form>
+        {% else %}
+            <h1>Register</h1>
+            <p class='quote' id="quote"></p>
+        {% endif %}
+    </div>
+    <script src="{% static 'scripts/login.js'%}"></script>
+</body>
+</html>
