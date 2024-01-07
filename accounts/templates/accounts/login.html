@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <title>Login/Register</title>
 </head>
 <body>
@@ -38,6 +39,19 @@
                     </svg>
                     <input class='input_fields' type="password" name="password" id="password" required>
                     <label for="password">Password</label>
+                </div>
+                <a class='forgot-password' href="#">Forgot Password?</a>
+                <div class='remember-login'>
+                    <input class="remember-box" type="checkbox" name="remember" id="remember"><p class='remember-me'>Remember me</p>
+                    <input class="login-btn" type="submit" value="Login">
+                </div>
+                <div class="flowers-or-container">
+                    <img src="{% static 'images/roses-intertwined.png' %}" alt="flower" class="flower flower-left">
+                    <div>
+                        <h3 class="or">OR</h3>
+                        <p class='or-text'>Log in with</p>
+                    </div>
+                    <img src="{% static 'images/roses-intertwined.png' %}" alt="flower" class="flower flower-right">
                 </div>
                 {% csrf_token %}
             </form>

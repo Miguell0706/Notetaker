@@ -1,6 +1,9 @@
 *{
     box-sizing: border-box;
 }
+:root {
+    --light-green-color: rgb(156, 207, 168);
+}
 body {
     margin: 0;
     display:flex;
@@ -20,7 +23,7 @@ body::after{
     height: 100%;
     width: 100%;
     content: '';
-    background: linear-gradient(0deg, rgba(0,0,0,0.8064017843465512) 0%, transparent 100%);
+    background: linear-gradient(0deg, rgba(0,0,0) 0%, transparent 100%);
 ;
     opacity: 0.5;
     z-index: -1;
@@ -29,20 +32,20 @@ body::after{
 .container{
     height:700px;
     width:500px;
-    background:transparent;
+    background-color: rgb(255,255,255,0.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     border-radius: 20px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     padding:20px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border: 3px solid rgb(206, 203, 203,.2);
+    border: 3px solid rgba(36, 35, 35, 0.1);
     backdrop-filter: blur(10px);
+    padding:40px;
 }
+/*-------CODE FOR LOGIN FORM GOES HERE*/
 .container h1{
-    color:rgb(234, 231, 231);
+    color: var(--light-green-color);
 }
 .quote {
     display:block;
@@ -54,6 +57,7 @@ body::after{
     font-size:20px;
     max-height: 100px;
 }
+/*CODE FOR INPUT FIELDS*/
 .input_box {
     position: relative;
     width: 100%;
@@ -62,6 +66,7 @@ body::after{
     position: absolute;
     right:15px;
     bottom:10px;
+    cursor: pointer;
 }
 .eye-closed {
     display:block;
@@ -89,10 +94,112 @@ body::after{
     font-size: 15px;
     font-weight: 700;
     font-family: 'Poppins', sans-serif;
-    color:rgb(255, 255, 255);
+    color:var(--light-green-color);
     background-color: rgba(255, 255, 255,0);
     border:none;
     border-bottom: 3px solid rgb(2, 2, 2,.5);
     transition: 0.5s;
     outline: none;
+}
+/*CODE FOR REMEMBER ME/LOGIN GOES HERE*/
+.remember-login {
+    display:inline-block;
+    margin:auto;
+    margin-top: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 5px;
+    justify-content: space-between;
+    width:100%;
+    
+}
+.forgot-password{
+    display: block;
+    color:var(--light-green-color);
+    font-size: 13px;
+    margin:10px;
+    margin-left: none;
+    margin-right: none;
+}
+.forgot-password:focus,
+.forgot-password:hover {
+    color:rgb(230, 152, 230);
+}
+.login-btn {
+    display:inline-block;
+    height: 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255,0);
+    color:var(--light-green-color);
+    border:none;
+    border-bottom: 3px solid rgb(2, 2, 2,.5);
+    transition: 0.5s;
+    outline: none;
+    margin-left: 150px;
+    cursor: pointer;    
+    width:5rem;
+
+}
+.login-btn:hover {
+    background-color: rgb(230, 152, 230,.5);
+    color:rgb(0, 0, 0);
+}
+.remember-box {
+    margin-left:30px;
+    cursor: pointer;
+}
+.remember-me{  
+    font-size:13px;
+    font-weight: bold;
+    margin-left:5px;
+    display:inline-block;
+    color: var(--light-green-color);
+}
+/*CODE FOR FLOWERS / OR GOES HERE*/
+.flowers-or-container{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:none;
+    
+}
+.flower {
+    position: relative;
+    width:7rem;
+    height:10rem;
+    margin: 10px;
+    object-fit: cover; 
+    filter: brightness(0.7);
+}
+
+.flower-left{
+    transform: rotate(90deg);
+}
+.flower-right{
+    transform: rotate(270deg);
+}
+.or{
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin:0;
+    color: white;
+    text-align: center;
+    background: linear-gradient(54deg, rgba(75, 55, 35, 0.806) 0%, rgb(43, 78, 49) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Dancing Script', cursive;
+
+}
+.or-text{
+    display: block;
+    margin:0;
+    color:white;
+    font-size: 12px;
+    font-family: 'Dancing Script',cursive;
 }
