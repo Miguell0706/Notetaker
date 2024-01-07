@@ -2,7 +2,8 @@
     box-sizing: border-box;
 }
 :root {
-    --light-green-color: rgb(156, 207, 168);
+    --light-brown-color: rgb(75, 47, 19);
+    --white-color: rgb(223, 219, 219);
 }
 body {
     margin: 0;
@@ -16,6 +17,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    display:flex;
+    flex-direction: column;
 
 }
 body::after{
@@ -32,7 +35,7 @@ body::after{
 .container{
     height:700px;
     width:500px;
-    background-color: rgb(255,255,255,0.2);
+    background-color: rgba(120, 77, 77, 0.1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     border-radius: 20px;
     overflow: hidden;
@@ -40,12 +43,12 @@ body::after{
     flex-direction: column;
     padding:20px;
     border: 3px solid rgba(36, 35, 35, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(30px);
     padding:40px;
 }
 /*-------CODE FOR LOGIN FORM GOES HERE*/
 .container h1{
-    color: var(--light-green-color);
+    color: var(--white-color);
 }
 .quote {
     display:block;
@@ -53,8 +56,9 @@ body::after{
     padding:0;
     font-family: 'Playgair Display',serif;
     font-style: italic;
-    color:rgb(228, 218, 205);
+    color:var(--light-brown-color);
     font-size:20px;
+    font-weight: bold;
     max-height: 100px;
 }
 /*CODE FOR INPUT FIELDS*/
@@ -94,7 +98,7 @@ body::after{
     font-size: 15px;
     font-weight: 700;
     font-family: 'Poppins', sans-serif;
-    color:var(--light-green-color);
+    color:var(--white-color);
     background-color: rgba(255, 255, 255,0);
     border:none;
     border-bottom: 3px solid rgb(2, 2, 2,.5);
@@ -106,7 +110,7 @@ body::after{
     display:inline-block;
     margin:auto;
     margin-top: 30px;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
     margin-left: 5px;
     justify-content: space-between;
@@ -115,11 +119,12 @@ body::after{
 }
 .forgot-password{
     display: block;
-    color:var(--light-green-color);
-    font-size: 13px;
+    color:aliceblue;
+    font-size: 16px;
     margin:10px;
     margin-left: none;
     margin-right: none;
+    transition: 250ms ease;
 }
 .forgot-password:focus,
 .forgot-password:hover {
@@ -129,33 +134,38 @@ body::after{
     display:inline-block;
     height: 2.5rem;
     font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
     background-color: rgba(255, 255, 255,0);
-    color:var(--light-green-color);
+    color:var(--white-color);
     border:none;
     border-bottom: 3px solid rgb(2, 2, 2,.5);
     transition: 0.5s;
     outline: none;
-    margin-left: 150px;
+    margin-left: 160px;
     cursor: pointer;    
     width:5rem;
 
 }
-.login-btn:hover {
+.login-btn:hover,
+.login-btn:focus {
     background-color: rgb(230, 152, 230,.5);
     color:rgb(0, 0, 0);
 }
+.login-btn:active{
+    background-color: rgb(230, 152, 230);
+    border-bottom: 3px solid rgb(230, 152, 230);
+    transform: translateY(-5px);
+
+}
 .remember-box {
-    margin-left:30px;
     cursor: pointer;
 }
 .remember-me{  
-    font-size:13px;
+    font-size:16px;
     font-weight: bold;
-    margin-left:5px;
     display:inline-block;
-    color: var(--light-green-color);
+    color: var(--white-color);
 }
 /*CODE FOR FLOWERS / OR GOES HERE*/
 .flowers-or-container{
@@ -186,20 +196,80 @@ body::after{
     font-size: 1.5rem;
     font-weight: 900;
     margin:0;
-    color: white;
+    color: rgb(183, 180, 180);
     text-align: center;
-    background: linear-gradient(54deg, rgba(75, 55, 35, 0.806) 0%, rgb(43, 78, 49) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
     font-family: 'Dancing Script', cursive;
+    position: relative;
 
+}
+.or::before{
+    position: absolute;
+    content: '';
+    width: 3px;
+    background-color: rgb(183,180,80,.8);
+    left:50%;
+    height:20px;
+    top:-20px;
+}
+.or::after{
+    position: absolute;
+    content: '';
+    width: 3px;
+    background-color: rgb(183,180,80,.8);
+    left:50%;
+    height:20px;
+    bottom:-35px;
 }
 .or-text{
     display: block;
     margin:0;
     color:white;
     font-size: 12px;
-    font-family: 'Dancing Script',cursive;
+    font-family: 'Dancing Script', cursive;
+}
+/*Code for google button goes here*/
+.google-button {
+    display: flex;
+    background-color: rgb(66, 64, 64,.7);
+    color: rgb(184, 179, 179);
+    font-size: 16px;
+    border-radius:20px;
+    align-items: center;
+    
+}
+.google-icon{
+    margin-left:15px;
+    height:90%;
+    width:30px;
+    
+}
+.google-text{
+    margin-left:20px;
+    text-align:center;
+    font-family: "Poppins";
+}
+.google-button:hover{
+    background-color: rgb(66, 64, 64);
+    cursor: pointer;
+}
+.google-button:active,
+.google-button:focus {
+    background-color: rgb(34, 33, 33);
+    transform: translateY(-5px);
+    border:1px solid rgb(175, 173, 173);
+}
+/*-------CODE FOR CONTAINER ENDS HERE----------*/
+/*Code for register link goes here*/
+.register-text{
+    color:var(--white-color);
+    font-size: 16px;
+}
+.register-link{
+    color:aliceblue;
+    transition:250ms ease;
+    font-size: 17px;
+}
+.register-link:hover,
+.register-link:focus{
+    color:rgb(230, 152, 230);
 }
