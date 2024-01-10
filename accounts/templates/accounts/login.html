@@ -168,10 +168,9 @@
           </div>
         </form>
       </div>
-      <p class="register-text">Don't have an account?<a href="#" class="register-link"> Register here</a></p>
+      <p class="register-text">Don't have an account?<a href="{% url 'register' %}" class="register-link"> Register here</a></p>
     {% else %}
       <h1>Register</h1>
-      <p class="quote" id="quote"></p>
     {% endif %}
     <script src="{% static 'scripts/login.js'%}"></script>
   </body>
