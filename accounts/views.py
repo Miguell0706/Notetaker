@@ -8,4 +8,4 @@ def login_page(request):
 def register_page(request):
     login=False
     context = {'login':login}
-    return render(request, 'acounts/login.html',context)
+    return render(request, 'accounts/login.html',context)

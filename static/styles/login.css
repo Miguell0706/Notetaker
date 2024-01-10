@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 :root {
-    --light-brown-color: rgb(75, 47, 19);
+    --light-pink-color: rgb(81, 25, 86);
     --white-color: rgb(223, 219, 219);
 }
 body {
@@ -49,6 +49,7 @@ body::after{
 /*-------CODE FOR LOGIN FORM GOES HERE*/
 .container h1{
     color: var(--white-color);
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
 .quote {
     display:block;
@@ -56,7 +57,7 @@ body::after{
     padding:0;
     font-family: 'Playgair Display',serif;
     font-style: italic;
-    color:var(--light-brown-color);
+    color:var(--light-pink-color);
     font-size:20px;
     font-weight: bold;
     max-height: 100px;
@@ -130,7 +131,8 @@ body::after{
 .forgot-password:hover {
     color:rgb(230, 152, 230);
 }
-.login-btn {
+.login-btn,
+.register-btn {
     display:inline-block;
     height: 2.5rem;
     font-family: 'Poppins', sans-serif;
@@ -148,11 +150,14 @@ body::after{
 
 }
 .login-btn:hover,
-.login-btn:focus {
+.login-btn:focus,
+.register-btn:hover,
+.register-btn:focus {
     background-color: rgb(230, 152, 230,.5);
     color:rgb(0, 0, 0);
 }
-.login-btn:active{
+.login-btn:active,
+.register-btn:active{
     background-color: rgb(230, 152, 230);
     border-bottom: 3px solid rgb(230, 152, 230);
     transform: translateY(-5px);
@@ -272,4 +277,13 @@ body::after{
 .register-link:hover,
 .register-link:focus{
     color:rgb(230, 152, 230);
+}
+/*----CODE FOR REGISTER SECTION GOES HERE -------------*/
+.register-btn{
+    margin-top: 50px;
+}
+.login-text{
+    text-align: center;
+    color:aliceblue;
+    font-weight:600;
 }
