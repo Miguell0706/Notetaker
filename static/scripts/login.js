@@ -37,3 +37,35 @@ function showPassword() {
     passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
     // change eyeclosed to dsiplay None and eyeopen to display block
 }
+function showPassword2() {
+    var passwordInput = document.getElementById('password1');
+    var eyeOpen = document.getElementById('eye-open2');
+    var eyeClosed = document.getElementById('eye-closed2');
+    // Toggle the input type between 'password' and 'text'
+    if (passwordInput.type === 'password') {
+        eyeOpen.style.display = 'block';
+        eyeClosed.style.display = 'none';
+    }
+    else {
+        eyeOpen.style.display = 'none';
+        eyeClosed.style.display = 'block';
+    }
+    passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
+    // change eyeclosed to dsiplay None and eyeopen to display block
+}
+function showPassword3() {
+    var passwordInput = document.getElementById('password2');
+    var eyeOpen = document.getElementById('eye-open3');
+    var eyeClosed = document.getElementById('eye-closed3');
+    // Toggle the input type between 'password' and 'text'
+    if (passwordInput.type === 'password') {
+        eyeOpen.style.display = 'block';
+        eyeClosed.style.display = 'none';
+    }
+    else {
+        eyeOpen.style.display = 'none';
+        eyeClosed.style.display = 'block';
+    }
+    passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
+    // change eyeclosed to dsiplay None and eyeopen to display block
+}
