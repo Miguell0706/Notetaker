@@ -160,6 +160,7 @@ body::after{
     cursor: pointer;    
     width:5rem;
     text-shadow: 2px 2px 0px black;
+    margin-inline: 40px;
 
 }
 .login-btn:hover,
@@ -303,7 +304,7 @@ body::after{
 .register-btn{
     display: block;
     margin-inline:auto;
-    margin-block:40px;
+    margin-block: 40px;
 }
 .login-text{
     text-align: center;
