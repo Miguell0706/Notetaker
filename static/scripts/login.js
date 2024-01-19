@@ -18,7 +18,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Fetch a random quote
   const quote = await fetchRandomQuote();
   // Display the quote
-  quoteElement.textContent = quote;
+  try{
+    quoteElement.textContent = quote;
+  }
+  catch{
+    return
+  }
 });
 //This function is to show and hide the password
 function showPassword() {

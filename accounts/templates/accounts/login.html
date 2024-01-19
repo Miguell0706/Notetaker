@@ -22,17 +22,21 @@
     <title>Login/Register</title>
   </head>
   <body>
-    {% if login %}
+    {% if login_page %}
       <div class="container">
         <h1>Sign in</h1>
         <p class="quote" id="quote"></p>
         <form class='login-form' action="{% url 'accounts:login' %}" method="POST">
+          {% csrf_token %}
           <div class="input_box">
             <input
               class="input_fields"
               type="text"
               name="username"
               id="username"
+              {% if form.is_bound %}
+              value="{{form.username}}"
+              {% endif %}
               required
             />
             <label for="username">Username/Email</label>
@@ -97,6 +101,9 @@
               type="password"
               name="password"
               id="password"
+              {% if form.is_bound %}
+              value="{{form.password}}"
+              {% endif %}
               required
             />
             <label for="password">Password</label>
@@ -130,7 +137,6 @@
               class="flower flower-right"
             />
           </div>
-          {% csrf_token %}
           <div class="google-button">
             <div class="google-icon">
               <svg
@@ -176,12 +182,16 @@
         <h1>Register</h1>
         <p class="error"></p>
         <form action="{% url 'accounts:register' %}" method="POST">
+          {% csrf_token %}
           <div class="input_box">
             <input
               class="input_fields"
               type="text"
               name="username"
               id="username"
+              {% if form.is_bound %}
+              value="{{form.username}}"
+              {% endif %}
               required
             />
             <label for="username">Username/Email</label>
@@ -246,6 +256,9 @@
               type="password"
               name="password1"
               id="password1"
+              {% if form.is_bound %}
+              value="{{form.password1}}"
+              {% endif %}
               required
             />
             <label for="password1">Password</label>
@@ -310,14 +323,20 @@
               type="password"
               name="password2"
               id="password2"
+              {% if form.is_bound %}
+              value="{{form.password2}}"
+              {% endif %}
               required
             />
             <label for="password2">Confirm Password</label>
           </div>
           <input class="register-btn" type="submit" value="Register" />
+          <div class='error_container'>
+            {% if errors %}
+              <p class="error">{{ errors }}</p>
+            {% endif %}
+          </div>
           <p class='login-text'>You will be logged in automatically once pressing register</p>
-          {% csrf_token %}
-
         </form>
       </div>
       <p class='register-text'>Already have an account?<a class ='login-link' href="{% url 'accounts:login' %}"> Log in here</a></p>
