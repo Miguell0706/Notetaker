@@ -24,6 +24,13 @@
   <body>
     {% if login_page %}
       <div class="container">
+        <div class="messages">
+          {% if messages %}
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
         <h1>Sign in</h1>
         <p class="quote" id="quote"></p>
         <form class='login-form' action="{% url 'accounts:login' %}" method="POST">
