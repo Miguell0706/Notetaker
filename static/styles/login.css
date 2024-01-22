@@ -60,6 +60,14 @@ body::after{
     color: var(--white-color);
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
+.messages {
+    color:white;
+    font-weight:700;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+
+}
 .quote {
     display:block;
     margin:0;
@@ -292,6 +300,18 @@ body::after{
 .google-button:hover{
     background-color: rgb(66, 64, 64);
     cursor: pointer;
+}
+.error_container{
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    color:aliceblue;
+}
+.error_container ul {
+    list-style: none;
+    padding:0;
+    margin:0;
 }
 .google-button:active,
 .google-button:focus {
