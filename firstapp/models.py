@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Note(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -13,7 +13,7 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 class Folder(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='folders', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     notes = models.ManyToManyField(Note, null=True, blank=True)

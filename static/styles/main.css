@@ -1,4 +1,12 @@
-/*Code for body defaults*/
+/*Fonts*/
+@font-face {
+  font-family: 'flowers';
+  src: url('../fonts/flowers.woff2') format('woff2'),
+       url('../fonts/flowers.woff') format('woff');
+    
+}
+
+/*Keyframe animations*/
 @keyframes background-gradient {
   0% {
     background-position: left;
@@ -7,6 +15,8 @@
     background-position: right;
   }
 }
+
+/*Code for body defaults*/
 :root {
   --white-color: rgb(198, 203, 211);
   --blue-color: rgb(74, 131, 142);
@@ -38,16 +48,14 @@ body {
   position: sticky;
   width: 100%;
   height: 50px;
-  background: linear-gradient(90deg, var(--white-color) 0%, var(--lilac-color))
-    100%;
+  background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
 /*code for the fist nav container starts here*/
 .first-nav-container {
-  margin-left: 2em;
   display: flex;
   align-items: center;
   height: 100%;
@@ -58,9 +66,10 @@ body {
   margin-right: 2em;
   margin-top: 0.5rem;
   transition: 250ms;
+  fill: rgb(63, 63, 66);
 }
 .logo:hover {
-  fill: rgb(113, 115, 132);
+  fill: var(--dark-lilac-color);
 }
 .darkmode-checkbox {
   display: none;
@@ -154,35 +163,40 @@ body {
   width:100%;
   overflow: hidden;
   max-height: 0; /* Set the initial height to 0 */
-  transition: max-height 0.5s ease;
+  transition: max-height 800ms ease-in-out;
+  background-color: #000000;
 }
 
-.menu-container li {
-  margin-bottom: 10px;
+.menu-container p {
+  color:white;
   text-align: center;
   border-radius: 10px;
-  background-color: rgb(174, 167, 174);
   transition: 250ms;
   cursor: pointer;
   width:100%;
 }
-
-.menu-container a {
-  color: white;
-  text-decoration: none;
-}
-
-.menu-container a:hover {
-  text-decoration: underline;
+.menu-container p:hover {
+  color: var(--dark-lilac-color);
 }
 .menu-container.opened {
-  max-height: 100px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  max-height: 300px;
 }
 .menu-container:not(.opened) {
-  transition: max-height 0.5s;
+  transition: max-height 800ms ease-in-out;
+}
+.greeting {
+  display:none;
+  font-size:20px;
+  font-weight:800;
+  color:blanchedalmond;
+  font-family: 'flowers';
 }
 /*media querei to change the menu-container and menu-icon display when at least Xpx is reached*/
+@media only screen and (min-width: 850px){
+  .greeting {
+    display:inline-block;
+  }
+}
 @media only screen and (min-width: 700px) {
   .menu-container {
     position: relative;
@@ -192,44 +206,39 @@ body {
     overflow: revert;
     flex-direction: row;
     align-items: center;
-    border-radius: 15px;
+    background-color: transparent;
   }
-  .menu-container button {
+  .menu-container p {
+    position: relative;
     width:auto;
-    padding: 1em;
-    padding-right: 2em;
-    padding-left: 2em;
     border: 0;
-    color: rgb(24, 27, 31);
+    margin-top:2rem;
+    margin-left: 2rem;
+    margin-right:1rem;
+    color: rgb(82, 69, 82);
     font-weight: 700;
-    background-color: rgb(174, 167, 174);
+    font-size:1.3rem;
+    background-image: linear-gradient(90deg, rgb(211, 136, 214),rgb(246, 28, 228));
+    background-size: 0% 3px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-color: transparent;
     transition: 250ms;
     cursor: pointer;
-  } 
-  .menu-container button:first-child {
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
   }
-  .menu-container button:last-child {
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-  }
-  .menu-container button:hover {
-    background-color: rgb(149, 154, 157);
+  .menu-container p:hover { 
+    background-size: 100% 3px;
   }
   .menu-icon {
     display:none;
   }
-}
-/*code for the greeting of the navbar*/
-.greeting {
 }
 /*code for the third nav container/dropdown menu*/
 .profile-icon {
   margin-right: .5em;
   margin-top: .5rem;
   transition: 250ms;
-  fill: black;
+  fill: var(--dark-brown-color);
   width:2rem;
   height:2rem;
 }
@@ -250,18 +259,18 @@ body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  transition: max-width 0.5s;
+  transition: max-width 600ms ease-in-out;
 }
 .profile-dropdown.opened {
   max-width: 200px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 .profile-dropdown:not(.opened) {
-  transition: max-width 0.5s;
+  transition: max-width 600ms ease-in-out;
 }
 .profile-icon:hover {
   cursor: pointer;
-  fill: rgb(113, 115, 132);
+  fill: var(--dark-lilac-color);
+
 }
 .profile-dropdown a {
   font-weight: 700;
