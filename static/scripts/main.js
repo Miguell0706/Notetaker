@@ -2,15 +2,19 @@ const darkModeCheckbox = document.getElementById("dark-mode");
 const bodyElement = document.body;
 const profile_dropdown = document.querySelector(".profile-dropdown");
 const menu_container = document.querySelector(".menu-container");
-
+const menu_icon = document.querySelector(".menu-icon");
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
-  bodyElement.classList.toggle(
-    "body-dark-mode",
-    darkModeCheckbox.checked
-  );
+  // Toggle dark mode class on the body
+  bodyElement.classList.toggle("body-dark-mode", darkModeCheckbox.checked);
+
+  // Toggle dark mode class on the menu container
+  menu_container.classList.toggle("menu-container-dark", darkModeCheckbox.checked);
+  //Toggledark mode class on the profile dropdown
+  profile_dropdown.classList.toggle("profile-dropdown-dark", darkModeCheckbox.checked);
 });
 /*This code is for seeting up the dropdown menus in the nav bar for small screens */
+/* This code is for setting up listeners for when the user clicks outside of any open menus causing them to close*/
 window.addEventListener('click', function (event) {
   console.log('meow')
   if (!profile_dropdown.contains(event.target) && profile_dropdown.classList.contains('opened')) {
