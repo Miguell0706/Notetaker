@@ -55,6 +55,7 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    z-index: 2;
   }
   /*code for the fist nav container starts here*/
   .first-nav-container {

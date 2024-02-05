@@ -1,8 +1,9 @@
 .dash-first-container {
   display: flex;
   margin:2rem;
-  z-index:-1;
+  z-index:1;
   position: relative;
+  align-items: center;
 }
 .create-note-button{
   padding: 0rem 2.5rem;
