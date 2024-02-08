@@ -34,10 +34,11 @@
   
   body {
     margin: 0;
-    height: 200vh;
+    height: auto;
     background-image: var(--background-gradient-light);
     background-size:400%;
     background-position: left;
+    overflow: hidden;
     animation: background-gradient 20s ease infinite alternate;
   }
   .body-dark-mode {

@@ -5,6 +5,8 @@ const menu_container = document.querySelector(".menu-container");
 const menu_icon = document.querySelector(".menu-icon");
 const profile_icon = document.querySelector(".profile-icon");
 const create_note_button = document.querySelector(".create-note-button");
+const urgent_icon = document.querySelector('.urgent-icon');
+
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
   // Toggle dark mode class on the body
@@ -54,3 +56,7 @@ function displayMenu() {
     menu_icon.classList.remove('active')
   }
 }
+/* Code to hide urgent icon on click*/
+urgent_icon.addEventListener('click', () => {
+  urgent_icon.style.display = 'none';
+});

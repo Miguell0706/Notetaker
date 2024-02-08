@@ -1,6 +1,6 @@
 {% extends './home.html' %}
 {% block content %}
-    <d class="dash-first-container">
+    <div class="dash-first-container">
         <div class="create-note-button">
             <p class="create-note-text"> 
                 Create Note
@@ -23,6 +23,43 @@
         </form>
     </div>
     <div class="dash-second-container">
+        <div class="urgent-note-container">
+            <div class="urgent-note-header">
+                <h2>Due Soon</h2>
+                <svg class='urgent-icon' viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 16q0 3.264 1.28 6.208t3.392 5.12 5.12 3.424 6.208 1.248 6.208-1.248 5.12-3.424 3.392-5.12 1.28-6.208-1.28-6.208-3.392-5.12-5.088-3.392-6.24-1.28q-3.264 0-6.208 1.28t-5.12 3.392-3.392 5.12-1.28 6.208zM4 16q0-3.264 1.6-6.016t4.384-4.352 6.016-1.632 6.016 1.632 4.384 4.352 1.6 6.016-1.6 6.048-4.384 4.352-6.016 1.6-6.016-1.6-4.384-4.352-1.6-6.048zM12 10.016q0 0.992 0.512 2.976t0.992 3.52l0.512 1.504q0 0.832 0.576 1.408t1.408 0.576 1.408-0.576 0.608-1.408l1.984-8q0-1.664-1.184-2.848t-2.816-1.152-2.816 1.152-1.184 2.848zM14.016 24q0 0.832 0.576 1.44t1.408 0.576 1.408-0.576 0.608-1.44-0.608-1.408-1.408-0.576-1.408 0.576-0.576 1.408z"></path>
+                </svg>
+            </div>
+            <div class="urgent-notes">
+                
+            </div>
+
+        </div>
+        <div class="recent-pinned-container">
+            <div class="recent-notes-container">
+                <div class="recent-notes-header">
+                    <h2>Recent Notes</h2>
+                </div>
+                <div class="recent-notes">
+                    {% for note in notes %}
+                    <div class="note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="note-title">{{note.title}}</p>
+                            <p class="note-date">{{note.created}}</p>
+                            {% if note.folder %}
+                                <p class="note-folder">{{note.folders}}</p>
+                            {% endif %}    
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="pinned-notes-container">
+                <div class="pinned-notes-header">
+                    <h2>Pinned Notes</h2>
+                </div>
+                <div class="pinned-notes">
+                </div>
+            </div>
+        </div>
 
     </div>
 {% endblock %}

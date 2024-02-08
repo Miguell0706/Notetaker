@@ -1,3 +1,16 @@
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/******code for the first container starts here*******/
 .dash-first-container {
   display: flex;
   margin:2rem;
@@ -23,7 +36,7 @@
   height: 100%;
   width: 100%;
   content: '';
-  background: linear-gradient(0deg, rgba(0,0,0,.5) 50%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(0deg, rgba(21, 86, 190, 0.5) 50%, rgba(0,0,0,0) 100%);
   z-index: 1;
   bottom:0;
   left:0;
@@ -62,13 +75,12 @@
   position:absolute;
   bottom:3px;
   right:-40px;
-
 }
 .search-input:focus {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 .search-icon:hover {
-  fill: rgb(147, 147, 138);
+  fill: rgb(200, 168, 213);
 
 }
 /*change display of first dash to flex-column when under 700 px*/
@@ -87,5 +99,136 @@
   }
   .search-icon{
     right: 0;
+  }
+}
+/*****Code for second container starts here******/
+
+.dash-second-container{
+  display: flex;
+}
+/* code for urgent container starts here*/
+.urgent-note-container{
+  width:40%;
+  max-width:500px;
+  margin-right: 2rem;
+  margin-left:2rem;
+  border:rgb(180, 40, 40,.3) 3px solid;
+  border-radius: 10px;
+  background-color: rgba(232, 225, 225, 0.4);
+  height:auto;
+  min-height:600px;
+  overflow-y: scroll;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.urgent-note-header{
+  display: flex;
+  position: relative;
+  border-bottom: #100808 1px solid;
+  margin-left:2rem;
+  margin-right: 2rem;
+}
+.urgent-note-container h2 {
+  color:#ba3a3a;
+  font-weight:700;
+  font-size:1.5rem;
+}
+.urgent-icon {
+  position: absolute;
+  right:1px;
+  top:20px;
+  fill:red;
+  width:30px;
+  height:30px;
+  animation: fadeInOut 3s infinite;
+  cursor: pointer;
+}
+.urgent-note-container::-webkit-scrollbar {
+  width: 12px;
+  background-color: rgba(176, 165, 165, 0.2);
+  border-radius: 10px;
+}
+.urgent-note-container::-webkit-scrollbar-thumb {
+  width: 12px;
+  background-color: rgba(176, 165, 165, 0.2);
+  border-radius: 10px;
+}
+@media only screen and (max-width: 700px) {
+  .dash-second-container {
+    flex-direction: column;
+    align-items: center;
+  
+  }
+  .urgent-note-container {
+    width:auto;
+    overflow-x:scroll;
+    height:30%;
+    overflow-y:revert;
+    max-height:100px;
+    min-height:revert;
+    min-width:350px;
+  }
+}
+/* code for important-recent container goes here*/
+.recent-pinned-container{
+  width:70%;
+  margin-right: 2rem;
+  margin-left:2rem;
+  border:rgb(97, 8, 113,.3) 4px solid;
+  border-radius: 10px;
+  background-color: rgba(107, 73, 135, 0.4);
+  height:auto;
+  min-height:600px;
+  overflow-y: scroll;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.recent-pinned-container::-webkit-scrollbar {
+  width: 12px;
+  background-color: rgba(176, 165, 165, 0.2);
+  border-radius: 10px;
+}
+.recent-pinned-container::-webkit-scrollbar-thumb {
+  width: 12px;
+  background-color: rgba(176, 165, 165, 0.2);
+  border-radius: 10px;
+}
+.recent-pinned-container h2{
+  color:aliceblue;
+  font-weight:700;
+  font-size:1.5rem;
+  padding-left:2rem;
+  border-bottom:#131E81 1px solid;
+}
+.recent-notes{
+  margin: 1rem;
+  display:flex;
+  overflow-x: scroll;
+}
+.recent-notes::-webkit-scrollbar {
+  width: 6px;
+  background-color: rgba(176, 165, 165, 0.2);
+  border-radius: 10px;
+
+}
+.note {
+  width:15%;
+  border: #a09b9b 3px solid;
+  background-color: aliceblue;
+  padding:3px;
+  overflow:hidden;
+  margin-right:1rem;
+}
+.pinned-notes-header h2{
+  color:rgb(161, 25, 93);
+  border-bottom:#9a10a9 1px solid;
+}
+@media only screen and (max-width: 700px) {
+  .recent-pinned-container {
+    margin-top:3rem;
+    width:auto;
+    overflow-x:scroll;
+    height:100px;
+    overflow-y:revert;
+    min-height: revert;
+    min-width:350px;
   }
 }
