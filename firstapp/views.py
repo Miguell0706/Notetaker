@@ -8,7 +8,8 @@ from .models import Note
 def home(request):
     folders = request.user.folders.all()
     notes = request.user.notes.all()
-    context = {'folders':folders,'notes':notes}
+    pinned_notes = request.user.notes.filter(pinned=True)
+    context = {'folders':folders,'notes':notes,'pinned_notes':pinned_notes}
     if request.user.is_authenticated== False:
         return redirect('accounts:login')
     return render(request, 'firstapp/dashboard.html',context)

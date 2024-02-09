@@ -38,7 +38,7 @@
     background-image: var(--background-gradient-light);
     background-size:400%;
     background-position: left;
-    overflow: hidden;
+    overflow:hidden;
     animation: background-gradient 20s ease infinite alternate;
   }
   .body-dark-mode {

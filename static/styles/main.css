@@ -116,9 +116,11 @@
   border-radius: 10px;
   background-color: rgba(232, 225, 225, 0.4);
   height:auto;
-  min-height:600px;
+  min-height:700px;
+  max-height: 700px;
   overflow-y: scroll;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  min-width:300px;
 }
 .urgent-note-header{
   display: flex;
@@ -148,9 +150,16 @@
   border-radius: 10px;
 }
 .urgent-note-container::-webkit-scrollbar-thumb {
-  width: 12px;
-  background-color: rgba(176, 165, 165, 0.2);
+  width: 17px;
+  background-color: rgba(243, 34, 34, 0.747);
   border-radius: 10px;
+}
+.urgent-notes{
+  margin:1rem;
+  display:flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 @media only screen and (max-width: 700px) {
   .dash-second-container {
@@ -159,27 +168,29 @@
   
   }
   .urgent-note-container {
-    width:auto;
+    width:95%;
     overflow-x:scroll;
     height:30%;
     overflow-y:revert;
-    max-height:100px;
-    min-height:revert;
-    min-width:350px;
+    min-height:max-content;
+  }
+  .urgent-notes {
+    flex-wrap:nowrap;
+
   }
 }
 /* code for important-recent container goes here*/
 .recent-pinned-container{
-  width:70%;
+  width:95%;
   margin-right: 2rem;
   margin-left:2rem;
   border:rgb(97, 8, 113,.3) 4px solid;
   border-radius: 10px;
   background-color: rgba(107, 73, 135, 0.4);
-  height:auto;
-  min-height:600px;
-  overflow-y: scroll;
+  max-height:700px;
+  min-height:650px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
 }
 .recent-pinned-container::-webkit-scrollbar {
   width: 12px;
@@ -187,8 +198,8 @@
   border-radius: 10px;
 }
 .recent-pinned-container::-webkit-scrollbar-thumb {
-  width: 12px;
-  background-color: rgba(176, 165, 165, 0.2);
+  width: 17px;
+  background-color: rgba(146, 60, 60, 0.2);
   border-radius: 10px;
 }
 .recent-pinned-container h2{
@@ -205,30 +216,94 @@
 }
 .recent-notes::-webkit-scrollbar {
   width: 6px;
-  background-color: rgba(176, 165, 165, 0.2);
+  background-color: rgba(119, 111, 111, 0.2);
   border-radius: 10px;
 
 }
-.note {
-  width:15%;
+.recent-notes::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: rgba(198, 70, 70, 0.2);
+}
+.small-note {
+  width: 150px;
   border: #a09b9b 3px solid;
-  background-color: aliceblue;
+  background-color: rgba(255, 255, 255);
   padding:3px;
   overflow:hidden;
-  margin-right:1rem;
+  text-align: start;
+  transition: 250ms ease;
+  cursor:pointer;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  min-width:150px;
+}
+.small-note:hover{
+  background-color: rgb(205, 199, 199);
+  transition: 250ms ease;
+
+}
+.small-note-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color:rgb(113, 74, 94);
+
+
+}
+.small-note-date{
+  font-weight: 500;
+  font-size: 1.1rem;
+  color:rgb(77, 60, 68);
+  
+}
+.pinned-notes-container {
+  
 }
 .pinned-notes-header h2{
   color:rgb(161, 25, 93);
   border-bottom:#9a10a9 1px solid;
 }
-@media only screen and (max-width: 700px) {
+.pinned-notes {
+  margin: 1rem;
+  display:flex;
+  flex-wrap: wrap;
+  max-height: 100%;
+}
+@media only screen and (max-width: 1000px) {
+  .small-note {
+    margin-right: 5px;
+  }
+  
+}
+@media only screen and (max-width: 800px) {
   .recent-pinned-container {
     margin-top:3rem;
-    width:auto;
-    overflow-x:scroll;
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+  .small-note{
+    width:120px;
+    min-width:120px;
+    min-height:120px;
+    height:120px;
+  }
+  .small-note-title{
+    font-size: 1.3rem;
+  }
+  .small-note-date{
+    font-size: .9rem;
+  }
+}
+@media only screen and (max-width:530px){
+  .small-note{
+    width:100px;
+    min-width: 100px;
+    min-height:100px;
     height:100px;
-    overflow-y:revert;
-    min-height: revert;
-    min-width:350px;
+  }
+  .small-note-title{
+    font-size: 1.1rem;
+  }
+  .small-note-date{
+    font-size: .7rem;
   }
 }

@@ -7,7 +7,7 @@ class Note(models.Model):
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     folders = models.ManyToManyField('Folder', null=True, blank=True)
-    important = models.BooleanField(default=False)
+    pinned = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):

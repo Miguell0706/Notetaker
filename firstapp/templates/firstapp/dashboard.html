@@ -31,7 +31,24 @@
                 </svg>
             </div>
             <div class="urgent-notes">
-                
+                {% for note in notes %}
+                <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <p class="small-note-title">{{note.title}}</p>
+                        <p class="small-note-date">{{note.created}}</p>
+                        {% if note.folder %}
+                            <p class="small-note-folder">{{note.folders}}</p>
+                        {% endif %}    
+                    </div>
+                {% endfor %}
+                   {% for note in notes %}
+                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="small-note-title">{{note.title}}</p>
+                            <p class="small-note-date">{{note.created}}</p>
+                            {% if note.folder %}
+                                <p class="small-note-folder">{{note.folders}}</p>
+                            {% endif %}    
+                        </div>
+                    {% endfor %}
             </div>
 
         </div>
@@ -42,11 +59,11 @@
                 </div>
                 <div class="recent-notes">
                     {% for note in notes %}
-                    <div class="note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
-                        <p class="note-title">{{note.title}}</p>
-                            <p class="note-date">{{note.created}}</p>
+                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="small-note-title">{{note.title}}</p>
+                            <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}
-                                <p class="note-folder">{{note.folders}}</p>
+                                <p class="small-note-folder">{{note.folders}}</p>
                             {% endif %}    
                         </div>
                     {% endfor %}
@@ -57,6 +74,42 @@
                     <h2>Pinned Notes</h2>
                 </div>
                 <div class="pinned-notes">
+                    {% for note in pinned_notes %}
+                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="small-note-title">{{note.title}}</p>
+                            <p class="small-note-date">{{note.created}}</p>
+                            {% if note.folder %}
+                                <p class="small-note-folder">{{note.folders}}</p>
+                            {% endif %}    
+                    </div>
+                    {% endfor %}
+                    {% for note in pinned_notes %}
+                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="small-note-title">{{note.title}}</p>
+                            <p class="small-note-date">{{note.created}}</p>
+                            {% if note.folder %}
+                                <p class="small-note-folder">{{note.folders}}</p>
+                            {% endif %}    
+                    </div>
+                    {% endfor %}
+                    {% for note in pinned_notes %}
+                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="small-note-title">{{note.title}}</p>
+                            <p class="small-note-date">{{note.created}}</p>
+                            {% if note.folder %}
+                                <p class="small-note-folder">{{note.folders}}</p>
+                            {% endif %}    
+                    </div>
+                    {% endfor %}
+                    {% for note in pinned_notes %}
+                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                        <p class="small-note-title">{{note.title}}</p>
+                            <p class="small-note-date">{{note.created}}</p>
+                            {% if note.folder %}
+                                <p class="small-note-folder">{{note.folders}}</p>
+                            {% endif %}    
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
