@@ -177,13 +177,16 @@
     z-index: 1000;
   }
   
-  .menu-container p {
+  .menu-links {
     text-align: center;
     transition: 250ms;
     cursor: pointer;
     width:100%;
+    margin: 1rem;
+    text-decoration: none;
   }
-  .menu-container p:hover {
+  .menu-links:hover,
+  .menu-links.active {
     color: var(--lilac-color);
   }
   .menu-container.opened {
@@ -221,7 +224,7 @@
       align-items: center;
       background-color: transparent;
     }
-    .menu-container p {
+    .menu-links {
       position: relative;
       width:auto;
       border: 0;
@@ -239,7 +242,7 @@
       transition: 250ms;
       cursor: pointer;
     }
-    .menu-container p:hover { 
+    .menu-links:hover { 
       background-size: 100% 3px;
     }
     .menu-icon {

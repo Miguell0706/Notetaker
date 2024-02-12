@@ -2,10 +2,13 @@ const darkModeCheckbox = document.getElementById("dark-mode");
 const bodyElement = document.body;
 const profile_dropdown = document.querySelector(".profile-dropdown");
 const menu_container = document.querySelector(".menu-container");
+const menu_links = document.querySelectorAll(".menu-links");
 const menu_icon = document.querySelector(".menu-icon");
 const profile_icon = document.querySelector(".profile-icon");
 const create_note_button = document.querySelector(".create-note-button");
 const urgent_icon = document.querySelector('.urgent-icon');
+const folders_container = document.querySelector('.folders-container');
+const folders_arrow = document.querySelector('.folders-arrow')
 
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
@@ -23,15 +26,12 @@ darkModeCheckbox.addEventListener("change", function () {
 /*This code is for seeting up the dropdown menus in the nav bar for small screens */
 /* This code is for setting up listeners for when the user clicks outside of any open menus causing them to close*/
 window.addEventListener('click', function (event) {
-  console.log('meow')
   if (!profile_dropdown.contains(event.target) && profile_dropdown.classList.contains('opened')) {
-    console.log('meow1profile')
     profile_dropdown.classList.remove('opened');
     profile_icon.classList.remove('active')
   }
 
   if (!menu_container.contains(event.target) && (menu_container.classList.contains('opened'))) {
-    console.log('meowmenu')
     menu_container.classList.remove('opened');
     menu_icon.classList.remove('active')
   }
@@ -57,6 +57,25 @@ function displayMenu() {
   }
 }
 /* Code to hide urgent icon on click*/
-urgent_icon.addEventListener('click', () => {
+function removeUrgentIcon(){
   urgent_icon.style.display = 'none';
+}
+/* This code is for setting up the active class in the nav bar when the user enters a link*/
+document.addEventListener('DOMContentLoaded', function() {
+  console.log(window.location.href)
+  menu_links.forEach(function(menu_links) {
+    if (menu_links.href === window.location.href) {
+      menu_links.classList.add('active');
+    }
+  });
 });
+function hideFolders() {
+  folders_container.classList.toggle('closed')
+  if (folders_arrow.style.transform === 'rotate(0deg)') {
+    folders_arrow.style.transform = 'rotate(180deg)';
+    
+  }
+  else {
+    folders_arrow.style.transform = 'rotate(0deg)';
+  }
+}
