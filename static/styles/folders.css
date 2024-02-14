@@ -1,10 +1,10 @@
 .folders-board-container{
     display: flex;
-    align-items: center;
     justify-content: flex-start;
     height: calc(100vh - 50px);
     width:100%;
     background-color:transparent;
+    overflow: hidden;
 }
 .folders-container {
     display: flex;
@@ -17,8 +17,10 @@
     background-color: rgba(0, 0, 0, 0.2);
     position:relative;
     transition: 250ms ease-in-out;
+    min-width: 200px;
 }
 .folders-container.closed {
+    min-width:0px;
     width:0px;
     transition: 250ms ease-in-out;
 }
@@ -37,6 +39,7 @@
     transform: rotate(180deg);
     cursor: pointer;
     fill:rgb(19, 19, 19);
+    transition: 250ms ease-in-out;
 }
 
 .create-folder-button{
@@ -49,14 +52,17 @@
     border-radius: 3px;
     font-weight: 700;
     font-size:1.25rem;
-    transition: 250ms ease-in-out;
     cursor: pointer;
+    transition: 250ms ease-in-out;
+
 }
 .create-folder-button:hover,
 .create-folder-button:active{
     transform: translateY(-5px);
     box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.3);
-    background-color: rgba(99, 99, 169, 0.4);
+    background-color: aliceblue;
+    border: 2px solid black;
+    color:black;
 }
 .folders-container h2 {
     margin-top: 4rem;
@@ -92,8 +98,77 @@
     transform:scale(1.3);
     background-color: transparent;
 }
-@media screen and (min-width:600px) {
-    .folders-arrow {
-        display: none;
+
+
+/* CODE FOR THE SECOND FOLDER PAGE CONTAINER GOES HERE ( BOARD AND FOLDER DETAILS CONTAINER)*/
+.folder-details-container {
+    height:20%;
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.folder-name-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:2rem;
+    position:relative;
+    justify-content: space-between;
+}
+.folder-details-container h2{
+    margin-right:3rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color:rgb(118, 89, 56);
+}
+.folder-search-input {
+    border-radius: 5px;
+    background-color: azure;
+    border: 1px solid var(--dark-lilac-color);
+    padding:5px;
+    height:30px;
+    width:200px;
+}
+.search-icon-folder {
+    right:6px;
+    bottom:2px;
+    height:25px;
+    width:25px;
+}
+.create-note-button-folder {
+    margin-left:2rem;
+    font-size:1.1rem;
+    border-radius: 5px;
+    padding:.5rem 1rem;
+    background-color: rgb(171, 208, 240);
+    cursor: pointer;
+    border: 2px solid rgb(130, 100, 100);
+    color:rgb(130, 100, 100);
+    transition: 250ms ease-in-out;
+    font-weight: 700;
+}
+.create-note-button-folder:hover {
+    background-color: aliceblue;
+    border: 2px solid black;
+    color:black;
+}
+@media screen and (min-width:810px) {
+    .folder-name-search {
+        flex-direction: row;
+    }
+    .folder-search-input{
+        width:300px;
+        margin-left: 2rem;
+    }
+    .search-icon-folder{
+        right: 10px;
+        bottom:27px;
+        height:25px;
+        width:25px;
+    }
+    .create-note-button-folder {   
+        justify-self: end;
     }
 }
