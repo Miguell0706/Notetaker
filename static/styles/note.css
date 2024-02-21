@@ -1,0 +1,123 @@
+.note-container {
+    display:none;
+    position:absolute;
+    flex-direction: column;
+    width: 70%;
+    height:70%;
+    top:15%;
+    left:15%;
+    background-color: #fceed1;
+    border:1px solid #a28089;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    transition: 250ms ease-in-out;
+    opacity: 0;
+    overflow: hidden;
+    justify-content: space-between;
+
+
+}
+.note-container.opened{
+    display:flex;
+    opacity: 1;
+}
+/* Style for the note header (title input and pin icon) */
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #a28089;
+    background-color: #fceed1;
+
+}
+.note-header input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #a28089;
+    background-color: #fceed1;
+
+}
+/* Style the label for the checkbox into a pin icon */
+.pin-label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    margin-right: 3rem;
+    max-width: 20px;
+}
+
+
+.pin-icon {
+    width: 200%;
+    height: 500%;
+    fill: #454040; /* Default color */
+    transition: fill 0.3s ease; /* Transition for fill color */
+    margin-right:3rem;
+    margin-top:.5rem;
+    transform: rotate(45deg);
+}
+
+/* Style the checkbox to be visually hidden */
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Change the fill color of the SVG when the checkbox is checked */
+input[type="checkbox"]:checked + .pin-icon {
+    fill: #ff5722; /* Change to desired active color */
+}
+
+
+/* Style for the note body */
+.note-container form {
+    height:100%;
+}
+.note-body {
+    width: 100%;
+    height: 70%; /* Set a fixed height for the note container */
+    position: relative;
+    display:flex;
+    padding:1rem;
+
+}
+
+.note-text {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #fceed1;
+    width: 100%; 
+    resize: none;
+    border: none;
+    outline: none;
+    color: #a28089;
+    font-weight: 400;
+}
+/* style the notebody scrollbar*/
+.note-text::-webkit-scrollbar {
+  width: 6px;
+  background-color: rgba(119, 111, 111, 0.2);
+  border-radius: 10px;
+}
+.note-text::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: rgba(198, 70, 70, 0.2);
+}
+/* Style for the note footer */
+.note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #f50041;
+    background-color: #c58e21;
+    width: 100%;
+    height:20%;
+}

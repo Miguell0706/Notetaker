@@ -8,7 +8,10 @@ const profile_icon = document.querySelector(".profile-icon");
 const create_note_button = document.querySelector(".create-note-button");
 const urgent_icon = document.querySelector('.urgent-icon');
 const folders_container = document.querySelector('.folders-container');
-const folders_arrow = document.querySelector('.folders-arrow')
+const folders_arrow = document.querySelector('.folders-arrow');
+const folder_pinned_notes = document.querySelector('.folder-pinned-notes');
+const folder_recent_notes = document.querySelector('.folder-recent-notes');
+const note_container = document.querySelector('.note-container');
 
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
@@ -73,9 +76,25 @@ function hideFolders() {
   folders_container.classList.toggle('closed')
   if (folders_arrow.style.transform === 'rotate(0deg)') {
     folders_arrow.style.transform = 'rotate(180deg)';
-    
+
   }
   else {
     folders_arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function switchFolderNotes(x) {
+  if (x === 1) {
+    folder_recent_notes.style.display = 'flex';
+    folder_pinned_notes.style.display = 'none';
+  }
+  else if  (x === 2) {
+    folder_pinned_notes.style.display = 'flex';
+    folder_recent_notes.style.display = 'none';
+  }
+}
+function openNewNote(){
+  const note_container = document.querySelector('.note-container');
+  if (!note_container.classList.contains('opened')) {
+      note_container.classList.add('opened');
   }
 }

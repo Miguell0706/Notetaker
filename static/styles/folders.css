@@ -101,6 +101,10 @@
 
 
 /* CODE FOR THE SECOND FOLDER PAGE CONTAINER GOES HERE ( BOARD AND FOLDER DETAILS CONTAINER)*/
+.details-board-container{
+    width:100%;
+    height:100%;
+}
 .folder-details-container {
     height:20%;
     width:100%;
@@ -171,4 +175,51 @@
     .create-note-button-folder {   
         justify-self: end;
     }
+}
+.folder-notes-board{
+    display: flex;
+    background-color: transparent;
+    height:80%;
+    width:100%;
+    margin-top:1.85rem;
+    overflow-y: scroll;
+}
+.folder-notes-header {
+    display: flex;
+    justify-content: flex-start;
+    padding:1rem;
+    border-bottom: 1px solid var(--dark-lilac-color);
+    height:10%;
+    width:100%;
+    
+}
+.folder-notes-header h2{
+    margin:20px;
+    margin-right:40px;
+    font-size:1.2rem;
+    cursor:pointer;
+    color:black;
+    transition: 250ms ease-in-out;
+}
+.folder-notes-header h2:hover,
+.folder-notes-header h2:focus,
+.folder-notes-header h2 .active {
+    color:blueviolet;
+    transition: 250ms ease-in-out;
+    transform: translateY(-5px);
+}
+
+.folder-recent-notes,
+.folder-pinned-notes {
+    display: flex;
+    flex-wrap: wrap;
+}
+.folder-pinned-notes {
+    display:none;
+}
+@media screen and (min-width:700px) {
+    .folder-notes-header h2{
+        font-size:1.5rem;
+    }
+    
 }
