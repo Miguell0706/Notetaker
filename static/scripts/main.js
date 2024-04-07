@@ -12,7 +12,10 @@ const folders_arrow = document.querySelector('.folders-arrow');
 const folder_pinned_notes = document.querySelector('.folder-pinned-notes');
 const folder_recent_notes = document.querySelector('.folder-recent-notes');
 const note_container = document.querySelector('.note-container');
-
+const note_folder_arrow = document.querySelector('.note-folder-arrow');
+const note_folder_select= document.querySelector('.note-folder-select')
+const selected_folder_display = document.querySelector('.selected-folder-display');
+const cancel_note = document.querySelector('.note-cancel');
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
   // Toggle dark mode class on the body
@@ -65,7 +68,6 @@ function removeUrgentIcon(){
 }
 /* This code is for setting up the active class in the nav bar when the user enters a link*/
 document.addEventListener('DOMContentLoaded', function() {
-  console.log(window.location.href)
   menu_links.forEach(function(menu_links) {
     if (menu_links.href === window.location.href) {
       menu_links.classList.add('active');
@@ -96,5 +98,24 @@ function openNewNote(){
   const note_container = document.querySelector('.note-container');
   if (!note_container.classList.contains('opened')) {
       note_container.classList.add('opened');
+  }
+}
+function updateSelectedFolder() {
+  // Get the selected option
+  var selectedOption = note_folder_select.options[note_folder_select.selectedIndex];
+  // Get the selected value
+  var selectedValue = selectedOption.value;
+  // Update the content of the paragraph element
+  selected_folder_display.textContent = selectedValue;
+}
+function flipArrow(){
+  note_folder_arrow.classList.toggle('flip')
+  
+}
+function cancelNote(){
+  console.log('here')
+  const note_container = document.querySelector('.note-container');
+  if (note_container.classList.contains('opened')) {
+      note_container.classList.remove('opened');
   }
 }
