@@ -229,6 +229,7 @@ input[type="checkbox"]:checked + .pin-icon {
     transition: 250ms ease-in-out;
     
 }
+/*CODE FOR TIME SELECTION GOES HERE*/
 .time-picker {
     position: absolute;
     display: inline-block;
@@ -248,6 +249,95 @@ input[type="checkbox"]:checked + .pin-icon {
     background: #454040;
     color:white;
     cursor:pointer;
+}
+/* CODE FOR DATE SELECTION GOES HERE */
+.calender-container { 
+    position: absolute;
+    display: inline-block;
+    padding:10px;
+    background: #6b6063;
+    border-radius: 5px;
+    height:230px;
+    width:230px;
+    z-index:1000;
+    overflow:hidden;
+    border: 2px solid #222;
+    padding:0;
+}
+.calender-header{
+    height:15%;
+    background-color: blue;
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: center;
+    color:white;
+    font-weight:700;
+}
+.month,.year {
+    color: white !important;
+    border: none !important;;
+}
+
+.prev-arrow,
+.next-arrow {
+    height:20px;
+    width:20px;
+    fill: #fffdfd;
+    font-weight: 800;
+}
+.weekdays {
+    display:flex;
+    align-items: center;
+    width:100%;
+    height: 10%;
+    padding: 0 2px;
+    border-bottom: 1px solid black;
+}
+.weekdays p {
+    font-size: 13px;
+    font-weight:400;
+    letter-spacing: 1.5px;
+    color:white;
+    padding:1px;
+    width: calc(232px/7);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 2px rgba(0, 0, 0, 0.5);
+}
+.weekdays p:not(:last-child){
+    border-right:1px solid black;
+}
+.days {
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+    margin-left:3px;
+}
+.days div{
+    font-size:10px;
+    width:calc(220px/7);
+    color:white;
+    height:28px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+    transition: background-color 250ms ease-in-out;
+}
+.days div:hover:not(.today) {
+    background-color: #262626;
+    border:1px solid #777;
+    cursor:pointer;
+}
+.prev-month,
+.next-month {
+    opacity: .5;
+}
+.today {
+    background-color: #167e56;
 }
 /*make media querie for .note-body to increase the height to 70% when height exceeds 1000px*/
 @media screen and (min-height: 990px) {

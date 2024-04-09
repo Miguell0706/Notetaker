@@ -1,3 +1,4 @@
+//CODE FOR TIME GOES HERE// 
 const exampleTimePickable = document.querySelector(".time");
 const due_date_container = document.querySelector(".due-date");
 function activate() {
@@ -111,3 +112,6 @@ function numberToOption(number) {
 }
 
 activate();
+
+// CODE FOR DATE GOES HERE!//
+
