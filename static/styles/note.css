@@ -132,8 +132,8 @@ input[type="checkbox"]:checked + .pin-icon {
     margin-bottom:2rem;
 
 }
-.due-date h3,
-.folder-selection h3{
+.due-date > h3,
+.folder-selection > h3{
     font-size: 16px;
     font-weight: bold;
     color: #a28089;
@@ -206,6 +206,7 @@ input[type="checkbox"]:checked + .pin-icon {
     cursor:pointer;
     position: relative;
 }
+
 .note-cancel,
 .note-save{
     padding:20px;
@@ -250,14 +251,36 @@ input[type="checkbox"]:checked + .pin-icon {
     color:white;
     cursor:pointer;
 }
+.time-container,
+.date-container {
+    display:flex;
+    position: relative;
+}
+
+.clear-time{
+    position: absolute;
+    top:3.5px;
+    left:95px;
+    width:20px;
+    height:20px;
+    fill: #a28089;
+    cursor:pointer;
+    transform-origin: top left;
+}
+
+.clear-time:hover {
+    fill: #d7b9a4;
+}
+.clear-time:active {
+    fill: #da6512;
+}
 /* CODE FOR DATE SELECTION GOES HERE */
 .calender-container { 
     position: absolute;
-    display: inline-block;
+    display: none;
     padding:10px;
     background: #6b6063;
     border-radius: 5px;
-    height:230px;
     width:230px;
     z-index:1000;
     overflow:hidden;
@@ -279,13 +302,24 @@ input[type="checkbox"]:checked + .pin-icon {
     color: white !important;
     border: none !important;;
 }
+.month-day-container {
+    display:flex;
+    align-items: center;
 
+}
+.day {
+    color:white;
+    text-decoration: none;
+    font-size:18px;
+    padding-left: 10px;
+}
 .prev-arrow,
 .next-arrow {
     height:20px;
     width:20px;
     fill: #fffdfd;
     font-weight: 800;
+    cursor: pointer;
 }
 .weekdays {
     display:flex;
@@ -320,7 +354,7 @@ input[type="checkbox"]:checked + .pin-icon {
     font-size:10px;
     width:calc(220px/7);
     color:white;
-    height:28px;
+    height:calc(220px/7);
     display:flex;
     justify-content: center;
     align-items: center;

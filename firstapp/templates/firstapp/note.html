@@ -18,15 +18,23 @@
             <div class="date-folder">
                 <div class="due-date">
                     <h3>Due date (optional)</h3>
-                    <input class="date" type="date" name="due_date" {% if form.is_bound %}value = "{{note.due_date}}" {% endif %} placeholder = "Due date..." >
-                    <div class="calender-container">
+                    <div class="date-container">
+                        <input class="date" type="text" name="due_date" onclick="openCalender()" {% if form.is_bound %}value = "{{note.due_date}}" {% endif %} placeholder = " Due date..." >
+                        <svg class='clear-time' onclick="clearDate()">
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path>
+                        </svg>
+                    </div>
+                        <div class="calender-container">
                         <div class="calender-header">
-                            <svg class="prev-arrow" viewBox="0 0 24 24">
+                            <svg class="prev-arrow" onclick="prevMonth()" viewBox="0 0 24 24">
                                 <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
                             </svg>
-                            <h3 class="month">December</h3>
-                            <h3 class="year"> 2024</h3>
-                            <svg class="next-arrow" viewBox="0 0 24 24">
+                            <div class="month-day-container">
+                                <h3 class="month"></h3>
+                                <ps class="day"></ps>
+                            </div>
+                            <h3 class="year"> </h3>
+                            <svg class="next-arrow" onclick="nextMonth()" viewBox="0 0 24 24">
                                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
                             </svg>
                         </div>
@@ -40,7 +48,7 @@
                             <p>Sat</p>
                         </div>
                         <div class="days">
-                            <div class="prev-month">26</div>
+                            <!-- <div class="prev-month">26</div>
                             <div class="prev-month">27</div>
                             <div class="prev-month">28</div>
                             <div class="prev-month">29</div>
@@ -81,10 +89,17 @@
                             <div class="next-month">3</div>
                             <div class="next-month">4</div>
                             <div class="next-month">5</div>
-                            <div class="next-month">6</div>
+                            <div class="next-month">6</div> -->
                         </div>
                     </div>
-                    <input class='time' type="text" name="due_time" {% if form.is_bound %}value = "{{note.due_time}}" {% endif %} placeholder = "Time..." readonly>
+                    <div class="time-container">
+                        <input class='time' type="text" name="due_time" {% if form.is_bound %}value = "{{note.due_time}}" {% endif %} placeholder = "Time..." readonly>
+                     <!--Write the svg for a small x to indicate clear the time-->
+                        <svg class='clear-time' onclick="clearTime()">
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path>
+                        </svg>
+                    </div>
+
                 </div>
                 <div class="folder-selection">
                     <h3>Folder (optional)</h3>

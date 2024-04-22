@@ -1,6 +1,14 @@
 //CODE FOR TIME GOES HERE// 
 const exampleTimePickable = document.querySelector(".time");
 const due_date_container = document.querySelector(".due-date");
+
+
+function clearTime() {
+  if (exampleTimePickable.value) {
+      exampleTimePickable.value = ''
+  }
+  return
+}
 function activate() {
   let activePicker = null;
   document.querySelectorAll(".time").forEach((time) => {
@@ -8,7 +16,6 @@ function activate() {
       if (activePicker) return;
       activePicker = showPicker(time);
       const onClickAway = ({ target }) => {
-        console.log('clicked away')
         if (
           target === activePicker ||
           target === time ||
@@ -76,14 +83,12 @@ function buildPicker(timePickable) {
   return picker;
 }
 function getTimePartsFromPickable(timePickable) {
-  const pattern = /^(\d+):(\d+)(am|pm)$/;
-  console.log(timePickable.value)
+  const pattern = /^(0?[1-9]|1[0-2]):([0-5][0-9])(am|pm)/;
   const matchResult = timePickable.value.match(pattern);
   
   // Check if matchResult is not null before destructuring
   if (matchResult !== null) {
     const [_, hour, minute, meridiem] = matchResult;
-    console.log(hour, minute, meridiem);
     return { hour, minute, meridiem };
   } else {
     // Handle the case where there's no match
@@ -114,4 +119,79 @@ function numberToOption(number) {
 activate();
 
 // CODE FOR DATE GOES HERE!//
+const date_input= document.querySelector(".date");
 
+const date = new Date();
+let current_month = date.getMonth();
+let current_year = date.getFullYear();
+let current_day = '';
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const days = document.querySelector(".days");
+const year = document.querySelector(".year");
+const month = document.querySelector(".month");
+const day_heading = document.querySelector(".day");
+const input_date = document.querySelector('.date')
+const calender = document.querySelector('.calender-container')
+
+function clearDate() {
+  date_input.value=''
+}
+function createMonth() {
+  month.innerHTML = months[current_month];
+  year.innerHTML = current_year;
+  days_in_month = new Date(current_year, current_month + 1, 0).getDate();
+  day_of_week = new Date(current_year, current_month, 1).getDay();
+  days_in_prev_month = new Date(current_year, current_month, 0).getDate();
+  last_day_weekday = new Date(current_year, current_month + 1, 0).getDay();
+
+  let days_string = ""; 
+  for (let i = 0; i < day_of_week; i++) {
+    days_string += `<div class="prev-month">${days_in_prev_month - i}</div>`;
+  }
+  for (let i = 1; i <= days_in_month; i++) {
+    days_string += `<div class="day">${i}</div>`;
+  }
+  for (let i = 1; i <= 6-last_day_weekday; i++) { 
+    days_string += `<div class="next-month">${i}</div>`;
+
+}
+  days.innerHTML = days_string;
+
+  /*add event listener to all divs inside the days element to set the dayheading to the date selected*/
+  days.querySelectorAll(".day").forEach(day => {
+    day.addEventListener("click", () => {
+      day_heading.innerHTML = day.innerHTML+',';
+      current_day = day.innerHTML;
+      date_input.value = `${current_month}/${current_day}/${current_year}`;
+      closeCalender();
+    })
+  })
+}
+function openCalender() {
+  calender.style.display = 'inline-block';
+}
+function closeCalender() {
+  calender.style.display = 'none';
+}
+function nextMonth() {
+  if (current_month === 11) {
+    current_month = 0;
+    current_year++;
+  }
+  else {
+    current_month++;
+  }
+  createMonth();
+
+}
+function prevMonth() {
+  if (current_month === 0) {
+    current_month = 11;
+    current_year--;
+  }
+  else {
+    current_month--;
+  }
+  createMonth();
+}
+createMonth();

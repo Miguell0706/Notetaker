@@ -16,6 +16,7 @@ const note_folder_arrow = document.querySelector('.note-folder-arrow');
 const note_folder_select= document.querySelector('.note-folder-select')
 const selected_folder_display = document.querySelector('.selected-folder-display');
 const cancel_note = document.querySelector('.note-cancel');
+
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
   // Toggle dark mode class on the body
