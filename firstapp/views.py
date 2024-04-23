@@ -33,12 +33,10 @@ def home(request):
             folder_id = request.POST.get('folder')  # Retrieve selected folder ID
 
             # Parse date and time strings into datetime objects
-            if due_date:    
-                due_date = datetime.strptime(due_date, '%m/%d/%Y')
-            if due_time:   
-                due_time = datetime.strptime(due_time, '%I:%M%p').time()
-
-            # Combine date and time into a single datetime object
+            # if due_date:    
+            #     due_date = datetime.strptime(due_date, '%m/%d/%Y')
+            # if due_time:   
+            #     due_time = datetime.strptime(due_time, '%I:%M%p').time()
 
             # Create and save the Note object
             note = Note.objects.create(

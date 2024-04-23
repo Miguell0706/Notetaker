@@ -8,7 +8,7 @@ class Note(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     folders = models.ManyToManyField('Folder', related_name='folders', blank=True)
     pinned = models.BooleanField(default=False)
-    due_date = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
     due_time = models.TimeField(null=True, blank=True)
     
     def __str__(self):
