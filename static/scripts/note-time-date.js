@@ -162,13 +162,21 @@ function createMonth() {
     day.addEventListener("click", () => {
       day_heading.innerHTML = day.innerHTML+',';
       current_day = day.innerHTML;
-      date_input.value = `${current_month}/${current_day}/${current_year}`;
+      date_input.value = `${current_month+1}/${current_day}/${current_year}`;
       closeCalender();
     })
   })
 }
 function openCalender() {
   calender.style.display = 'inline-block';
+  /*add event listener to close calender whenever theres a click outside the calender*/ 
+  const onClickAway = ({ target }) => {
+    if (!calender.contains(target) && target !== date_input) {
+      document.removeEventListener("mousedown", onClickAway)
+      closeCalender();
+    }
+  };
+  document.addEventListener("mousedown", onClickAway);
 }
 function closeCalender() {
   calender.style.display = 'none';
