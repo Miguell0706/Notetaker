@@ -10,8 +10,12 @@
             </label>
         </div>
         <div class="note-body">
-            <textarea class="note-text" name="text"  {% if form.is_bound %}value = "{{note.body}}" {% endif %}required placeholder = "Take a note..." >
-                {{note.body}}
+            <textarea class="note-text" name="text" required placeholder="Take a note...">
+                {% if form.is_bound %}
+                    {{ form.data.text }}
+                {% else %}
+                    {{ note.body }}
+                {% endif %}
             </textarea>
         </div>
         <div class="note-footer">
@@ -51,7 +55,7 @@
                         </div>
                     </div>
                     <div class="time-container">
-                        <input class='time' type="text" name="due_time" {% if form.is_bound %}value = "{{note.due_time}}" {% endif %} placeholder = "Time..." readonly>
+                        <input class='time' type="text" name="due_time" {% if form.is_bound %}value = "{{note.due_time}}" {% endif %} placeholder = "Time..." readonly required="False">
                         <svg class='clear-time' onclick="clearTime()">
                             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path>
                         </svg>

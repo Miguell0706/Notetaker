@@ -132,7 +132,6 @@ const month = document.querySelector(".month");
 const day_heading = document.querySelector(".day");
 const input_date = document.querySelector('.date')
 const calender = document.querySelector('.calender-container')
-
 function clearDate() {
   date_input.value=''
 }
@@ -203,3 +202,14 @@ function prevMonth() {
   createMonth();
 }
 createMonth();
+
+//CODE FOR SUBMISSION VERIFICATION GOES HERE (THERE IS MORE IN VIEWS)//
+//write code that gives an error when a note tries to be submitted that has a time value but no date value, it would then prevent the form submission it should still the possibility for a date value but no time value//
+const noteForm = document.querySelector(".note-form");
+
+noteForm.addEventListener("submit", function(event) {
+  if (exampleTimePickable.value && !input_date.value) {
+    alert("Error: A note cannot have a time value without a date value.");
+    event.preventDefault(); // Prevent form submission
+  }
+});

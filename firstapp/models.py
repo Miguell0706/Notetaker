@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Note(models.Model):
     user = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    text = models.TextField()
+    text = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     folders = models.ManyToManyField('Folder', related_name='folders', blank=True)
     pinned = models.BooleanField(default=False)
