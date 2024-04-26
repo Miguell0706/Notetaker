@@ -16,6 +16,7 @@ const note_folder_arrow = document.querySelector('.note-folder-arrow');
 const note_folder_select= document.querySelector('.note-folder-select')
 const selected_folder_display = document.querySelector('.selected-folder-display');
 const cancel_note = document.querySelector('.note-cancel');
+const small_note = document.querySelectorAll('.small-note');
 
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
@@ -95,7 +96,7 @@ function switchFolderNotes(x) {
     folder_recent_notes.style.display = 'none';
   }
 }
-function openNewNote(){
+function openNote(){
   const note_container = document.querySelector('.note-container');
   if (!note_container.classList.contains('opened')) {
       note_container.classList.add('opened');
@@ -105,7 +106,7 @@ function updateSelectedFolder() {
   // Get the selected option
   var selectedOption = note_folder_select.options[note_folder_select.selectedIndex];
   // Get the selected value
-  var selectedValue = selectedOption.value;
+  var selectedValue = selectedOption.textContent;
   // Update the content of the paragraph element
   selected_folder_display.textContent = selectedValue;
 }
@@ -113,10 +114,63 @@ function flipArrow(){
   note_folder_arrow.classList.toggle('flip')
   
 }
-function cancelNote(){
-  console.log('here')
+function closeNote(){
   const note_container = document.querySelector('.note-container');
   if (note_container.classList.contains('opened')) {
       note_container.classList.remove('opened');
   }
+  clearNoteData();
+}
+//CODE FOR SUBMISSION VERIFICATION GOES HERE (THERE IS MORE IN VIEWS)//
+//write code that gives an error when a note tries to be submitted that has a time value but no date value, it would then prevent the form submission it should still the possibility for a date value but no time value//
+const noteForm = document.querySelector(".note-form");
+
+noteForm.addEventListener("submit", function(event) {
+  if (exampleTimePickable.value && !input_date.value) {
+    alert("Error: A note cannot have a time value without a date value.");
+    event.preventDefault(); // Prevent form submission
+  }
+});
+//CODE FOR VIEWING AND UPDATING AN EXISTING NOTE GOES HERE//
+small_note.forEach(container => {
+  container.addEventListener('click', function() {
+      // Get the note ID from the container's data attribute or any other appropriate source
+      const noteId = this.dataset.noteId; // Assuming you have a data attribute named "data-note-id" on each note container
+
+      // Fetch note details
+      fetch('/get_note/' + noteId + '/')
+          .then(response => response.json())
+          .then(data => {
+              // Process the received data
+              // For example, update the modal with the note details
+              updateNoteWithData(data);
+          })
+          .catch(error => {
+              console.error('Error fetching note details:', error);
+          });
+  });
+});
+
+// Function to update note and open with note details
+function updateNoteWithData(data) {
+  // Update the modal with the note details
+  document.querySelector(".note-title").value = data.title;
+  document.querySelector(".note-pin").value = data.pinned;
+  document.querySelector(".note-text").value = data.text;
+  document.querySelector(".time").value = data.due_time;
+  document.querySelector(".date").value = data.due_date;
+  document.querySelector(".folder").value = data.folder;
+  // Open the modal
+  openNote();
+}
+function clearNoteData() {
+  console.log('clearking note data');
+  document.querySelector(".note-title").value = '';
+  document.querySelector(".note-pin").checked = false;
+  document.querySelector(".note-text").value = '';  
+  document.querySelector(".time").value = '';
+  document.querySelector(".date").value = '';
+  note_folder_select.options[0].selected = true;// Set to the first option (assuming it's the default option)
+  updateSelectedFolder();
+  // Update the selected folder display
 }

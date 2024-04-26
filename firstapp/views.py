@@ -98,3 +98,18 @@ def convert_time_string(time_str):
     formatted_time = time_obj.strftime('%H:%M:%S')
 
     return formatted_time
+def get_note(request, note_id):
+    try:
+        note = Note.objects.get(pk=note_id)
+        note_data = {
+              "title":note.title,
+                "text":note.text,
+                "due_date":note.due_date,
+                "due_time":note.due_time,  # Use the converted time
+                "folder":note.folder,
+                "pinned":note.pinned,
+            # Add other fields as needed
+        }
+        return JsonResponse(note_data)
+    except Note.DoesNotExist:
+        return JsonResponse({'error': 'Note not found'}, status=404)

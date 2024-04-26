@@ -1,7 +1,7 @@
 {% extends './home.html' %}
 {% block content %}
     <div class="dash-first-container">
-        <div onclick='openNewNote()' class="create-note-button">
+        <div onclick='openNote()' class="create-note-button">
             <p class="create-note-text"> 
                 Create Note
             </p>
@@ -32,7 +32,7 @@
             </div>
             <div class="urgent-notes">
                 {% for note in notes %}
-                <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                <div class="small-note" data-note-id="{{ note.id }}">
                     <p class="small-note-title">{{note.title}}</p>
                         <p class="small-note-date">{{note.created}}</p>
                         {% if note.folder %}
@@ -41,7 +41,7 @@
                     </div>
                 {% endfor %}
                    {% for note in notes %}
-                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
                             <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}
@@ -59,7 +59,7 @@
                 </div>
                 <div class="recent-notes">
                     {% for note in notes %}
-                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
                             <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}
@@ -75,7 +75,7 @@
                 </div>
                 <div class="pinned-notes">
                     {% for note in pinned_notes %}
-                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
                             <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}
@@ -84,7 +84,7 @@
                     </div>
                     {% endfor %}
                     {% for note in pinned_notes %}
-                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
                             <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}
@@ -93,7 +93,7 @@
                     </div>
                     {% endfor %}
                     {% for note in pinned_notes %}
-                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
                             <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}
@@ -102,7 +102,7 @@
                     </div>
                     {% endfor %}
                     {% for note in pinned_notes %}
-                    <div class="small-note" onclick="window.location.href = '{% url 'note_detail' note.id %}'">
+                    <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
                             <p class="small-note-date">{{note.created}}</p>
                             {% if note.folder %}

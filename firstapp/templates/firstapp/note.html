@@ -4,7 +4,7 @@
         <div class="note-header">
             <input class="note-title" type="text" name="title"  {% if form.is_bound %}value = "{{note.title}}" {% endif %}required maxlength="50" placeholder = "Title..." >{{note.title}}</input>
             <label for="pin-note" class="pin-label">
-                <input type="checkbox" id="pin-note" name="pinned">
+                <input type="checkbox" class="note-pin" id="pin-note" name="pinned">
                 <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                 <svg class='pin-icon' viewBox="0 0 48 48" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"><path class="cls-1" d="M5.5,17.83a4.35,4.35,0,0,0,6.17,0l9.25,9.25-3.09,3.09a4.36,4.36,0,0,0,0,6.16l7.71-7.71L39.42,42.5H42.5V39.42L28.62,25.54,30.17,24l3.08-3.08,3.08-3.09a4.36,4.36,0,0,0-6.16,0l-3.09,3.09-9.25-9.25a4.35,4.35,0,0,0,0-6.17L14.75,8.58,8.58,14.75Z"/><line class="cls-1" x1="28.62" y1="25.54" x2="25.54" y2="28.62"/></svg>
             </label>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="wrapper">
-                <button class="note-cancel" onclick="cancelNote()" >Cancel</button>
+                <button class="note-cancel" onclick="closeNote()" >Close</button>
                 <input class="note-save" type="submit" value="Save">
             </div>
         </div>
