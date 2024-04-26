@@ -4,4 +4,4 @@ from .models import Note
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['title', 'text', 'due_date','due_time', 'pinned', 'folders']
+        fields = ['title', 'text', 'due_date','due_time', 'pinned', 'folder']

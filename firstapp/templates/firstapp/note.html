@@ -68,7 +68,7 @@
                     <select name="folder" class="note-folder-select" onchange="updateSelectedFolder()" onclick="flipArrow()">
                             <option value="">No selection...</option>
                         {% for folder in folders %}
-                            <option value="{{folder}}">{{folder}}</option>
+                            <option value="{{folder.pk}}">{{folder}}</option>
                         {% endfor %}
                     </select>
                     <svg class="note-folder-arrow"  onclick="folderSelect()" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Note
+from .models import Note,Folder
 from .forms import NoteForm
 from django.utils import timezone
 from datetime import datetime, time
 import logging
 from copy import deepcopy
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -21,6 +22,7 @@ def home(request):
     if request.method == 'POST':
         post_data = deepcopy(request.POST)
         print(post_data)
+        
     # Preprocess due_time before passing it to the form
         if post_data['due_time']!='':
             print('time found for conversion')
@@ -29,14 +31,19 @@ def home(request):
             post_data['due_time'] = formatted_time
         # Initialize the form with the updated request data
         form = NoteForm(post_data)
+        folder_id = post_data.get('folder')
+        folder = None
+        if folder_id:
+            folder = get_object_or_404(Folder, pk=folder_id)
+
         if form.is_valid():
             # Get the form data
             title = form.cleaned_data['title']
             text = form.cleaned_data['text']
             due_date = form.cleaned_data['due_date']
-            due_time = form.cleaned_data['due_time']  # Retrieve the time string
+            due_time = form.cleaned_data['due_time'] 
             pinned = form.cleaned_data['pinned']
-            folder_id = request.POST.get('folder')  # Retrieve selected folder ID
+            folder = folder
 
             # Convert the time string to the desired format
             # Create and save the Note object
@@ -47,12 +54,9 @@ def home(request):
                 due_time=due_time,  # Use the converted time
                 created=timezone.now(),
                 user=request.user,
+                folder=folder,
                 pinned=pinned,
             )
-            if folder_id:  # Check if a folder is selected
-                folder = Folder.objects.get(pk=folder_id)
-                note.folders.add(folder)
-
             note.save()
 
             print(note)
