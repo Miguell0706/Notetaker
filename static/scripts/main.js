@@ -153,18 +153,30 @@ small_note.forEach(container => {
 
 // Function to update note and open with note details
 function updateNoteWithData(data) {
-  // Update the modal with the note details
+  // Update the modal with the note 
   document.querySelector(".note-title").value = data.title;
-  document.querySelector(".note-pin").value = data.pinned;
+  document.querySelector(".note-pin").checked = data.pinned;
   document.querySelector(".note-text").value = data.text;
-  document.querySelector(".time").value = data.due_time;
-  document.querySelector(".date").value = data.due_date;
-  document.querySelector(".folder").value = data.folder;
+  if (data.due_time) {
+    document.querySelector(".time").value = convertToTimeInputFormat(data.due_time);
+  }
+  if (data.due_date) {
+    document.querySelector(".date").value = convertDateToInputFormat(data.due_date);
+  }
+  if (data.folder) {
+    document.querySelector(".selected-folder-display").textContent = data.folder;
+    //loop through all options of note_folder_select and select the one that matches the folder name//
+    for(let option of note_folder_select.options) {
+      if (option.textContent === data.folder) {
+        option.selected = true;
+        break;
+      }
+    }
+  }
   // Open the modal
   openNote();
 }
 function clearNoteData() {
-  console.log('clearking note data');
   document.querySelector(".note-title").value = '';
   document.querySelector(".note-pin").checked = false;
   document.querySelector(".note-text").value = '';  
@@ -173,4 +185,34 @@ function clearNoteData() {
   note_folder_select.options[0].selected = true;// Set to the first option (assuming it's the default option)
   updateSelectedFolder();
   // Update the selected folder display
+}
+function convertDateToInputFormat(dateString) {
+const originalDateString = dateString;
+const [year, month, day] = originalDateString.split("-");
+const date = new Date(year, month - 1, day);
+const formattedMonth = String(date.getMonth() + 1);
+const formattedDay = String(date.getDate());
+const formattedDateString = `${formattedMonth}/${formattedDay}/${year}`;
+return formattedDateString;
+}
+function convertToTimeInputFormat(timeString) {
+  // Original time string in the format 'HH:mm:ss'
+  var originalTimeStr = timeString;
+
+  // Parse the time string into a Date object
+  var timeObj = new Date('1970-01-01T' + originalTimeStr);
+
+  // Get hours and minutes separately
+  var hours = timeObj.getHours();
+  var minutes = timeObj.getMinutes();
+
+  // Determine AM/PM
+  var meridiem = hours >= 12 ? 'pm' : 'am';
+
+  // Adjust hours for 12-hour format
+  hours = hours % 12;
+  hours = hours ? hours : 12; /
+  var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + meridiem;
+  console.log(formattedTime); 
+  return formattedTime;
 }

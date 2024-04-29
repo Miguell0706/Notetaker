@@ -7,7 +7,7 @@ from datetime import datetime, time
 import logging
 from copy import deepcopy
 from django.shortcuts import get_object_or_404
-
+from django.http import JsonResponse
 
 # Create your views here.
 #Render the dashboard page here
@@ -79,10 +79,6 @@ def home(request):
     return render(request, 'firstapp/dashboard.html', context)
 
 @login_required(login_url='accounts:login')
-def note_detail(request,note_id):
-    note = Note.objects.get(pk=note_id)
-    context = {'note':note}
-    return render(request, 'firstapp/note_detail.html',context)
 
 @login_required(login_url='accounts:login')
 def folders(request):
@@ -102,14 +98,15 @@ def get_note(request, note_id):
     try:
         note = Note.objects.get(pk=note_id)
         note_data = {
-              "title":note.title,
+                "title":note.title,
                 "text":note.text,
                 "due_date":note.due_date,
                 "due_time":note.due_time,  # Use the converted time
-                "folder":note.folder,
+                "folder":note.folder.name if note.folder else None,
                 "pinned":note.pinned,
             # Add other fields as needed
         }
+        print(note_data)
         return JsonResponse(note_data)
     except Note.DoesNotExist:
         return JsonResponse({'error': 'Note not found'}, status=404)

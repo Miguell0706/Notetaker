@@ -2,7 +2,7 @@
     <form class='note-form'or action="{% url '' %}" method="POST"  autocomplete="off">
         {% csrf_token %}
         <div class="note-header">
-            <input class="note-title" type="text" name="title"  {% if form.is_bound %}value = "{{note.title}}" {% endif %}required maxlength="50" placeholder = "Title..." >{{note.title}}</input>
+            <input class="note-title" type="text" name="title" maxlength="50" placeholder = "Title..." >{{note.title}}</input>
             <label for="pin-note" class="pin-label">
                 <input type="checkbox" class="note-pin" id="pin-note" name="pinned">
                 <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -10,7 +10,7 @@
             </label>
         </div>
         <div class="note-body">
-            <textarea class="note-text" name="text" required placeholder="Take a note...">
+            <textarea class="note-text" name="text" placeholder="Take a note...">
                 {% if form.is_bound %}
                     {{ form.data.text }}
                 {% else %}
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="time-container">
-                        <input class='time' type="text" name="due_time" {% if form.is_bound %}value = "{{note.due_time}}" {% endif %} placeholder = "Time..." readonly required="False">
+                        <input class='time' type="text" name="due_time" placeholder = "Time..." readonly required="False">
                         <svg class='clear-time' onclick="clearTime()">
                             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path>
                         </svg>
