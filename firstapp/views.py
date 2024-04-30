@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Note,Folder
 from .forms import NoteForm
 from django.utils import timezone
-from datetime import datetime, time
+from datetime import datetime, time,timedelta
 import logging
 from copy import deepcopy
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+
 import json
 
 # Create your views here.
@@ -15,9 +16,12 @@ import json
 @login_required(login_url='accounts:login')
 def home(request):
     folders = request.user.folders.all()
-    notes = request.user.notes.all()
+    current_date = timezone.now().date()
+    future_date = current_date + timedelta(days=2)
+    urgent_notes = request.user.notes.filter(due_date__range=[current_date, future_date]).order_by('due_date')
     pinned_notes = request.user.notes.filter(pinned=True)
-    context = {'folders':folders,'notes':notes,'pinned_notes':pinned_notes}
+    recent_notes = request.user.notes.order_by('-created')
+    context = {'folders':folders,'urgent_notes':urgent_notes,'pinned_notes':pinned_notes,'recent_notes':recent_notes}
     if request.user.is_authenticated == False:
         return redirect('accounts:login')
     return render(request, 'firstapp/dashboard.html', context)

@@ -31,24 +31,15 @@
                 </svg>
             </div>
             <div class="urgent-notes">
-                {% for note in notes %}
+                {% for note in urgent_notes %}
                 <div class="small-note" data-note-id="{{ note.id }}">
                     <p class="small-note-title">{{note.title}}</p>
-                        <p class="small-note-date">{{note.created}}</p>
+                        <p class="small-note-date" data-note-created="{{note.created}}">Due:{{ note.due_date}}</p>
                         {% if note.folder %}
                             <p class="small-note-folder">{{note.folders}}</p>
                         {% endif %}    
                     </div>
                 {% endfor %}
-                   {% for note in notes %}
-                    <div class="small-note"  data-note-id="{{ note.id }}"">
-                        <p class="small-note-title">{{note.title}}</p>
-                            <p class="small-note-date">{{note.created}}</p>
-                            {% if note.folder %}
-                                <p class="small-note-folder">{{note.folders}}</p>
-                            {% endif %}    
-                        </div>
-                    {% endfor %}
             </div>
 
         </div>
@@ -58,10 +49,10 @@
                     <h2>Recent Notes</h2>
                 </div>
                 <div class="recent-notes">
-                    {% for note in notes %}
+                    {% for note in recent_notes %}
                     <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
-                            <p class="small-note-date">{{note.created}}</p>
+                            <p class="small-note-date">{{ note.created|date:"M d, Y" }}</p>
                             {% if note.folder %}
                                 <p class="small-note-folder">{{note.folders}}</p>
                             {% endif %}    
@@ -77,34 +68,7 @@
                     {% for note in pinned_notes %}
                     <div class="small-note"  data-note-id="{{ note.id }}"">
                         <p class="small-note-title">{{note.title}}</p>
-                            <p class="small-note-date">{{note.created}}</p>
-                            {% if note.folder %}
-                                <p class="small-note-folder">{{note.folders}}</p>
-                            {% endif %}    
-                    </div>
-                    {% endfor %}
-                    {% for note in pinned_notes %}
-                    <div class="small-note"  data-note-id="{{ note.id }}"">
-                        <p class="small-note-title">{{note.title}}</p>
-                            <p class="small-note-date">{{note.created}}</p>
-                            {% if note.folder %}
-                                <p class="small-note-folder">{{note.folders}}</p>
-                            {% endif %}    
-                    </div>
-                    {% endfor %}
-                    {% for note in pinned_notes %}
-                    <div class="small-note"  data-note-id="{{ note.id }}"">
-                        <p class="small-note-title">{{note.title}}</p>
-                            <p class="small-note-date">{{note.created}}</p>
-                            {% if note.folder %}
-                                <p class="small-note-folder">{{note.folders}}</p>
-                            {% endif %}    
-                    </div>
-                    {% endfor %}
-                    {% for note in pinned_notes %}
-                    <div class="small-note"  data-note-id="{{ note.id }}"">
-                        <p class="small-note-title">{{note.title}}</p>
-                            <p class="small-note-date">{{note.created}}</p>
+                            <p class="small-note-date">{{ note.created|date:"M d, Y" }}</p>
                             {% if note.folder %}
                                 <p class="small-note-folder">{{note.folders}}</p>
                             {% endif %}    
