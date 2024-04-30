@@ -17,7 +17,8 @@ const note_folder_select= document.querySelector('.note-folder-select')
 const selected_folder_display = document.querySelector('.selected-folder-display');
 const cancel_note = document.querySelector('.note-cancel');
 const small_note = document.querySelectorAll('.small-note');
-
+const noteForm = document.querySelector(".note-form");
+const create_or_update_note = document.querySelector(".note-save");
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
   // Toggle dark mode class on the body
@@ -123,11 +124,19 @@ function closeNote(){
 }
 //CODE FOR SUBMISSION VERIFICATION GOES HERE (THERE IS MORE IN VIEWS)//
 //write code that gives an error when a note tries to be submitted that has a time value but no date value, it would then prevent the form submission it should still the possibility for a date value but no time value//
-const noteForm = document.querySelector(".note-form");
 
 noteForm.addEventListener("submit", function(event) {
   if (exampleTimePickable.value && !input_date.value) {
     alert("Error: A note cannot have a time value without a date value.");
+    event.preventDefault(); // Prevent form submission
+    return
+  }
+  if (create_or_update_note.value === "Create Note") {
+    createNote();
+    event.preventDefault(); // Prevent form submission
+  }
+  else if (create_or_update_note.value === "Update Note") {
+    updateNote();
     event.preventDefault(); // Prevent form submission
   }
 });
@@ -173,10 +182,12 @@ function updateNoteWithData(data) {
       }
     }
   }
-  // Open the modal
+  create_or_update_note.value = "Update Note";
+  noteId = data.id;
   openNote();
 }
 function clearNoteData() {
+  create_or_update_note.value = "Create Note";
   document.querySelector(".note-title").value = '';
   document.querySelector(".note-pin").checked = false;
   document.querySelector(".note-text").value = '';  
@@ -211,8 +222,52 @@ function convertToTimeInputFormat(timeString) {
 
   // Adjust hours for 12-hour format
   hours = hours % 12;
-  hours = hours ? hours : 12; /
+  hours = hours ? hours : 12;
   var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + meridiem;
   console.log(formattedTime); 
   return formattedTime;
+}
+//CODE FOR CREATING A NEW NOTE ajax request goes
+function createNote() {
+  const csrftoken = getCookie('csrftoken');
+  fetch('create_note', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'title': document.querySelector('.note-title').value,
+      'text': document.querySelector('.note-text').value,
+      'due_date': document.querySelector('.date').value,
+      'due_time': document.querySelector('.time').value,
+      'pinned': document.querySelector('.note-pin').checked,
+      'folder': document.querySelector('.note-folder-select').value
+    }),
+  })
+  closeNote();
+}
+function getCookie(name) {
+  const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return cookieValue ? cookieValue.pop() : '';
+}
+function updateNote() {
+  
+  const csrftoken = getCookie('csrftoken');
+  fetch('update_note/' + noteId + '/', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'title': document.querySelector('.note-title').value,
+      'text': document.querySelector('.note-text').value,
+      'due_date': document.querySelector('.date').value,
+      'due_time': document.querySelector('.time').value,
+      'pinned': document.querySelector('.note-pin').checked,
+      'folder': document.querySelector('.note-folder-select').value
+    }),
+  })
+  closeNote();
 }

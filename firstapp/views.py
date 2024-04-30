@@ -8,6 +8,7 @@ import logging
 from copy import deepcopy
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+import json
 
 # Create your views here.
 #Render the dashboard page here
@@ -19,13 +20,75 @@ def home(request):
     context = {'folders':folders,'notes':notes,'pinned_notes':pinned_notes}
     if request.user.is_authenticated == False:
         return redirect('accounts:login')
+    return render(request, 'firstapp/dashboard.html', context)
+
+@login_required(login_url='accounts:login')
+
+@login_required(login_url='accounts:login')
+def folders(request):
+    folders = request.user.folders.all()
+    context = {'folders':folders}
+    return render(request, 'firstapp/folders.html',context)
+
+def convert_time_string(time_str):
+    # Parse the time string into a datetime object
+    time_obj = datetime.strptime(time_str, '%I:%M%p')
+    
+    # Convert the datetime object to a string in the format '00:00:00'
+    formatted_time = time_obj.strftime('%H:%M:%S')
+
+    return formatted_time
+def get_note(request, note_id):
+    try:
+        note = Note.objects.get(pk=note_id)
+        note_data = {
+                "title":note.title,
+                "text":note.text,
+                "due_date":note.due_date,
+                "due_time":note.due_time,  # Use the converted time
+                "folder":note.folder.name if note.folder else None,
+                "pinned":note.pinned,
+                'id':note.id
+            # Add other fields as needed
+        }
+        return JsonResponse(note_data)
+    except Note.DoesNotExist:
+        return JsonResponse({'error': 'Note not found'}, status=404)
+def update_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+
     if request.method == 'POST':
-        post_data = deepcopy(request.POST)
-        print(post_data)
-        
+        post_data = json.loads(request.body)
+        if post_data.get('due_time'):
+            time_str = post_data['due_time']
+            formatted_time = convert_time_string(time_str)
+            post_data['due_time'] = formatted_time
+        form = NoteForm(post_data, instance=note)
+        folder_id = post_data.get('folder')
+        folder = None
+        if folder_id:
+            folder = get_object_or_404(Folder, pk=folder_id)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            text = form.cleaned_data['text']
+            due_date = form.cleaned_data['due_date']
+            due_time = form.cleaned_data['due_time'] 
+            pinned = form.cleaned_data['pinned']
+            folder = folder
+
+            note.title = title
+            note.text = text
+            note.due_date = due_date
+            note.due_time = due_time
+            note.pinned = pinned
+            note.folder = folder
+            note.save()
+def create_note(request):
+    if request.method == 'POST':
+        post_data = deepcopy(json.loads(request.body))
     # Preprocess due_time before passing it to the form
         if post_data['due_time']!='':
-            print('time found for conversion')
             time_str = post_data.get('due_time')
             formatted_time = convert_time_string(time_str)  # Implement your time conversion function
             post_data['due_time'] = formatted_time
@@ -58,55 +121,5 @@ def home(request):
                 pinned=pinned,
             )
             note.save()
-
-            print(note)
-            logging.info("Created Note object: %s", note)
-            return redirect('')
-        else:
-            print("Form data:", post_data)
-            # Form is invalid, access the errors
-            errors = form.errors
-            # You can then iterate through the errors dictionary to get more details
-            for field, field_errors in errors.items():
-                # `field` is the name of the field with errors
-                # `field_errors` is a list of error messages for that field
-                for error in field_errors:
-                    # Print or handle the error message as needed
-                    print(f"Error in field {field}: {error}")
     else:
         form = NoteForm()
-
-    return render(request, 'firstapp/dashboard.html', context)
-
-@login_required(login_url='accounts:login')
-
-@login_required(login_url='accounts:login')
-def folders(request):
-    folders = request.user.folders.all()
-    context = {'folders':folders}
-    return render(request, 'firstapp/folders.html',context)
-
-def convert_time_string(time_str):
-    # Parse the time string into a datetime object
-    time_obj = datetime.strptime(time_str, '%I:%M%p')
-    
-    # Convert the datetime object to a string in the format '00:00:00'
-    formatted_time = time_obj.strftime('%H:%M:%S')
-
-    return formatted_time
-def get_note(request, note_id):
-    try:
-        note = Note.objects.get(pk=note_id)
-        note_data = {
-                "title":note.title,
-                "text":note.text,
-                "due_date":note.due_date,
-                "due_time":note.due_time,  # Use the converted time
-                "folder":note.folder.name if note.folder else None,
-                "pinned":note.pinned,
-            # Add other fields as needed
-        }
-        print(note_data)
-        return JsonResponse(note_data)
-    except Note.DoesNotExist:
-        return JsonResponse({'error': 'Note not found'}, status=404)
