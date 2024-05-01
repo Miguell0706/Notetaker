@@ -12,6 +12,7 @@ const folders_arrow = document.querySelector('.folders-arrow');
 const folder_pinned_notes = document.querySelector('.folder-pinned-notes');
 const folder_recent_notes = document.querySelector('.folder-recent-notes');
 const note_container = document.querySelector('.note-container');
+const urgent_notes_container = document.querySelector('.urgent-notes');
 const note_folder_arrow = document.querySelector('.note-folder-arrow');
 const note_folder_select= document.querySelector('.note-folder-select')
 const selected_folder_display = document.querySelector('.selected-folder-display');
@@ -19,6 +20,7 @@ const cancel_note = document.querySelector('.note-cancel');
 const small_note = document.querySelectorAll('.small-note');
 const noteForm = document.querySelector(".note-form");
 const create_or_update_note = document.querySelector(".note-save");
+const delete_button_icon = document.querySelector(".delete-icon");
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
   // Toggle dark mode class on the body
@@ -66,6 +68,16 @@ function displayMenu() {
   }
 }
 /* Code to hide urgent icon on click*/
+function noUrgentNotes(){
+  //check to see if there are any notes rendered int he urgent note container//
+  if (urgent_notes_container.childElementCount > 0) {
+    urgent_icon.style.display = 'block';
+  }
+  else {
+    urgent_icon.style.display = 'none';
+  }
+}
+noUrgentNotes()
 function removeUrgentIcon(){
   urgent_icon.style.display = 'none';
 }
@@ -183,10 +195,12 @@ function updateNoteWithData(data) {
     }
   }
   create_or_update_note.value = "Update Note";
+  delete_button_icon.style.display = 'block';
   noteId = data.id;
   openNote();
 }
 function clearNoteData() {
+  delete_button_icon.style.display = 'none';
   create_or_update_note.value = "Create Note";
   document.querySelector(".note-title").value = '';
   document.querySelector(".note-pin").checked = false;
@@ -224,10 +238,14 @@ function convertToTimeInputFormat(timeString) {
   hours = hours % 12;
   hours = hours ? hours : 12;
   var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + meridiem;
-  console.log(formattedTime); 
   return formattedTime;
 }
-//CODE FOR CREATING A NEW NOTE ajax request goes
+//---------AJAX REQUEST  START HERE ---------------------/////
+
+function getCookie(name) {
+  const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return cookieValue ? cookieValue.pop() : '';
+}
 function createNote() {
   const csrftoken = getCookie('csrftoken');
   fetch('create_note', {
@@ -247,10 +265,6 @@ function createNote() {
   })
   closeNote();
 }
-function getCookie(name) {
-  const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-  return cookieValue ? cookieValue.pop() : '';
-}
 function updateNote() {
   
   const csrftoken = getCookie('csrftoken');
@@ -268,6 +282,16 @@ function updateNote() {
       'pinned': document.querySelector('.note-pin').checked,
       'folder': document.querySelector('.note-folder-select').value
     }),
+  })
+  closeNote();
+}
+function deleteNote() {
+  const csrftoken = getCookie('csrftoken');
+  fetch('delete_note/' + noteId + '/', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+    },
   })
   closeNote();
 }

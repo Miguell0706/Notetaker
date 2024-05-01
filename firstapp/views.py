@@ -26,7 +26,6 @@ def home(request):
         return redirect('accounts:login')
     return render(request, 'firstapp/dashboard.html', context)
 
-@login_required(login_url='accounts:login')
 
 @login_required(login_url='accounts:login')
 def folders(request):
@@ -42,6 +41,7 @@ def convert_time_string(time_str):
     formatted_time = time_obj.strftime('%H:%M:%S')
 
     return formatted_time
+@login_required(login_url='accounts:login')
 def get_note(request, note_id):
     try:
         note = Note.objects.get(pk=note_id)
@@ -58,6 +58,7 @@ def get_note(request, note_id):
         return JsonResponse(note_data)
     except Note.DoesNotExist:
         return JsonResponse({'error': 'Note not found'}, status=404)
+@login_required(login_url='accounts:login')
 def update_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
 
@@ -88,6 +89,7 @@ def update_note(request, pk):
             note.pinned = pinned
             note.folder = folder
             note.save()
+@login_required(login_url='accounts:login')
 def create_note(request):
     if request.method == 'POST':
         post_data = deepcopy(json.loads(request.body))
@@ -127,3 +129,8 @@ def create_note(request):
             note.save()
     else:
         form = NoteForm()
+@login_required(login_url='accounts:login')
+def delete_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == 'POST':
+        note.delete()
