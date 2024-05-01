@@ -21,6 +21,8 @@ const small_note = document.querySelectorAll('.small-note');
 const noteForm = document.querySelector(".note-form");
 const create_or_update_note = document.querySelector(".note-save");
 const delete_button_icon = document.querySelector(".delete-icon");
+const delete_modal = document.querySelector(".delete-modal");
+
 /*This code is for setting up all the class changes for dark mode */
 darkModeCheckbox.addEventListener("change", function () {
   // Toggle dark mode class on the body
@@ -209,6 +211,7 @@ function clearNoteData() {
   document.querySelector(".date").value = '';
   note_folder_select.options[0].selected = true;// Set to the first option (assuming it's the default option)
   updateSelectedFolder();
+  closeDeleteModal()
   // Update the selected folder display
 }
 function convertDateToInputFormat(dateString) {
@@ -239,6 +242,14 @@ function convertToTimeInputFormat(timeString) {
   hours = hours ? hours : 12;
   var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + meridiem;
   return formattedTime;
+}
+//--------MODALS GO HERE-------------------/////////////
+function openDeleteModal(){
+  delete_modal.style.display = 'block';
+
+}
+function closeDeleteModal(){
+  delete_modal.style.display = 'none';
 }
 //---------AJAX REQUEST  START HERE ---------------------/////
 
@@ -295,3 +306,4 @@ function deleteNote() {
   })
   closeNote();
 }
+
