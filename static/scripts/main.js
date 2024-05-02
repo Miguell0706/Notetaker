@@ -73,7 +73,7 @@ function displayMenu() {
 function noUrgentNotes(){
   //check to see if there are any notes rendered int he urgent note container//
   if (urgent_notes_container.childElementCount > 0) {
-    urgent_icon.style.display = 'block';
+    urgent_icon.style.display = 'flex';
   }
   else {
     urgent_icon.style.display = 'none';
@@ -116,6 +116,7 @@ function openNote(){
   if (!note_container.classList.contains('opened')) {
       note_container.classList.add('opened');
   }
+  delete_modal.style.display = 'none';
 }
 function updateSelectedFolder() {
   // Get the selected option
@@ -243,16 +244,62 @@ function convertToTimeInputFormat(timeString) {
   var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + meridiem;
   return formattedTime;
 }
-//--------MODALS GO HERE-------------------/////////////
+////////////////////--------MODALS GO HERE-------------------//////////////////////////
+const logout_modal = document.querySelector('.logout-modal');
+const change_password_modal = document.querySelector('.change-password-modal');
+const delete_user_modal = document.querySelector('.delete-user-modal');
+function addModalListener(modal) {
+  // Define the event handler to close the modal when clicking outside
+  function clickOutsideModalHandler(event) {
+    if (!modal.contains(event.target) && !profile_dropdown.contains(event.target)) {
+      modal.style.display = 'none';
+      document.removeEventListener('click', clickOutsideModalHandler);
+    }
+  }
+
+  // Attach a click event listener to the document
+  document.addEventListener('click', clickOutsideModalHandler);
+}
+
+function openModal(modal) {
+  document.querySelectorAll('.modal').forEach(function(modalElement) {
+    modalElement.style.display = 'none';
+  });
+  modal.style.display = 'flex';
+  addModalListener(modal); // Attach listener when opening modal
+}
+
+function closeModal(modal) {
+  modal.style.display = 'none';
+}
+// Open modals
+function openLogoutModal() {
+  openModal(logout_modal);
+}
+
+function openChangePasswordModal() {
+  openModal(change_password_modal);
+}
+
+function openDeleteUserModal() {
+  openModal(delete_user_modal);
+}
+
+// Close modals
+function closeModals() {
+  closeModal(logout_modal);
+  closeModal(change_password_modal);
+  closeModal(delete_user_modal);
+}
+//Code for delete node modal//
 function openDeleteModal(){
-  delete_modal.style.display = 'block';
+  delete_modal.style.display = 'flex';
 
 }
 function closeDeleteModal(){
   delete_modal.style.display = 'none';
 }
-//---------AJAX REQUEST  START HERE ---------------------/////
-
+//////////////////////---------AJAX REQUEST  START HERE ---------------------///////////////
 function getCookie(name) {
   const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
   return cookieValue ? cookieValue.pop() : '';
@@ -296,6 +343,7 @@ function updateNote() {
   })
   closeNote();
 }
+//-------------------AJAX FOR MODALS---------------------//
 function deleteNote() {
   const csrftoken = getCookie('csrftoken');
   fetch('delete_note/' + noteId + '/', {
@@ -306,4 +354,78 @@ function deleteNote() {
   })
   closeNote();
 }
-
+function changePassword(event) {
+  event.preventDefault(); // Prevent default form submission behavior
+  const csrftoken = getCookie('csrftoken');
+  // Get form data
+  const form = document.querySelector('.change-password-form');
+  // Make AJAX request
+  fetch('change_password', {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrftoken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'oldPassword': form.querySelector('.oldPassword').value,
+        'newPassword': form.querySelector('.newPassword').value,
+        'confirmPassword': form.querySelector('.confirmPassword').value,
+      }),
+  })
+  .then(response => {
+    if (response.ok) {
+        // Handle successful password change
+        alert('Password changed successfully');
+    } else {
+        // Handle error response
+        response.json().then(data => {
+            if (data && data.error) {
+                // Access the error message from the JSON response
+                const errorMessage = data.error;
+                alert('Failed to change password: ' + errorMessage);
+                console.error('Failed to change password:', errorMessage);
+            } else {
+                // Handle case when error message is not provided
+                alert('Failed to change password');
+                console.error('Failed to change password:', response.statusText);
+            }
+        });
+    }
+  })
+  .catch(error => { 
+      alert('An error occurred while changing your password. Please try again later.');
+      // Handle network errors or other fetch-related errors
+      console.error('Fetch error:', error);
+  });
+  closeModal(document.querySelector('.change-password-modal'))
+}
+function deleteUser() {
+  const csrftoken = getCookie('csrftoken');
+  fetch('delete_user', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'password': document.querySelector('#password').value
+    }),
+  })
+  closeModal(document.querySelector('.delete-user-modal'));
+}
+function logoutUser() {
+  const csrftoken = getCookie('csrftoken');
+  fetch('logout', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+    },
+  })
+  .then(response => {
+    // Handle the response, such as checking for a successful logout
+    if (response.ok) {
+      // Redirect to the login page after successful logout
+      window.location.href = '/accounts/login'; // Replace '/accounts/login' with your actual login page URL
+    }
+  })
+}

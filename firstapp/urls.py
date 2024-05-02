@@ -9,4 +9,7 @@ urlpatterns = [
     path('update_note/<int:pk>/', views.update_note, name='update_note'),
     path('create_note', views.create_note, name='create_note'),
     path('delete_note/<int:pk>/', views.delete_note, name='delete_note'),
+    path('delete_user', views.delete_user, name='delete_user'),
+    path('logout', views.logout_page, name='logout'),
+    path('change_password', views.change_password, name='change_password'),
 ]

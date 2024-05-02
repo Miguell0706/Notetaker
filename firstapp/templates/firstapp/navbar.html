@@ -1,3 +1,46 @@
+<!--NAVBAR MODALS HERE-->
+<div class="change-password-modal modal">
+    <form class="change-password-form " onsubmit="changePassword(event)">
+        {% csrf_token %}
+        <div class="modal-content">
+            <label for "oldPassword">Old Password</label>
+            <input type="password" name="oldPassword" id="oldPassword" class="oldPassword" value="">
+            <label for "newPassword">New Password</label>
+            <input type="password" name="newPassword" id="newPassword" class="newPassword">
+            <label for "confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" class="confirmPassword">
+            <div>
+                <button type="button" class="cancel-logout-modal" onclick="closeModal(document.querySelector('.change-password-modal'))">Cancel</button>
+                <button type="submit" class="confirm-password-change">Enter</button>
+            </div>  
+        </div>
+    </form>
+</div>    
+<div class="delete-user-modal modal">
+    <form onsubmit="deleteUser(event)">
+        {% csrf_token %}
+        <div class="modal-content">
+            <p>Please enter your password to delete user: {{user}}</p>
+            <input type="password" name="password" id="password">
+            <div>
+                <button type="button" class="confirm-delete" onclick="closeModal(document.querySelector('.delete-user-modal'))">Cancel</button>
+                <button type="submit" class="cancel-delete">Delete</button>
+            </div>  
+        </div>
+    </form>
+</div>
+<div class="logout-modal modal">
+    <form onsubmit="logoutUser(event)">
+        {% csrf_token %}
+        <div class="modal-content">
+            <p>Logout?</p>
+            <div>
+                <button type="button" class="confirm-delete" onclick="closeModal(document.querySelector('.logout-modal'))">Cancel</button>
+                <button type="submit" class="cancel-delete">Logout</button>
+            </div>  
+        </div>
+    </form>
+</div>
 <!-- firstapp\templates\firstapp\navbar.html -->
 <nav class="navbar">
     <div class="first-nav-container">
@@ -38,9 +81,9 @@
             </g>
         </svg>
         <div class="profile-dropdown">
-            <a href="{% url 'accounts:logout' %}">Log out/Change user</a>
-            <a href="#">Change Password</a>
-            <a href="#">Delete User</a>
+            <a onclick="openLogoutModal()" href="#">Log out/Change user</a>
+            <a onclick="openChangePasswordModal()"href="#">Change Password</a>
+            <a onclick="openDeleteUserModal()"href="#">Delete User</a>
             
         </div>
     </div>

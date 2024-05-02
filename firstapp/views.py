@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout, authenticate, update_session_auth_hash
 from .models import Note,Folder
 from .forms import NoteForm
 from django.utils import timezone
@@ -8,7 +9,6 @@ import logging
 from copy import deepcopy
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-
 import json
 
 # Create your views here.
@@ -129,8 +129,63 @@ def create_note(request):
             note.save()
     else:
         form = NoteForm()
+############CODE FOR MODAL AJAX REQUEST GOES HERE#############################
 @login_required(login_url='accounts:login')
 def delete_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
     if request.method == 'POST':
         note.delete()
+@login_required(login_url='accounts:login')
+def logout_page(request):
+    logout(request)
+    return redirect('')
+@login_required(login_url='accounts:login')
+def delete_user(request):
+    if request.method == 'POST':
+        try:
+            post_data = json.loads(request.body)
+            password = post_data.get('password', '')
+            
+            user = authenticate(request, username=request.user.username, password=password)
+            if user is not None:
+                logout(request)
+                user.delete()
+                return redirect('/')  # Redirect to homepage after successful deletion
+            else:
+                # Return JsonResponse indicating authentication failure
+                return JsonResponse({'error': 'Authentication failed'}, satus=401)
+        except json.JSONDecodeError:
+            # Return JsonResponse for invalid JSON data
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        # Return JsonResponse for unsupported request method
+        return JsonResponse({'error': 'Method Not Allowed'}, status=405)
+    
+@login_required(login_url='accounts:login')
+def change_password(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        # Assuming you have a form with fields old_password, new_password, confirm_new_password
+        old_password = data.get('oldPassword')
+        new_password = data.get('newPassword')
+        confirm_new_password = data.get('confirmPassword')
+        # Check if the new passwords match
+        if new_password != confirm_new_password:
+            return JsonResponse({'error': 'New passwords do not match'}, status=400)
+        
+        # Check if the old password is correct
+        if not request.user.check_password(old_password):
+            return JsonResponse({'error': 'Incorrect old password'}, status=400)
+        
+        # Update the user's password
+        request.user.set_password(new_password)
+        request.user.save()
+        
+        # Update the session to reflect the new password
+        update_session_auth_hash(request, request.user)
+        
+        # Return a success response
+        return JsonResponse({'success': True})
+    
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

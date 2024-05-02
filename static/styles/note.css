@@ -50,7 +50,7 @@
     color: #a82245;
     font-size: 24px;
     cursor: pointer;
-    
+
 }
 .delete-icon {
     width:30px;
@@ -59,6 +59,9 @@
     margin-top:10px;
     margin-right:30px;
     display:none;
+}
+.delete-icon:hover {
+    fill: #8f0228;
 }
 /* Style the label for the checkbox into a pin icon */
 .pin-label {
@@ -414,7 +417,7 @@ input[type="checkbox"]:checked + .pin-icon {
     }
 }
 /*-----MODAL CODE GOES HERE--------*/
-/* Modal styles */
+/* DELETE NOTE MODAL */
 .delete-modal {
     display: none;
     position: absolute;
@@ -429,9 +432,9 @@ input[type="checkbox"]:checked + .pin-icon {
     align-items: center;
     padding: 20px;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
+
 }
-.modal-content {
+.delete-modal .modal-content {
     display:flex;
     justify-content: center;
     align-items: center;
@@ -445,7 +448,7 @@ input[type="checkbox"]:checked + .pin-icon {
     padding:0px 20px;
     padding-top: 20px;
 }
-.modal-content p {
+.delete-modal .modal-content p {
     color: #c6bcbc;
     margin:0;
     padding:0;
@@ -454,36 +457,26 @@ input[type="checkbox"]:checked + .pin-icon {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding:0px 15px;
 }
-.confirm-delete,
-.cancel-delete{
+.delete-modal .confirm-delete,
+.delete-modal .cancel-delete{
     border:none;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0);
     cursor:pointer;
     padding:20px 20px;
+    transition: 250ms ease-in-out;
 }
-.confirm-delete {
+.delete-modal .confirm-delete {
     color:#1fb179;
 }
-.cancel-delete {
+.delete-modal .cancel-delete {
     color:#db2d5b
 }
-.confirm-delete:hover {
+.delete-modal .confirm-delete:hover {
     color:#86c7ae;
+    transform: scale(1.2);
 }
-.cancel-delete:hover {
-    color:#d691a3
-}
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.delete-modal .cancel-delete:hover {
+    color:#d691a3;
+    transform: scale(1.2);
 }
