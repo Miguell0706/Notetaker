@@ -88,6 +88,15 @@ def update_note(request, pk):
             note.pinned = pinned
             note.folder = folder
             note.save()
+
+            note_data = {
+                'title': note.title,
+                'created': note.created,
+                'id':note.id,
+            }
+            return JsonResponse(note_data)  # Return note data as JSON response
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 @login_required(login_url='accounts:login')
 def create_note(request):
     if request.method == 'POST':
@@ -128,12 +137,18 @@ def create_note(request):
             note.save()
     else:
         form = NoteForm()
-############CODE FOR MODAL AJAX REQUEST GOES HERE#############################
+########################################################################################################CODE FOR MODAL AJAX REQUEST GOES HERE#############################
 @login_required(login_url='accounts:login')
 def delete_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
+    note_data = {
+        'id': note.pk,
+    }
     if request.method == 'POST':
         note.delete()
+        return JsonResponse(note_data)  # Return note data as JSON response
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 @login_required(login_url='accounts:login')
 def logout_page(request):
     logout(request)

@@ -155,11 +155,11 @@ noteForm.addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent form submission
   }
 });
-//CODE FOR VIEWING AND UPDATING AN EXISTING NOTE GOES HERE//
-small_note.forEach(container => {
-  container.addEventListener('click', function() {
+//=====================CODE FOR VIEWING NOTES GOES HERE (FUNCTIONS LIKE CLEARING INPUT DATA, CLOSING THE NOTE, COVERTING DATA FOR VIEWING)=====================//////
+function viewNote(container) {
+      console.log(container)
       // Get the note ID from the container's data attribute or any other appropriate source
-      const noteId = this.dataset.noteId; // Assuming you have a data attribute named "data-note-id" on each note container
+      const noteId = container.dataset.noteId; // Assuming you have a data attribute named "data-note-id" on each note container
 
       // Fetch note details
       fetch('/get_note/' + noteId + '/')
@@ -172,8 +172,7 @@ small_note.forEach(container => {
           .catch(error => {
               console.error('Error fetching note details:', error);
           });
-  });
-});
+  }
 
 // Function to update note and open with note details
 function updateNoteWithData(data) {
@@ -341,6 +340,15 @@ function updateNote() {
       'folder': document.querySelector('.note-folder-select').value
     }),
   })
+  .then(response => response.json()) // Parse the JSON response from the server
+  .then(data => {
+    // Assuming the server returns the deleted note's ID in the 'id' field of the JSON response
+    // Call another function and pass the deleted note's ID as a parameter
+    updateNoteUI(data);
+  })
+  .catch(error => {
+    console.error('Error deleting note:', error);
+  });
   closeNote();
 }
 //-------------------AJAX FOR MODALS---------------------//
@@ -352,6 +360,18 @@ function deleteNote() {
       'X-CSRFToken': csrftoken,
     },
   })
+  .then(response => response.json()) // Parse the JSON response from the server
+  .then(data => {
+    // Assuming the server returns the deleted note's ID in the 'id' field of the JSON response
+    const deletedNoteId = data.id;
+    
+    // Call another function and pass the deleted note's ID as a parameter
+    deleteNoteUI(deletedNoteId);
+  })
+  .catch(error => {
+    console.error('Error deleting note:', error);
+  });
+
   closeNote();
 }
 function changePassword(event) {
@@ -403,7 +423,6 @@ function changePassword(event) {
   closeModal(document.querySelector('.change-password-modal'))
 }
 function deleteUser() {
-  console.log('jere')
   const csrftoken = getCookie('csrftoken');
   fetch('delete_user', {
     method: 'POST',
@@ -458,3 +477,64 @@ function logoutUser() {
     }
   })
 }
+
+////////////////////-------------------UPDATE UI FIELDS UPON AJAX REQUEST GOES HERE-------------------////////////
+
+/////////////////////////CREATING NOTES FOR THE DASHBOARD AND FOLDER/////////////////
+function htmlNote(note){
+  const div = document.createElement('div');
+  div.classList.add('small-note');
+  div.setAttribute('data-note-id', note.id);
+  div.onclick = () => viewNote(div);
+  div.innerHTML = `
+    <p class="small-note-title">${note.title}</p>
+    <p class="small-note-date">${note.created}</p>
+  `;
+  return div
+
+}
+function updateUrgentNotes(note){
+ //append an html div into the update_soon div
+  const urgent_notes = document.querySelector('.urgent-notes');
+  const div = htmlNote(note)
+  urgent_notes.appendChild(div);
+}
+function updatePinnedNotes(note){
+  const pinned_notes = document.querySelector('.pinned-notes');
+  const div = htmlNote(note)
+  pinned_notes.appendChild(div);
+}
+function updateRecentNotes(note){
+  const recent_notes = document.querySelector('.recent-notes');
+  const div = htmlNote(note)
+  recent_notes.appendChild(div);
+}
+function updateFolderNotes(note){
+  const folder_notes = document.querySelector('.folder-notes');
+  const div = htmlNote(note)
+  folder_notes.appendChild(div);
+}
+function updateFolderPinned(note){
+  const folder_pinned_notes = document.querySelector('.folder-pinned-notes');
+  const div = htmlNote(note)
+  folder_pinned_notes.appendChild(div);
+}
+/////////////////DELETING NOTES AND UPDATING THE UI FIELDS HERE////////////////////
+function deleteNoteUI(note) {
+  console.log(note)
+  document.body.querySelectorAll("[data-note-id='" + note + "']").forEach(div => div.remove());
+}
+function updateNoteUI(note) {
+  function convertDatetoText(date) {
+    console.log(date)
+    const dateObj = new Date(date);
+    console.log(dateObj)
+    const options = { month: 'short', day: 'numeric', ordinal: 'numeric', year: 'numeric' };
+    console.log(dateObj.toLocaleString('en-US', options));
+    console.log(dateObj.toLocaleString());
+    return dateObj.toLocaleString('en-US', options);
+  }
+  note.created = convertDatetoText(note.created);
+  document.body.querySelectorAll("[data-note-id='" + note.id + "']").forEach(div => div.innerHTML = htmlNote(note).innerHTML);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
