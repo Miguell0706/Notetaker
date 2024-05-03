@@ -10,7 +10,6 @@ from copy import deepcopy
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 import json
-
 # Create your views here.
 #Render the dashboard page here
 @login_required(login_url='accounts:login')
@@ -138,19 +137,22 @@ def delete_note(request, pk):
 @login_required(login_url='accounts:login')
 def logout_page(request):
     logout(request)
-    return redirect('')
+    request.session.flush()
+    return redirect('accounts:login')
 @login_required(login_url='accounts:login')
 def delete_user(request):
     if request.method == 'POST':
         try:
             post_data = json.loads(request.body)
             password = post_data.get('password', '')
-            
+            print('here2s')
             user = authenticate(request, username=request.user.username, password=password)
             if user is not None:
                 logout(request)
+                request.session.flush()
                 user.delete()
-                return redirect('/')  # Redirect to homepage after successful deletion
+                redirect('accounts:login')  # Redirect to login page after successful deletion
+                return JsonResponse({'success': True})
             else:
                 # Return JsonResponse indicating authentication failure
                 return JsonResponse({'error': 'Authentication failed'}, satus=401)

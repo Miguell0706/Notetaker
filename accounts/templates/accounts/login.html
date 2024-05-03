@@ -183,7 +183,7 @@
           </div>
         </form>
       </div>
-      <p class="register-text">Don't have an account?<a href="{% url 'accounts:register' %}" class="register-link"> Register here</a></p>
+      <p class="register-text">Don't have an account?<a href="{% url 'accounts:register' %}" type="button" class="register-link"> Register here</a></p>
     {% else %}
       <div class="container">
         <h1>Register</h1>
@@ -346,7 +346,7 @@
           <p class='login-text'>You will be logged in automatically once pressing register</p>
         </form>
       </div>
-      <p class='register-text'>Already have an account?<a class ='login-link' href="{% url 'accounts:login' %}"> Log in here</a></p>
+      <p class='register-text'>Already have an account?<a type="button" class ='login-link' href="{% url 'accounts:login' %}"> Log in here</a></p>
     {% endif %}
     <script src="{% static 'scripts/login.js'%}"></script>
   </body>

@@ -359,6 +359,9 @@ function changePassword(event) {
   const csrftoken = getCookie('csrftoken');
   // Get form data
   const form = document.querySelector('.change-password-form');
+  oldPassword = form.querySelector('.oldPassword').value;
+  newPassword = form.querySelector('.newPassword').value;
+  confirmPassword = form.querySelector('.confirmPassword').value;
   // Make AJAX request
   fetch('change_password', {
       method: 'POST',
@@ -367,15 +370,15 @@ function changePassword(event) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        'oldPassword': form.querySelector('.oldPassword').value,
-        'newPassword': form.querySelector('.newPassword').value,
-        'confirmPassword': form.querySelector('.confirmPassword').value,
+        'oldPassword': oldPassword,
+        'newPassword': newPassword,
+        'confirmPassword': confirmPassword,
       }),
   })
   .then(response => {
     if (response.ok) {
         // Handle successful password change
-        alert('Password changed successfully');
+        alert(`Password changed successfully from ${oldPassword} to ${newPassword}`);
     } else {
         // Handle error response
         response.json().then(data => {
@@ -400,6 +403,7 @@ function changePassword(event) {
   closeModal(document.querySelector('.change-password-modal'))
 }
 function deleteUser() {
+  console.log('jere')
   const csrftoken = getCookie('csrftoken');
   fetch('delete_user', {
     method: 'POST',
@@ -409,7 +413,32 @@ function deleteUser() {
     },
     body: JSON.stringify({
       'password': document.querySelector('#password').value
-    }),
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+        // Handle successful password change
+        alert(`Account deleted successfully`);
+    } else {
+        // Handle error response
+        response.json().then(data => {
+            if (data && data.error) {
+                // Access the error message from the JSON response
+                const errorMessage = data.error;
+                alert('Failed to delete user: ' + errorMessage);
+                console.error('Failed to delete user:', errorMessage);
+            } else {
+                // Handle case when error message is not provided
+                alert('Failed to delete user');
+                console.error('Failed to delete user', response.statusText);
+            }
+        });
+    }
+  })
+  .catch(error => { 
+      alert('An error occurred while changing your password. Please try again later.');
+      // Handle network errors or other fetch-related errors
+      console.error('Fetch error:', error);
   })
   closeModal(document.querySelector('.delete-user-modal'));
 }
