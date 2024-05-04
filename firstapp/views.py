@@ -135,6 +135,20 @@ def create_note(request):
                 pinned=pinned,
             )
             note.save()
+            containers_to_update = []
+            if note.due_date:
+                current_date = timezone.now().date()
+                future_date = current_date + timedelta(days=2)
+                if note.due_date and current_date <= note.due_date <= future_date:
+                    containers_to_update.append('update_urgent')
+            if note.pinned:
+                containers_to_update.append('update_pinned')
+            return JsonResponse({
+                'containers_to_update': containers_to_update,
+                'id': note.id,
+                'title': note.title,
+                'created': note.created})
+
     else:
         form = NoteForm()
 ########################################################################################################CODE FOR MODAL AJAX REQUEST GOES HERE#############################
@@ -160,17 +174,13 @@ def delete_user(request):
         try:
             post_data = json.loads(request.body)
             password = post_data.get('password', '')
-            print('here2s')
             user = authenticate(request, username=request.user.username, password=password)
             if user is not None:
-                logout(request)
-                request.session.flush()
                 user.delete()
-                redirect('accounts:login')  # Redirect to login page after successful deletion
-                return JsonResponse({'success': True})
+                return JsonResponse({'success': True}, status=200)
             else:
                 # Return JsonResponse indicating authentication failure
-                return JsonResponse({'error': 'Authentication failed'}, satus=401)
+                return JsonResponse({'error': 'Incorrect password n shi'}, status=401)
         except json.JSONDecodeError:
             # Return JsonResponse for invalid JSON data
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)

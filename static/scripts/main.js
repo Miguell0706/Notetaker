@@ -157,7 +157,6 @@ noteForm.addEventListener("submit", function(event) {
 });
 //=====================CODE FOR VIEWING NOTES GOES HERE (FUNCTIONS LIKE CLEARING INPUT DATA, CLOSING THE NOTE, COVERTING DATA FOR VIEWING)=====================//////
 function viewNote(container) {
-      console.log(container)
       // Get the note ID from the container's data attribute or any other appropriate source
       const noteId = container.dataset.noteId; // Assuming you have a data attribute named "data-note-id" on each note container
 
@@ -320,6 +319,18 @@ function createNote() {
       'folder': document.querySelector('.note-folder-select').value
     }),
   })
+  .then(response => response.json()) // Parse the JSON response from the server
+  .then(data => {
+    console.log(data)
+    if (data && data.containers_to_update.includes('update_urgent')) {
+      updateUrgentNotes(data);
+    }
+    if (data && data.containers_to_update.includes('update_pinned')) {
+      console.log('herero')
+      updatePinnedtNotes(data);
+    }
+    updateRecentNotes(data);
+  })
   closeNote();
 }
 function updateNote() {
@@ -422,25 +433,30 @@ function changePassword(event) {
   });
   closeModal(document.querySelector('.change-password-modal'))
 }
-function deleteUser() {
+function deleteUser(event) {
+  event.preventDefault(); // Prevent default form submission behavior
+
   const csrftoken = getCookie('csrftoken');
   fetch('delete_user', {
-    method: 'POST',
-    headers: {
-      'X-CSRFToken': csrftoken,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      'password': document.querySelector('#password').value
-    })
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrftoken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'password': document.querySelector('#password').value
+      }),
   })
   .then(response => {
     if (response.ok) {
         // Handle successful password change
         alert(`Account deleted successfully`);
+        logoutUser();
+        console.log('attempting to log out now')
     } else {
         // Handle error response
         response.json().then(data => {
+            console.log(data)
             if (data && data.error) {
                 // Access the error message from the JSON response
                 const errorMessage = data.error;
@@ -455,13 +471,15 @@ function deleteUser() {
     }
   })
   .catch(error => { 
-      alert('An error occurred while changing your password. Please try again later.');
-      // Handle network errors or other fetch-related errors
-      console.error('Fetch error:', error);
-  })
+    alert('An error occurred while deleting the account. Please try again later.');
+    // Handle network errors or other fetch-related errors
+    console.error('Fetch error:', error);
+  });
   closeModal(document.querySelector('.delete-user-modal'));
 }
-function logoutUser() {
+function logoutUser(event) {
+  event.preventDefault(); // Prevent default form submission behavior
+
   const csrftoken = getCookie('csrftoken');
   fetch('logout', {
     method: 'POST',
@@ -491,49 +509,52 @@ function htmlNote(note){
     <p class="small-note-date">${note.created}</p>
   `;
   return div
-
+ewwwwwwwwwwwwwwwwwwwdffffffr
 }
 function updateUrgentNotes(note){
  //append an html div into the update_soon div
   const urgent_notes = document.querySelector('.urgent-notes');
+  note.created = convertDatetoText(note.created);
   const div = htmlNote(note)
-  urgent_notes.appendChild(div);
+  urgent_notes.prepend(div);
 }
-function updatePinnedNotes(note){
+function updatePinnedtNotes(note){
+  console.log('found function')
   const pinned_notes = document.querySelector('.pinned-notes');
+  note.created = convertDatetoText(note.created);
   const div = htmlNote(note)
-  pinned_notes.appendChild(div);
+  pinned_notes.prepend(div);
 }
 function updateRecentNotes(note){
   const recent_notes = document.querySelector('.recent-notes');
+  console.log(recent_notes)
+  note.created = convertDatetoText(note.created);
   const div = htmlNote(note)
-  recent_notes.appendChild(div);
+  console.log(div)
+  recent_notes.prepend(div);
 }
 function updateFolderNotes(note){
   const folder_notes = document.querySelector('.folder-notes');
+  note.created = convertDatetoText(note.created);
   const div = htmlNote(note)
-  folder_notes.appendChild(div);
+  folder_notes.prepend(div);
 }
 function updateFolderPinned(note){
   const folder_pinned_notes = document.querySelector('.folder-pinned-notes');
+  note.created = convertDatetoText(note.created);
   const div = htmlNote(note)
-  folder_pinned_notes.appendChild(div);
+  folder_pinned_notes.prepend(div);
 }
 /////////////////DELETING NOTES AND UPDATING THE UI FIELDS HERE////////////////////
 function deleteNoteUI(note) {
-  console.log(note)
   document.body.querySelectorAll("[data-note-id='" + note + "']").forEach(div => div.remove());
 }
+function convertDatetoText(date) {
+  const dateObj = new Date(date);
+  const options = { month: 'short', day: 'numeric', ordinal: 'numeric', year: 'numeric' };
+  return dateObj.toLocaleString('en-US', options);
+}
 function updateNoteUI(note) {
-  function convertDatetoText(date) {
-    console.log(date)
-    const dateObj = new Date(date);
-    console.log(dateObj)
-    const options = { month: 'short', day: 'numeric', ordinal: 'numeric', year: 'numeric' };
-    console.log(dateObj.toLocaleString('en-US', options));
-    console.log(dateObj.toLocaleString());
-    return dateObj.toLocaleString('en-US', options);
-  }
   note.created = convertDatetoText(note.created);
   document.body.querySelectorAll("[data-note-id='" + note.id + "']").forEach(div => div.innerHTML = htmlNote(note).innerHTML);
 }
