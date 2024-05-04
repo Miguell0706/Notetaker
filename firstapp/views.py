@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, update_session_auth_hash
 from .models import Note,Folder
-from .forms import NoteForm
+from .forms import NoteForm, FolderForm
 from django.utils import timezone
 from datetime import datetime, time,timedelta
 import logging
@@ -151,6 +151,19 @@ def create_note(request):
 
     else:
         form = NoteForm()
+def create_folder(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data,'==============================================================')
+        form = FolderForm(data)
+        if form.is_valid():
+            folder = form.save(commit=False)
+            folder.user = request.user
+            folder.save()
+            return JsonResponse({'id': folder.id, 'name': folder.name}, status=200)
+    else:
+        form = FolderForm()
+    
 ########################################################################################################CODE FOR MODAL AJAX REQUEST GOES HERE#############################
 @login_required(login_url='accounts:login')
 def delete_note(request, pk):
@@ -216,3 +229,25 @@ def change_password(request):
     
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+@login_required(login_url='accounts:login')
+def open_folder(request,id):
+    folder = Folder.objects.get(id=id)
+    all_notes = Note.objects.filter(user=request.user, folder=folder)
+    formatted_all_notes = []
+    for note in all_notes:
+        note = {
+            'title': note.title,
+            'created': note.created
+        }
+        formatted_all_notes.append(note)
+    pinned_notes = Note.objects.filter(user=request.user, folder=folder, pinned=True)
+    formatted_pinned_notes = []
+    for note in pinned_notes:
+        note = {
+            'title': note.title,
+            'created': note.created
+        }
+        formatted_pinned_notes.append(note)
+    context = {'all_notes':formatted_all_notes,'pinned_notes':formatted_pinned_notes}
+    print(context,'===================================================================================')
+    return JsonResponse(context)

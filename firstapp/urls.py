@@ -12,4 +12,6 @@ urlpatterns = [
     path('delete_user', views.delete_user, name='delete_user'),
     path('logout', views.logout_page, name='logout'),
     path('change_password', views.change_password, name='change_password'),
+    path('create_folder', views.create_folder, name='create_folder'),
+    path('open_folder/<int:id>/', views.open_folder, name='open_folder'),
 ]

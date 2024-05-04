@@ -101,16 +101,6 @@ function hideFolders() {
     folders_arrow.style.transform = 'rotate(0deg)';
   }
 }
-function switchFolderNotes(x) {
-  if (x === 1) {
-    folder_recent_notes.style.display = 'flex';
-    folder_pinned_notes.style.display = 'none';
-  }
-  else if  (x === 2) {
-    folder_pinned_notes.style.display = 'flex';
-    folder_recent_notes.style.display = 'none';
-  }
-}
 function openNote(){
   const note_container = document.querySelector('.note-container');
   if (!note_container.classList.contains('opened')) {
@@ -266,22 +256,19 @@ function openModal(modal) {
   modal.style.display = 'flex';
   addModalListener(modal); // Attach listener when opening modal
 }
-
+function openCreateFolderModal(event) {
+  const create_folder_modal = document.querySelector('.create-folder-modal');
+  if (create_folder_modal.style.display === 'flex') {
+    create_folder_modal.style.display = 'none';
+  }
+  else {
+    create_folder_modal.style.display = 'flex';
+  }
+}
 function closeModal(modal) {
   modal.style.display = 'none';
 }
 // Open modals
-function openLogoutModal() {
-  openModal(logout_modal);
-}
-
-function openChangePasswordModal() {
-  openModal(change_password_modal);
-}
-
-function openDeleteUserModal() {
-  openModal(delete_user_modal);
-}
 
 // Close modals
 function closeModals() {
@@ -301,6 +288,26 @@ function closeDeleteModal(){
 function getCookie(name) {
   const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
   return cookieValue ? cookieValue.pop() : '';
+}
+function createFolder(event) {
+  event.preventDefault(event);
+  const csrftoken = getCookie('csrftoken');
+  fetch('create_folder', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'name': document.querySelector('.folder-name-input').value
+    }),
+  })
+  .then(response => response.json()) // Parse the JSON response from the server
+  .then(data => {
+    
+    updateFolderList(data);
+    openCreateFolderModal()
+  })
 }
 function createNote() {
   const csrftoken = getCookie('csrftoken');
@@ -545,6 +552,41 @@ function updateFolderPinned(note){
   const div = htmlNote(note)
   folder_pinned_notes.prepend(div);
 }
+function updateFolderList(folder) {
+  const folderBoard = document.querySelector('.folder-board');
+  const anchorTag = document.createElement('a');
+  anchorTag.classList.add('folder-link');
+  anchorTag.textContent = folder.name;
+  folderBoard.prepend(anchorTag);
+  
+}
+function updateFolderAllNotes(notes){
+  const folder_recent_notes = document.querySelector('.folder-recent-notes');
+  for (let note of notes) {
+    note.created = convertDatetoText(note.created);
+    note = htmlNote(note);
+    folder_recent_notes.append(note)
+  }
+}
+function updateFolderPinnedNotes(notes){
+  const folder_pinned_notes = document.querySelector('.folder-pinned-notes');
+  folder_pinned_notes.innerHTML = ''
+  for (let note of notes) {
+    note.created = convertDatetoText(note.created);
+    note = htmlNote(note);
+    folder_pinned_notes.append(note);
+  }
+}
+function switchFolderNotes(x) {
+  if (x === 1) {
+    folder_recent_notes.style.display = 'flex';
+    folder_pinned_notes.style.display = 'none';
+  }
+  else if  (x === 2) {
+    folder_pinned_notes.style.display = 'flex';
+    folder_recent_notes.style.display = 'none';
+  }
+}
 /////////////////DELETING NOTES AND UPDATING THE UI FIELDS HERE////////////////////
 function deleteNoteUI(note) {
   document.body.querySelectorAll("[data-note-id='" + note + "']").forEach(div => div.remove());
@@ -559,3 +601,11 @@ function updateNoteUI(note) {
   document.body.querySelectorAll("[data-note-id='" + note.id + "']").forEach(div => div.innerHTML = htmlNote(note).innerHTML);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function openFolder(id) {
+  fetch('open_folder/' + id + '/')
+  .then(response => response.json())
+  .then(data => {
+    updateFolderAllNotes(data.all_notes);
+    updateFolderPinnedNotes(data.pinned_notes);
+  });
+}
