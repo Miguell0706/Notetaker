@@ -356,15 +356,27 @@ function createNote() {
   })
     .then((response) => response.json()) // Parse the JSON response from the server
     .then((data) => {
-      console.log(data);
-      if (data && data.containers_to_update.includes("update_urgent")) {
+      if (data && data.containers_to_update.includes("update_urgent") && document.body.querySelector('.urgent-notes')) {
         updateUrgentNotes(data);
       }
-      if (data && data.containers_to_update.includes("update_pinned")) {
-        console.log("herero");
+      if (data && data.containers_to_update.includes("update_pinned") && document.body.querySelector('.pinned-notes')) {
         updatePinnedtNotes(data);
       }
-      updateRecentNotes(data);
+
+      if (
+        data &&
+        data.folder &&
+        document.body.querySelector('.folder-recent-notes') &&
+        data.folder === document.querySelector(".folder-name").textContent
+      ) {
+        addFolderAllNotes(data);
+        if (data.pinned === true) {
+          addFolderPinnedNotes(data);
+        }
+      }
+      if (document.body.querySelector('.recent-notes')) {
+        updateRecentNotes(data);
+      }
     });
   closeNote();
 }
@@ -560,7 +572,6 @@ function updateUrgentNotes(note) {
   urgent_notes.prepend(div);
 }
 function updatePinnedtNotes(note) {
-  console.log("found function");
   const pinned_notes = document.querySelector(".pinned-notes");
   note.created = convertDatetoText(note.created);
   const div = htmlNote(note);
@@ -574,13 +585,15 @@ function updateRecentNotes(note) {
   console.log(div);
   recent_notes.prepend(div);
 }
-function updateFolderNotes(note) {
-  const folder_notes = document.querySelector(".folder-notes");
+function addFolderAllNotes(note) {
+  console.log(note)
+  const folder_notes = document.querySelector(".folder-recent-notes");
   note.created = convertDatetoText(note.created);
   const div = htmlNote(note);
   folder_notes.prepend(div);
 }
-function updateFolderPinned(note) {
+function addFolderPinnedNotes(note) {
+  console.log(note)
   const folder_pinned_notes = document.querySelector(".folder-pinned-notes");
   note.created = convertDatetoText(note.created);
   const div = htmlNote(note);
@@ -655,7 +668,7 @@ function openFolder(id) {
       updateFolderName(data.folder_name);
     });
 }
-function openDeleteFolderModal(id, name, modal,open_modal_button) {
+function openDeleteFolderModal(id, name, modal, open_modal_button) {
   console.log(id, name, modal);
   modal.style.display = "flex";
   modal.dataset.folderId = id;
@@ -670,21 +683,26 @@ function deleteFolder() {
       console.log(data);
       deleteFolderList(data);
       delete_folder_modal.style.display = "none";
-    })
+    });
 }
 function deleteFolderList(data) {
-  console.log(data,'--------------------')
+  console.log(data, "--------------------");
   var deletedFolderId = data.deletedFolderId;
   var folderContainers = document.querySelectorAll(".folder-container");
-  console.log(folderContainers)
-  folderContainers.forEach(function(folderContainer) {
-  // Get the data-folder-id attribute of the current folder container
+  console.log(folderContainers);
+  folderContainers.forEach(function (folderContainer) {
+    // Get the data-folder-id attribute of the current folder container
     var folderId = parseInt(folderContainer.dataset.folderId);
     // Check if the data-folder-id matches the deletedFolderId
     if (folderId === deletedFolderId) {
-      console.log('found folder to delete', folderId, deletedFolderId, folderContainer)
+      console.log(
+        "found folder to delete",
+        folderId,
+        deletedFolderId,
+        folderContainer
+      );
       // Remove the folder container from the DOM
       folderContainer.remove();
     }
-  })
+  });
 }

@@ -147,7 +147,9 @@ def create_note(request):
                 'id': note.id,
                 'title': note.title,
                 'created': note.created,
-                'due_date': note.due_date,})
+                'due_date': note.due_date,
+                'folder': note.folder.name if note.folder else None,
+                'pinned': note.pinned,})
 
     else:
         form = NoteForm()
