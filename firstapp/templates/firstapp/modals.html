@@ -50,7 +50,7 @@
         </div>
     </form>
 </div>
-<div class="create-folder-modal" >
+<div class="create-folder-modal modal" >
     <form onsubmit="createFolder(event)">
         {% csrf_token %}
         <p class="cancel-folder-create" onclick="openCreateFolderModal()">&#10005</p>
@@ -61,24 +61,26 @@
         </div>
     </form>
 </div>
-<div class="delete-folder-modal">
-    <form onsubmit="deleteFolder(event)">
-        {% csrf_token %}
-        <div class="modal-content">
-            <svg class="open-door" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 520.343 520.343"
-                xml:space="preserve">
-            <g>
-                <path d="M411.487,0H108.855C102.174,0,96.75,5.423,96.75,12.105v411.578c0,6.68,5.423,12.105,12.105,12.105
-                    c6.683,0,12.105-5.426,12.105-12.105V24.211h278.421v8.697l-127.105,92.279v395.155l127.791-92.781
-                    c1.631,4.764,6.1,8.222,11.42,8.222c6.679,0,12.104-5.42,12.104-12.105V12.1C423.592,5.417,418.166,0,411.487,0z M320.296,331.973
-                    c-5.704,0-10.462-7.046-11.691-16.485h-13.631v-10.592h13.825c1.448-8.86,6.012-15.38,11.497-15.38
-                    c6.632,0,12.005,9.498,12.005,21.231C332.307,322.468,326.928,331.973,320.296,331.973z"/>
-            </g>
-            <p>Logout?</p>
-            <div>
-                <button type="button" class="confirm-delete" onclick="closeModal(document.querySelector('.logout-modal'))">Cancel</button>
-                <button type="submit" class="cancel-delete">Logout</button>
-            </div>  
-        </div>
-    </form>
+<div class="delete-folder-modal modal">
+    <div class="modal-content">
+        <svg version="1.1" class="folder-trash-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 32 32" xml:space="preserve">
+            <style type="text/css">
+                .st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+                .st1{fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+            </style>
+            <line class="st0" x1="2" y1="18" x2="14" y2="18"/>
+            <path class="st0" d="M13,18v8c0,1.1-0.9,2-2,2H5c-1.1,0-2-0.9-2-2v-8"/>
+            <path class="st0" d="M6,18v-2c0-1.1,0.9-2,2-2h0c1.1,0,2,0.9,2,2v2"/>
+            <path class="st0" d="M13,27h14c1.1,0,2-0.9,2-2V11c0-1.1-0.9-2-2-2l-9.5,0"/>
+            <path class="st0" d="M28.5,26.3L17.5,9L15,5h-2.5H5C3.9,5,3,5.9,3,7v17"/>
+            <line class="st0" x1="6" y1="22" x2="6" y2="24"/>
+            <line class="st0" x1="10" y1="22" x2="10" y2="24"/>
+        </svg>
+        <p class="delete-folder-text"></p>
+        <div>
+            <button type="button" class="cancel-delete-folder" onclick="closeModal(document.querySelector('.delete-folder-modal'))">Cancel</button>
+            <button type="button" class="confirm-delete-folder" onclick="deleteFolder()">Delete</button>
+        </div>  
+    </div>
 </div>

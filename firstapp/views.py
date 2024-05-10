@@ -112,7 +112,6 @@ def create_note(request):
         folder = None
         if folder_id:
             folder = get_object_or_404(Folder, pk=folder_id)
-
         if form.is_valid():
             # Get the form data
             title = form.cleaned_data['title']
@@ -147,7 +146,8 @@ def create_note(request):
                 'containers_to_update': containers_to_update,
                 'id': note.id,
                 'title': note.title,
-                'created': note.created})
+                'created': note.created,
+                'due_date': note.due_date,})
 
     else:
         form = NoteForm()
@@ -234,20 +234,31 @@ def open_folder(request,id):
     folder = Folder.objects.get(id=id)
     all_notes = Note.objects.filter(user=request.user, folder=folder)
     formatted_all_notes = []
+    #organize the notes from newest to oldest
+    all_notes = all_notes.order_by('-created')
     for note in all_notes:
         note = {
             'title': note.title,
-            'created': note.created
+            'created': note.created,
+            'id': note.id
         }
         formatted_all_notes.append(note)
     pinned_notes = Note.objects.filter(user=request.user, folder=folder, pinned=True)
     formatted_pinned_notes = []
+    pinned_notes = pinned_notes.order_by('-created')
     for note in pinned_notes:
         note = {
             'title': note.title,
-            'created': note.created
+            'created': note.created,
+            'id': note.id
         }
         formatted_pinned_notes.append(note)
-    context = {'all_notes':formatted_all_notes,'pinned_notes':formatted_pinned_notes}
-    print(context,'===================================================================================')
+    folder_name = folder.name
+    context = {'all_notes':formatted_all_notes,'pinned_notes':formatted_pinned_notes,'folder_name':folder_name}
     return JsonResponse(context)
+@login_required(login_url='accounts:login')
+def delete_folder(request,id):
+    folder = Folder.objects.get(id=id)
+    print(folder)
+    folder.delete()
+    return JsonResponse({'success': True,'deletedFolderId':id})

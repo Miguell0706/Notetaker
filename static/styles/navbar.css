@@ -343,6 +343,7 @@
   font-weight: 700;
   font-size:1.3rem;
   overflow: hidden;
+  z-index: 1001;
 }
 /*---------- logout modal--------*/
 .logout-modal {
