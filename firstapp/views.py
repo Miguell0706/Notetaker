@@ -7,6 +7,7 @@ from django.utils import timezone
 from datetime import datetime, time,timedelta
 import logging
 from copy import deepcopy
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 import json
@@ -267,3 +268,31 @@ def delete_folder(request,id):
     print(folder)
     folder.delete()
     return JsonResponse({'success': True,'deletedFolderId':id})
+############################VIEW CODE FOR SEARCHING GOES HERE###################################################
+@login_required(login_url='accounts:login')
+def search_all(request, search_text=None):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Unauthorized'}, status=401)
+    
+    if search_text:
+        # Filter notes where the search_text is in the title or the text of the note
+        all_notes = Note.objects.filter(
+            Q(user=request.user) & 
+            (Q(title__icontains=search_text) | Q(text__icontains=search_text))
+        ).order_by('-created')
+    else:
+        # If search_text is empty, return all notes for the user
+        all_notes = Note.objects.filter(user=request.user).order_by('-created')
+    
+    # Format notes into a list of dictionaries
+    formatted_all_notes = [
+        {
+            'title': note.title,
+            'created': note.created,
+            'id': note.id
+        }
+        for note in all_notes
+    ]
+    
+    context = {'all_notes': formatted_all_notes}
+    return JsonResponse(context)

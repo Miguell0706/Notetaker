@@ -1,10 +1,13 @@
 {% extends './home.html' %}
 {% block content %}
     <main class="all-search-main">
-        <section class="all-search-section1">
-            <input class="search-input-all" type="text" name="search" id="search" placeholder="search all...">
-            <h2>Currently Searching for:<span class="currently-searching-span">Placeholder</span></h2>
-        </section>
+        <form class="search-all" action="" method="post"  autocomplete="off" >
+            {% csrf_token %}
+            <section class="all-search-section1">
+                <input class="search-input-all" type="text" name="search" id="search" placeholder="search notes...">
+                <h2>Currently Searching for:<span class="currently-searching-span">Placeholder</span></h2>
+            </section>
+        </form>
         <section class="all-search-section2">
             <h3>Search Results</h3>
             <div class="search-result-container">

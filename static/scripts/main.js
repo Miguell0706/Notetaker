@@ -705,3 +705,25 @@ function deleteFolderList(data) {
     }
   });
 }
+////////////////////------------------------SEARCHING RELATED CODE---------------------------/////////////////
+var all_search_form = document.querySelector('.search-all')
+var search_all_notes = document.querySelector('.search-result-container')
+var currently_searching = document.querySelector('.currently-searching-span')
+all_search_form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  var search = document.querySelector(".search-input-all").value;
+  currently_searching.textContent = search ? search : 'Searching All Notes...'; // Set 'all' if search is empty
+  fetch("search_all/" + search + "/")
+    .then((response) => response.json())
+    .then((data) => {
+      updateSearchNotes(data);
+    });
+})
+function updateSearchNotes(data) {
+  search_all_notes.innerHTML = "";
+  for (let note of data.all_notes) {
+    note.created = convertDatetoText(note.created);
+    note = htmlNote(note);
+    search_all_notes.append(note);
+  }
+}
