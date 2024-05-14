@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Folder(models.Model):
     user = models.ForeignKey(User, related_name='folders', on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

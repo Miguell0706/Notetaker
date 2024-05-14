@@ -22,7 +22,7 @@
         <a class='menu-links' href="#">CALENDER</a>
         <a class='menu-links' href="{% url '' %}">BOARD</a>
         <a class='menu-links' href="{% url 'folders' %}">FOLDERS</a>
-        <a class='menu-links' href="#">ALL</a>
+        <a class='menu-links' href="{% url 'all_search' %}">ALL</a>
     </div>
     <div class="greeting">
         <p>Welcome, {{user.username}} !</p>

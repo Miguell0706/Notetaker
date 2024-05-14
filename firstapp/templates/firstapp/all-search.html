@@ -1,0 +1,21 @@
+{% extends './home.html' %}
+{% block content %}
+    <main class="all-search-main">
+        <section class="all-search-section1">
+            <input class="search-input-all" type="text" name="search" id="search" placeholder="search all...">
+            <h2>Currently Searching for:<span class="currently-searching-span">Placeholder</span></h2>
+        </section>
+        <section class="all-search-section2">
+            <h3>Search Results</h3>
+            <div class="search-result-container">
+                {% for note in notes %}
+                <div class="small-note">
+                    <p class="small-note-title">{{note.title}}</p>
+                    <p class="small-note-date">{{note.created}}</p>
+                </div>
+                
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

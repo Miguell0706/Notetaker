@@ -333,6 +333,10 @@ function createFolder(event) {
   })
     .then((response) => response.json()) // Parse the JSON response from the server
     .then((data) => {
+      if (data.error){
+        alert('Cannot create a folder with the same name')
+        return;
+      }
       updateFolderList(data);
       openCreateFolderModal();
     });
@@ -602,7 +606,9 @@ function addFolderPinnedNotes(note) {
 function updateFolderList(folder) {
   const folderBoard = document.querySelector(".folder-board");
   const anchorTag = document.createElement("a");
+  console.log(folder)
   anchorTag.classList.add("folder-link");
+  anchorTag.setAttribute("onclick", `openFolder('${folder.id}')`);
   anchorTag.textContent = folder.name;
   folderBoard.prepend(anchorTag);
 }
@@ -689,18 +695,11 @@ function deleteFolderList(data) {
   console.log(data, "--------------------");
   var deletedFolderId = data.deletedFolderId;
   var folderContainers = document.querySelectorAll(".folder-container");
-  console.log(folderContainers);
   folderContainers.forEach(function (folderContainer) {
     // Get the data-folder-id attribute of the current folder container
     var folderId = parseInt(folderContainer.dataset.folderId);
     // Check if the data-folder-id matches the deletedFolderId
     if (folderId === deletedFolderId) {
-      console.log(
-        "found folder to delete",
-        folderId,
-        deletedFolderId,
-        folderContainer
-      );
       // Remove the folder container from the DOM
       folderContainer.remove();
     }

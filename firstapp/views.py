@@ -31,7 +31,9 @@ def folders(request):
     folders = request.user.folders.all()
     context = {'folders':folders}
     return render(request, 'firstapp/folders.html',context)
-
+@login_required(login_url='accounts:login')
+def all_search(request):
+    return render(request, 'firstapp/all-search.html')
 def convert_time_string(time_str):
     # Parse the time string into a datetime object
     time_obj = datetime.strptime(time_str, '%I:%M%p')
@@ -156,13 +158,14 @@ def create_note(request):
 def create_folder(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data,'==============================================================')
         form = FolderForm(data)
         if form.is_valid():
             folder = form.save(commit=False)
             folder.user = request.user
             folder.save()
             return JsonResponse({'id': folder.id, 'name': folder.name}, status=200)
+        else:
+            return JsonResponse({'error': 'Invalid form data'}, status=400)
     else:
         form = FolderForm()
     
