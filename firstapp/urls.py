@@ -18,4 +18,5 @@ urlpatterns = [
     path('delete_folder/<int:id>/', views.delete_folder, name='delete_folder'),
     path('search_all/<str:search_text>/', views.search_all, name='search_all'),
     path('search_all//', views.search_all, name='search_all'),
+    path('search_folder/', views.search_folder, name='search_folder'),
 ]

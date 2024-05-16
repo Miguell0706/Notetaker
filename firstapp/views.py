@@ -296,3 +296,22 @@ def search_all(request, search_text=None):
     
     context = {'all_notes': formatted_all_notes}
     return JsonResponse(context)
+def search_folder(request):
+    folder = request.GET.get('folder')
+    folder = Folder.objects.get(name=folder)
+    search_text = request.GET.get('search')
+    notes = Note.objects.filter(
+            Q(user=request.user) &
+            Q(folder=folder) & 
+            (Q(title__icontains=search_text) | Q(text__icontains=search_text))
+        ).order_by('-created')    
+    formatted_all_notes = [
+        {
+            'title': note.title,
+            'created': note.created,
+            'id': note.id
+        }
+        for note in notes
+    ]
+    print(formatted_all_notes)
+    return JsonResponse({'notes': formatted_all_notes})

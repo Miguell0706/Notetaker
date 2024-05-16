@@ -333,8 +333,8 @@ function createFolder(event) {
   })
     .then((response) => response.json()) // Parse the JSON response from the server
     .then((data) => {
-      if (data.error){
-        alert('Cannot create a folder with the same name')
+      if (data.error) {
+        alert("Cannot create a folder with the same name");
         return;
       }
       updateFolderList(data);
@@ -360,17 +360,25 @@ function createNote() {
   })
     .then((response) => response.json()) // Parse the JSON response from the server
     .then((data) => {
-      if (data && data.containers_to_update.includes("update_urgent") && document.body.querySelector('.urgent-notes')) {
+      if (
+        data &&
+        data.containers_to_update.includes("update_urgent") &&
+        document.body.querySelector(".urgent-notes")
+      ) {
         updateUrgentNotes(data);
       }
-      if (data && data.containers_to_update.includes("update_pinned") && document.body.querySelector('.pinned-notes')) {
+      if (
+        data &&
+        data.containers_to_update.includes("update_pinned") &&
+        document.body.querySelector(".pinned-notes")
+      ) {
         updatePinnedtNotes(data);
       }
 
       if (
         data &&
         data.folder &&
-        document.body.querySelector('.folder-recent-notes') &&
+        document.body.querySelector(".folder-recent-notes") &&
         data.folder === document.querySelector(".folder-name").textContent
       ) {
         addFolderAllNotes(data);
@@ -378,7 +386,7 @@ function createNote() {
           addFolderPinnedNotes(data);
         }
       }
-      if (document.body.querySelector('.recent-notes')) {
+      if (document.body.querySelector(".recent-notes")) {
         updateRecentNotes(data);
       }
     });
@@ -590,14 +598,14 @@ function updateRecentNotes(note) {
   recent_notes.prepend(div);
 }
 function addFolderAllNotes(note) {
-  console.log(note)
+  console.log(note);
   const folder_notes = document.querySelector(".folder-recent-notes");
   note.created = convertDatetoText(note.created);
   const div = htmlNote(note);
   folder_notes.prepend(div);
 }
 function addFolderPinnedNotes(note) {
-  console.log(note)
+  console.log(note);
   const folder_pinned_notes = document.querySelector(".folder-pinned-notes");
   note.created = convertDatetoText(note.created);
   const div = htmlNote(note);
@@ -606,7 +614,7 @@ function addFolderPinnedNotes(note) {
 function updateFolderList(folder) {
   const folderBoard = document.querySelector(".folder-board");
   const anchorTag = document.createElement("a");
-  console.log(folder)
+  console.log(folder);
   anchorTag.classList.add("folder-link");
   anchorTag.setAttribute("onclick", `openFolder('${folder.id}')`);
   anchorTag.textContent = folder.name;
@@ -706,24 +714,70 @@ function deleteFolderList(data) {
   });
 }
 ////////////////////------------------------SEARCHING RELATED CODE---------------------------/////////////////
-var all_search_form = document.querySelector('.search-all')
-var search_all_notes = document.querySelector('.search-result-container')
-var currently_searching = document.querySelector('.currently-searching-span')
-all_search_form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  var search = document.querySelector(".search-input-all").value;
-  currently_searching.textContent = search ? search : 'Searching All Notes...'; // Set 'all' if search is empty
-  fetch("search_all/" + search + "/")
-    .then((response) => response.json())
-    .then((data) => {
-      updateSearchNotes(data);
-    });
-})
+var all_search_form = document.querySelector(".search-all");
+var search_all_notes = document.querySelector(".search-result-container");
+var currently_searching = document.querySelector(".currently-searching-span");
+var folder_search_form = document.querySelector(".search-folder");
+var folder_name = document.querySelector(".folder-name");
+var currently_searching_folder = document.querySelector(
+  ".currently-searching-folder-span"
+);
+var folder_all_notes = document.querySelector(".folder-recent-notes");
+if (all_search_form) {
+  all_search_form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var search = document.querySelector(".search-input-all").value;
+    currently_searching.textContent = search
+      ? search
+      : "Searching All Notes..."; // Set 'all' if search is empty
+    fetch("search_all/" + search + "/")
+      .then((response) => response.json())
+      .then((data) => {
+        updateSearchNotes(data);
+      });
+  });
+}
+
 function updateSearchNotes(data) {
   search_all_notes.innerHTML = "";
   for (let note of data.all_notes) {
     note.created = convertDatetoText(note.created);
     note = htmlNote(note);
     search_all_notes.append(note);
+  }
+}
+if (folder_search_form) {
+  folder_search_form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var search = document.querySelector(".folder-search-input").value;
+    currently_searching_folder.textContent = search
+      ? search
+      : "Showing all notes in " + current_folder + " folder"; // Set 'all' if search is empty
+    current_folder = folder_name.textContent;
+    if (!current_folder) {
+      alert("Please select a folder to search in first");
+      return;
+    }
+    console.log(current_folder,search)
+    var url =
+      "search_folder/?folder=" +
+      encodeURIComponent(current_folder) +
+      "&search=" +
+      encodeURIComponent(search);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        updateFolderSearchNotes(data);
+      });
+  });
+}
+function updateFolderSearchNotes(notes) {
+  folder_all_notes.innerHTML = "";
+  console.log(notes)
+  for (let note of notes.notes) {
+    note.created = convertDatetoText(note.created);
+    note = htmlNote(note);
+    folder_all_notes.append(note);
   }
 }
