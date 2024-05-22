@@ -52,7 +52,7 @@
 .search-box {
   position: relative ;
 }
-.search-input {
+.search-input-dash {
   padding: .5rem;
   border-radius: 7px;
   border: 0;
@@ -223,7 +223,6 @@
   background-color: rgba(198, 70, 70, 0.2);
 }
 .small-note {
-  width: 150px;
   border: #a09b9b 3px solid;
   background-color: rgba(255, 255, 255);
   padding:3px;
@@ -233,7 +232,12 @@
   cursor:pointer;
   margin-right: 1rem;
   margin-bottom: 1rem;
-  min-width:150px;
+  width:130px;
+  min-width:130px;
+  max-width: 130px;
+  height:130px;
+  min-height: 130px;
+  max-height: 130px;
 }
 .small-note:hover{
   background-color: rgb(205, 199, 199);
@@ -282,6 +286,8 @@
     width:120px;
     min-width:120px;
     min-height:120px;
+    max-height: 120px;
+    max-width: 120px;
     height:120px;
   }
   .small-note-title{

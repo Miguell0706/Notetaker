@@ -722,7 +722,9 @@ var folder_name = document.querySelector(".folder-name");
 var currently_searching_folder = document.querySelector(
   ".currently-searching-folder-span"
 );
+var search_dash = document.querySelector(".search-dash");
 var folder_all_notes = document.querySelector(".folder-recent-notes");
+
 if (all_search_form) {
   all_search_form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -737,7 +739,22 @@ if (all_search_form) {
       });
   });
 }
-
+if (search_dash) {
+  search_dash.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var search = document.querySelector(".search-input-dash").value;
+    window.location.href = "all-search?search=" + encodeURIComponent(search);
+    console.log(search)
+    currently_searching.textContent = search
+      ? search
+      : "Searching All Notes..."; // Set 'all' if search is empty
+    fetch("search_all/" + search + "/")
+      .then((response) => response.json())
+      .then((data) => {
+        updateSearchNotes(data);
+      });
+  });
+}
 function updateSearchNotes(data) {
   search_all_notes.innerHTML = "";
   for (let note of data.all_notes) {
@@ -758,7 +775,7 @@ if (folder_search_form) {
       alert("Please select a folder to search in first");
       return;
     }
-    console.log(current_folder,search)
+    console.log(current_folder, search);
     var url =
       "search_folder/?folder=" +
       encodeURIComponent(current_folder) +
@@ -767,14 +784,14 @@ if (folder_search_form) {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         updateFolderSearchNotes(data);
       });
   });
 }
 function updateFolderSearchNotes(notes) {
   folder_all_notes.innerHTML = "";
-  console.log(notes)
+  console.log(notes);
   for (let note of notes.notes) {
     note.created = convertDatetoText(note.created);
     note = htmlNote(note);
