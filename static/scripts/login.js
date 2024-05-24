@@ -70,3 +70,4 @@ function showPassword3() {
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
   // change eyeclosed to dsiplay None and eyeopen to display block
 }
+
