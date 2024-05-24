@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+<<<<<<< HEAD
 
 # Load environment variables from .env file
 load_dotenv()
@@ -8,7 +9,14 @@ load_dotenv()
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 SECRET_KEY = os.getenv('SECRET_KEY')
+=======
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+>>>>>>> b86035e (google sign up made functional)
 
+load_dotenv(dotenv_path)
+
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,6 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
+=======
+SECRET_KEY = os.getenv('SECRET_KEY')
+>>>>>>> b86035e (google sign up made functional)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
