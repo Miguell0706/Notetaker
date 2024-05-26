@@ -91,7 +91,9 @@
     align-items: center;
   }
   .search-box {
+    width: 350px;
     margin-top: 1rem;
+    margin-right: 10rem;
   }
   .search-input {
     width: 100%;
@@ -99,7 +101,7 @@
     margin-top:1rem;
   }
   .search-icon{
-    right: 0;
+    right: -50px;
   }
 }
 /*****Code for second container starts here******/
