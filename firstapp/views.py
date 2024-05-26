@@ -38,7 +38,9 @@ def folders(request):
     return render(request, 'firstapp/folders.html',context)
 @login_required(login_url='accounts:login')
 def all_search(request):
-    return render(request, 'firstapp/all-search.html')
+    folders = request.user.folders.all()
+    context = {'folders':folders}
+    return render(request, 'firstapp/all-search.html',context)
 def convert_time_string(time_str):
     # Parse the time string into a datetime object
     time_obj = datetime.strptime(time_str, '%I:%M%p')

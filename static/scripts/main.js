@@ -614,11 +614,14 @@ function addFolderPinnedNotes(note) {
 function updateFolderList(folder) {
   const folderBoard = document.querySelector(".folder-board");
   const anchorTag = document.createElement("a");
-  console.log(folder);
   anchorTag.classList.add("folder-link");
   anchorTag.setAttribute("onclick", `openFolder('${folder.id}')`);
   anchorTag.textContent = folder.name;
   folderBoard.prepend(anchorTag);
+  option = document.createElement('option');
+  option.value = folder.id;
+  option.text = folder.name;
+  note_folder_select.appendChild(option);
 }
 function updateFolderAllNotes(notes) {
   const folder_recent_notes = document.querySelector(".folder-recent-notes");
