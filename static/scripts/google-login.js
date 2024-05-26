@@ -1,1 +1,0 @@
-document.querySelector('.form').submit()
