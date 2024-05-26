@@ -205,7 +205,7 @@ def delete_user(request):
                 return JsonResponse({'success': True}, status=200)
             else:
                 # Return JsonResponse indicating authentication failure
-                return JsonResponse({'error': 'Incorrect password n shi'}, status=401)
+                return JsonResponse({'error': 'Incorrect password'}, status=401)
         except json.JSONDecodeError:
             # Return JsonResponse for invalid JSON data
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
@@ -302,6 +302,8 @@ def search_all(request, search_text=None):
     
     context = {'all_notes': formatted_all_notes}
     return JsonResponse(context)
+def dash_to_all_search(request):
+    render
 def search_folder(request):
     folder = request.GET.get('folder')
     folder = Folder.objects.get(name=folder)

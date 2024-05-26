@@ -513,8 +513,7 @@ function deleteUser(event) {
       if (response.ok) {
         // Handle successful password change
         alert(`Account deleted successfully`);
-        logoutUser();
-        console.log("attempting to log out now");
+        window.location.reload();
       } else {
         // Handle error response
         response.json().then((data) => {
@@ -532,13 +531,6 @@ function deleteUser(event) {
         });
       }
     })
-    .catch((error) => {
-      alert(
-        "An error occurred while deleting the account. Please try again later."
-      );
-      // Handle network errors or other fetch-related errors
-      console.error("Fetch error:", error);
-    });
   closeModal(document.querySelector(".delete-user-modal"));
 }
 function logoutUser(event) {
