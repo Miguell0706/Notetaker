@@ -1,5 +1,8 @@
 {% extends './home.html' %}
 {% block content %}
+    {% if from_dash %}
+    <button class="from_dash_activate" onclick='fromDash()'>{{search_text}}</button>
+    {% endif %}
     <main class="all-search-main">
         <form class="search-all" action="" method="post"  autocomplete="off" >
             {% csrf_token %}

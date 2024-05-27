@@ -77,3 +77,6 @@
     height:max-content;
     flex-wrap: wrap;
 }
+.from_dash_activate {
+    display:none;
+}

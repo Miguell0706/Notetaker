@@ -508,29 +508,28 @@ function deleteUser(event) {
     body: JSON.stringify({
       password: document.querySelector("#password").value,
     }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        // Handle successful password change
-        alert(`Account deleted successfully`);
-        window.location.reload();
-      } else {
-        // Handle error response
-        response.json().then((data) => {
-          console.log(data);
-          if (data && data.error) {
-            // Access the error message from the JSON response
-            const errorMessage = data.error;
-            alert("Failed to delete user: " + errorMessage);
-            console.error("Failed to delete user:", errorMessage);
-          } else {
-            // Handle case when error message is not provided
-            alert("Failed to delete user");
-            console.error("Failed to delete user", response.statusText);
-          }
-        });
-      }
-    })
+  }).then((response) => {
+    if (response.ok) {
+      // Handle successful password change
+      alert(`Account deleted successfully`);
+      window.location.reload();
+    } else {
+      // Handle error response
+      response.json().then((data) => {
+        console.log(data);
+        if (data && data.error) {
+          // Access the error message from the JSON response
+          const errorMessage = data.error;
+          alert("Failed to delete user: " + errorMessage);
+          console.error("Failed to delete user:", errorMessage);
+        } else {
+          // Handle case when error message is not provided
+          alert("Failed to delete user");
+          console.error("Failed to delete user", response.statusText);
+        }
+      });
+    }
+  });
   closeModal(document.querySelector(".delete-user-modal"));
 }
 function logoutUser(event) {
@@ -610,7 +609,7 @@ function updateFolderList(folder) {
   anchorTag.setAttribute("onclick", `openFolder('${folder.id}')`);
   anchorTag.textContent = folder.name;
   folderBoard.prepend(anchorTag);
-  option = document.createElement('option');
+  option = document.createElement("option");
   option.value = folder.id;
   option.text = folder.name;
   note_folder_select.appendChild(option);
@@ -735,19 +734,13 @@ if (all_search_form) {
   });
 }
 if (search_dash) {
-  search_dash.addEventListener("submit", function (event) {
-    event.preventDefault();
-    var search = document.querySelector(".search-input-dash").value;
-    window.location.href = "all-search?search=" + encodeURIComponent(search);
-    console.log(search)
-    currently_searching.textContent = search
-      ? search
-      : "Searching All Notes..."; // Set 'all' if search is empty
-    fetch("search_all/" + search + "/")
-      .then((response) => response.json())
-      .then((data) => {
-        updateSearchNotes(data);
-      });
+  search_dash.addEventListener("submit", function(event) {
+      event.preventDefault();
+      var search = document.querySelector(".search-input-dash").value;
+      if (!search) {
+        search = ' '
+      }
+      window.location.href = "/search_all_from_dash/" + encodeURIComponent(search) + "/" ;
   });
 }
 function updateSearchNotes(data) {
@@ -792,4 +785,24 @@ function updateFolderSearchNotes(notes) {
     note = htmlNote(note);
     folder_all_notes.append(note);
   }
+}
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.body.contains(document.querySelector('.from_dash_activate'))) {
+    document.querySelector('.from_dash_activate').click()
+  };
+});
+function fromDash() {
+  search = document.querySelector('.from_dash_activate').textContent
+  if (search) {
+    currently_searching.textContent = search
+      ? search
+      : "Searching All Notes..."; // Set 'all' if search is empty
+    var url = "/search_all/" + encodeURIComponent(search) + "/";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        updateSearchNotes(data);
+      });
+  };
 }

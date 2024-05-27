@@ -37,7 +37,7 @@ def folders(request):
     context = {'folders':folders}
     return render(request, 'firstapp/folders.html',context)
 @login_required(login_url='accounts:login')
-def all_search(request):
+def all_search(request,search=''):
     folders = request.user.folders.all()
     context = {'folders':folders}
     return render(request, 'firstapp/all-search.html',context)
@@ -277,6 +277,7 @@ def delete_folder(request,id):
 ############################VIEW CODE FOR SEARCHING GOES HERE###################################################
 @login_required(login_url='accounts:login')
 def search_all(request, search_text=None):
+    print('here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11')
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
     
@@ -302,8 +303,14 @@ def search_all(request, search_text=None):
     
     context = {'all_notes': formatted_all_notes}
     return JsonResponse(context)
-def dash_to_all_search(request):
-    render
+@login_required(login_url='accounts:login')
+def search_all_from_dash(request, search_text=None):
+    folders = request.user.folders.all()
+    fromDash = True
+    searchText= search_text
+    context = {'folders':folders,'from_dash':fromDash,'search_text':searchText}
+    return render(request, 'firstapp/all-search.html',context) 
+@login_required(login_url='accounts:login')
 def search_folder(request):
     folder = request.GET.get('folder')
     folder = Folder.objects.get(name=folder)
@@ -321,25 +328,4 @@ def search_folder(request):
         }
         for note in notes
     ]
-    print(formatted_all_notes)
     return JsonResponse({'notes': formatted_all_notes})
-
-@csrf_exempt
-def auth_receiver(request):
-    """
-    Google calls this URL after the user has signed in with their Google account.
-    """
-    token = request.POST['credential']
-
-    try:
-        user_data = id_token.verify_oauth2_token(
-            token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
-        )
-    except ValueError:
-        return HttpResponse(status=403)
-
-    # In a real app, I'd also save any new user here to the database. See below for a real example I wrote for Photon Designer.
-    # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
-    request.session['user_data'] = user_data
-
-    return redirect('')

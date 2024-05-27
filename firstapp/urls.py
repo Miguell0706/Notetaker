@@ -17,7 +17,7 @@ urlpatterns = [
     path('open_folder/<int:id>/', views.open_folder, name='open_folder'),
     path('delete_folder/<int:id>/', views.delete_folder, name='delete_folder'),
     path('search_all/<str:search_text>/', views.search_all, name='search_all'),
+    path('search_all_from_dash/<str:search_text>/', views.search_all_from_dash, name='search_all_from_dash'),
     path('search_all//', views.search_all, name='search_all'),
     path('search_folder/', views.search_folder, name='search_folder'),
-    path('auth-receiver', views.auth_receiver , name='auth_receiver'),
 ]
