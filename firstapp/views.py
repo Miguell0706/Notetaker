@@ -307,6 +307,8 @@ def search_all(request, search_text=None):
 def search_all_from_dash(request, search_text=None):
     folders = request.user.folders.all()
     fromDash = True
+    if search_text == ' ':
+        search_text = None
     searchText= search_text
     context = {'folders':folders,'from_dash':fromDash,'search_text':searchText}
     return render(request, 'firstapp/all-search.html',context) 

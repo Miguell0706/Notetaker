@@ -726,7 +726,8 @@ if (all_search_form) {
     currently_searching.textContent = search
       ? search
       : "Searching All Notes..."; // Set 'all' if search is empty
-    fetch("search_all/" + search + "/")
+    var url = "/search_all/" + encodeURIComponent(search) + "/";
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         updateSearchNotes(data);
