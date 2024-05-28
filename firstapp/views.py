@@ -277,7 +277,6 @@ def delete_folder(request,id):
 ############################VIEW CODE FOR SEARCHING GOES HERE###################################################
 @login_required(login_url='accounts:login')
 def search_all(request, search_text=None):
-    print('here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11')
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
     
@@ -308,9 +307,9 @@ def search_all_from_dash(request, search_text=None):
     folders = request.user.folders.all()
     fromDash = True
     if search_text == ' ':
-        search_text = None
+        search_text = ''
     searchText= search_text
-    context = {'folders':folders,'from_dash':fromDash,'search_text':searchText}
+    context = {'folders':folders,'fromDash':fromDash, 'search_text':searchText}
     return render(request, 'firstapp/all-search.html',context) 
 @login_required(login_url='accounts:login')
 def search_folder(request):

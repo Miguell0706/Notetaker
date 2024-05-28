@@ -794,16 +794,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function fromDash() {
   search = document.querySelector('.from_dash_activate').textContent
-  if (search) {
-    currently_searching.textContent = search
-      ? search
-      : "Searching All Notes..."; // Set 'all' if search is empty
-    var url = "/search_all/" + encodeURIComponent(search) + "/";
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        updateSearchNotes(data);
-      });
-  };
+  currently_searching.textContent = search
+    ? search
+    : "Searching All Notes..."; // Set 'all' if search is empty
+  var url = "/search_all/" + encodeURIComponent(search) + "/";
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      updateSearchNotes(data);
+    });
+  
 }

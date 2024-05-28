@@ -10,20 +10,31 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def login_page(request):
-    login_page=True
+    login_page = True
+
     if request.user.is_authenticated:
-        return redirect('')
+        return redirect('')  # Redirect to the home page or any other page when the user is authenticated
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember')
+
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('')
-        messages.info(request, 'username or password is incorrect')
-        
-    context = {'login_page':login_page}
-    return render(request, 'accounts/login.html',context)
+            if not remember_me:
+                print('what=======================================================')
+                request.session.set_expiry(0)  # Session expires on browser close
+            else:
+                print('here=================================================')
+                request.session.set_expiry(1209600)  # Session expires in 2 weeks
+            return redirect('')  # Redirect to the home page or any other page after login
+        else:
+            messages.info(request, 'Username or password is incorrect')
+
+    context = {'login_page': login_page}
+    return render(request, 'accounts/login.html', context)
 def register_page(request):
     errors = None
     login_page=False
