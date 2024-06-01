@@ -409,3 +409,96 @@ body::after{
 .login-link:hover::after {
     width: 90px;
 }
+/* =============================================CODE FOR RESETTING PASSWORD TEMPLATES GOES HERE====================================*/
+
+/* password reset form*/
+.password-reset-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.password-reset-container h2 {
+    color:var(--white-color);
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+
+}
+.password-reset-container p {
+    color:white;
+    font-weight:700;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
+.password-reset-container form label {
+    color:var(--white-color);
+    font-size: 21px;
+    margin-top: 20px;
+
+}
+.password-reset-container form input{
+    display:block;
+    width:95%;
+    margin:auto;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    color:var(--white-color);
+    background-color: rgba(255, 255, 255,0);
+    border:none;
+    border-bottom: 3px solid rgb(2, 2, 2,.5);
+    transition: 0.5s;
+    outline: none;
+}
+.password-reset-container a {
+    text-decoration: none;
+    color:var(--white-color);
+    font-size: 16px;
+    transition: 250ms ease;
+}
+.password-reset-container a:hover {
+    color:rgb(230, 152, 230);
+
+}
+.password-reset-button {
+    display:inline-block;
+    height: 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255,0);
+    color:var(--white-color);
+    border:none;
+    border-bottom: 3px solid rgb(2, 2, 2,.5);
+    transition: 0.5s;
+    outline: none;
+    cursor: pointer;    
+    text-shadow: 2px 2px 0px black;
+    margin-inline: 60px;
+    margin-right:0px;
+    margin-top:20px;
+
+}
+.password-reset-button:hover,
+.password-reset-button:focus {
+    background-color: rgb(230, 152, 230,.5);
+    color:rgb(0, 0, 0);
+    text-shadow: none;
+}
+.password-reset-button:active{
+    background-color: rgb(230, 152, 230);
+    border-bottom: 3px solid rgb(230, 152, 230);
+    transform: translateY(-5px);
+
+}
+/*password reset done*/
+.password-reset-done-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
