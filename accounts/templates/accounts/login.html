@@ -1,355 +1,338 @@
-<!DOCTYPE html>
-{% load static %}
-{% load socialaccount %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'styles/login.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <title>Login/Register</title>
-  </head>
-  <body>
-    {% if login_page %}
-      <div class="container">
-        <div class="messages">
-          {% if messages %}
-            {% for message in messages %}
-              <p>{{ message }}</p>
-            {% endfor %}
-          {% endif %}
+{% extends './base.html' %}
+{% load static %} 
+{% load socialaccount %} 
+{% block content %}
+  {% if login_page %}
+  <div class="container">
+    <div class="messages">
+      {% if messages %} {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %} {% endif %}
+    </div>
+    <h1>Sign in</h1>
+    <p class="quote" id="quote"></p>
+    <form
+      class="login-form"
+      action="{% url 'login' %}"
+      method="POST"
+      autocomplete="off"
+    >
+      {% csrf_token %}
+      <div class="input_box">
+        <input
+          class="input_fields"
+          type="text"
+          name="username"
+          id="username"
+
+          required
+        />
+        <label for="username">Username/Email</label>
+      </div>
+      <div class="input_box">
+        <svg
+          class="eye eye-closed"
+          id="eye-closed"
+          onclick="showPassword()"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.4955 7.44088C3.54724 8.11787 2.77843 8.84176 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C13.2958 19 14.4799 18.8108 15.5523 18.4977L13.8895 16.8349C13.2936 16.9409 12.6638 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366C4.23754 10.2097 4.99526 9.50784 5.93214 8.87753L4.4955 7.44088Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M8.53299 11.4784C8.50756 11.6486 8.49439 11.8227 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5C12.1716 15.5 12.3458 15.4868 12.516 15.4614L8.53299 11.4784Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M15.4661 12.4471L11.5473 8.52829C11.6937 8.50962 11.8429 8.5 11.9944 8.5C13.9274 8.5 15.4944 10.067 15.4944 12C15.4944 12.1515 15.4848 12.3007 15.4661 12.4471Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M18.1118 15.0928C19.0284 14.4702 19.7715 13.7805 20.3413 13.1634C20.9657 12.4872 20.9657 11.5128 20.3413 10.8366C18.8117 9.18002 16.0331 7 12 7C11.3594 7 10.7505 7.05499 10.1732 7.15415L8.50483 5.48582C9.5621 5.1826 10.7272 5 12 5C16.8112 5 20.0833 7.60905 21.8107 9.47978C23.1426 10.9222 23.1426 13.0778 21.8107 14.5202C21.2305 15.1486 20.476 15.8603 19.5474 16.5284L18.1118 15.0928Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M2.00789 3.42207C1.61736 3.03155 1.61736 2.39838 2.00789 2.00786C2.39841 1.61733 3.03158 1.61733 3.4221 2.00786L22.0004 20.5862C22.391 20.9767 22.391 21.6099 22.0004 22.0004C21.6099 22.3909 20.9767 22.3909 20.5862 22.0004L2.00789 3.42207Z"
+            fill="#0F0F0F"
+          />
+        </svg>
+        <svg
+          class="eye eye-opened"
+          id="eye-open"
+          onclick="showPassword()"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M11.9944 15.5C13.9274 15.5 15.4944 13.933 15.4944 12C15.4944 10.067 13.9274 8.5 11.9944 8.5C10.0614 8.5 8.49439 10.067 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5ZM11.9944 13.4944C11.1691 13.4944 10.5 12.8253 10.5 12C10.5 11.1747 11.1691 10.5056 11.9944 10.5056C12.8197 10.5056 13.4888 11.1747 13.4888 12C13.4888 12.8253 12.8197 13.4944 11.9944 13.4944Z"
+            fill="#0F0F0F"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12 5C7.18879 5 3.9167 7.60905 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C16.8112 19 20.0833 16.391 21.8107 14.5202C23.1426 13.0778 23.1426 10.9222 21.8107 9.47978C20.0833 7.60905 16.8112 5 12 5ZM3.65868 10.8366C5.18832 9.18002 7.9669 7 12 7C16.0331 7 18.8117 9.18002 20.3413 10.8366C20.9657 11.5128 20.9657 12.4872 20.3413 13.1634C18.8117 14.82 16.0331 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366Z"
+            fill="#0F0F0F"
+          />
+        </svg>
+        <input
+          class="input_fields"
+          type="password"
+          name="password"
+          id="password"
+          required
+        />
+        <label for="password">Password</label>
+      </div>
+      <a class="forgot-password" href="{% url 'password_reset' %}">Forgot Password?</a>
+      <div class="remember-login">
+        <div>
+          <input
+            class="remember-box"
+            type="checkbox"
+            name="remember"
+            id="remember"
+          />
+          <p class="remember-me">Remember me</p>
         </div>
-        <h1>Sign in</h1>
-        <p class="quote" id="quote"></p>
-        <form class='login-form' action="{% url 'accounts:login' %}" method="POST" autocomplete="off">
-          {% csrf_token %}
-          <div class="input_box">
-            <input
-              class="input_fields"
-              type="text"
-              name="username"
-              id="username"
-              {% if form.is_bound %}
-              value="{{form.username}}"
-              {% endif %}
-              required
-            />
-            <label for="username">Username/Email</label>
-          </div>
-          <div class="input_box">
-            <svg
-              class="eye eye-closed"
-              id="eye-closed"
-              onclick="showPassword()"
-              width="20px"
-              height="20px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.4955 7.44088C3.54724 8.11787 2.77843 8.84176 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C13.2958 19 14.4799 18.8108 15.5523 18.4977L13.8895 16.8349C13.2936 16.9409 12.6638 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366C4.23754 10.2097 4.99526 9.50784 5.93214 8.87753L4.4955 7.44088Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M8.53299 11.4784C8.50756 11.6486 8.49439 11.8227 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5C12.1716 15.5 12.3458 15.4868 12.516 15.4614L8.53299 11.4784Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M15.4661 12.4471L11.5473 8.52829C11.6937 8.50962 11.8429 8.5 11.9944 8.5C13.9274 8.5 15.4944 10.067 15.4944 12C15.4944 12.1515 15.4848 12.3007 15.4661 12.4471Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M18.1118 15.0928C19.0284 14.4702 19.7715 13.7805 20.3413 13.1634C20.9657 12.4872 20.9657 11.5128 20.3413 10.8366C18.8117 9.18002 16.0331 7 12 7C11.3594 7 10.7505 7.05499 10.1732 7.15415L8.50483 5.48582C9.5621 5.1826 10.7272 5 12 5C16.8112 5 20.0833 7.60905 21.8107 9.47978C23.1426 10.9222 23.1426 13.0778 21.8107 14.5202C21.2305 15.1486 20.476 15.8603 19.5474 16.5284L18.1118 15.0928Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M2.00789 3.42207C1.61736 3.03155 1.61736 2.39838 2.00789 2.00786C2.39841 1.61733 3.03158 1.61733 3.4221 2.00786L22.0004 20.5862C22.391 20.9767 22.391 21.6099 22.0004 22.0004C21.6099 22.3909 20.9767 22.3909 20.5862 22.0004L2.00789 3.42207Z"
-                fill="#0F0F0F"
-              />
-            </svg>
-            <svg
-              class="eye eye-opened"
-              id="eye-open"
-              onclick="showPassword()"
-              width="20px"
-              height="20px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M11.9944 15.5C13.9274 15.5 15.4944 13.933 15.4944 12C15.4944 10.067 13.9274 8.5 11.9944 8.5C10.0614 8.5 8.49439 10.067 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5ZM11.9944 13.4944C11.1691 13.4944 10.5 12.8253 10.5 12C10.5 11.1747 11.1691 10.5056 11.9944 10.5056C12.8197 10.5056 13.4888 11.1747 13.4888 12C13.4888 12.8253 12.8197 13.4944 11.9944 13.4944Z"
-                fill="#0F0F0F"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M12 5C7.18879 5 3.9167 7.60905 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C16.8112 19 20.0833 16.391 21.8107 14.5202C23.1426 13.0778 23.1426 10.9222 21.8107 9.47978C20.0833 7.60905 16.8112 5 12 5ZM3.65868 10.8366C5.18832 9.18002 7.9669 7 12 7C16.0331 7 18.8117 9.18002 20.3413 10.8366C20.9657 11.5128 20.9657 12.4872 20.3413 13.1634C18.8117 14.82 16.0331 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366Z"
-                fill="#0F0F0F"
-              />
-            </svg>
-            <input
-              class="input_fields"
-              type="password"
-              name="password"
-              id="password"
-              {% if form.is_bound %}
-              value="{{form.password}}"
-              {% endif %}
-              required
-            />
-            <label for="password">Password</label>
-          </div>
-          <a class="forgot-password" href="#">Forgot Password?</a>
-          <div class="remember-login">
-            <div>
-              <input
-                class="remember-box"
-                type="checkbox"
-                name="remember"
-                id="remember"
-              />
-              <p class="remember-me">Remember me</p>
-            </div>
-            <input class="login-btn" type="submit" value="Login" />
-          </div>
-          <div class="flowers-or-container">
-            <img
-              src="{% static 'images/roses-intertwined.png' %}"
-              alt="flower"
-              class="flower flower-left"
-            />
-            <div>
-              <h3 class="or">OR</h3>
-              <p class="or-text">Log in with</p>
-            </div>
-            <img
-              src="{% static 'images/roses-intertwined.png' %}"
-              alt="flower"
-              class="flower flower-right"
-            />
-          </div>
-          <a href="{% provider_login_url 'google' next='/' %}" class="google-button" id="customGoogleButton">
-            <div class="google-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 186.69 190.5"
-                xmlns:v="https://vecta.io/nano"
-              >
-                <g transform="translate(1184.583 765.171)">
-                  <path
-                    clip-path="none"
-                    mask="none"
-                    d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z"
-                    fill="#4285f4"
-                  ></path>
-                  <path
-                    clip-path="none"
-                    mask="none"
-                    d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z"
-                    fill="#34a853"
-                  ></path>
-                  <path
-                    clip-path="none"
-                    mask="none"
-                    d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z"
-                    fill="#fbbc05"
-                  ></path>
-                  <path
-                    d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z"
-                    fill="#ea4335"
-                    clip-path="none"
-                    mask="none"
-                  ></path>
-                </g>
-              </svg>
-            </div>
-            <p class="google-text">Sign up with Google</p>
-          </a>
-        </form>
+        <input class="login-btn" type="submit" value="Login" />
       </div>
-      <p class="register-text">Don't have an account?<a href="{% url 'accounts:register' %}" type="button" class="register-link"> Register here</a></p>
-    {% else %}
-      <div class="container">
-        <h1>Register</h1>
-        <p class="error"></p>
-        <form action="{% url 'accounts:register' %}" method="POST" autocomplete="off">
-          {% csrf_token %}
-          <div class="input_box">
-            <input
-              class="input_fields"
-              type="text"
-              name="username"
-              id="username"
-              {% if form.is_bound %}
-              value="{{form.username}}"
-              {% endif %}
-              required
-            />
-            <label for="username">Username/Email</label>
-          </div>
-          <div class="input_box">
-            <svg
-            class="eye eye-closed"
-            id="eye-closed2"
-            onclick="showPassword2()"
-            width="20px"
-            height="20px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.4955 7.44088C3.54724 8.11787 2.77843 8.84176 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C13.2958 19 14.4799 18.8108 15.5523 18.4977L13.8895 16.8349C13.2936 16.9409 12.6638 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366C4.23754 10.2097 4.99526 9.50784 5.93214 8.87753L4.4955 7.44088Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M8.53299 11.4784C8.50756 11.6486 8.49439 11.8227 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5C12.1716 15.5 12.3458 15.4868 12.516 15.4614L8.53299 11.4784Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M15.4661 12.4471L11.5473 8.52829C11.6937 8.50962 11.8429 8.5 11.9944 8.5C13.9274 8.5 15.4944 10.067 15.4944 12C15.4944 12.1515 15.4848 12.3007 15.4661 12.4471Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M18.1118 15.0928C19.0284 14.4702 19.7715 13.7805 20.3413 13.1634C20.9657 12.4872 20.9657 11.5128 20.3413 10.8366C18.8117 9.18002 16.0331 7 12 7C11.3594 7 10.7505 7.05499 10.1732 7.15415L8.50483 5.48582C9.5621 5.1826 10.7272 5 12 5C16.8112 5 20.0833 7.60905 21.8107 9.47978C23.1426 10.9222 23.1426 13.0778 21.8107 14.5202C21.2305 15.1486 20.476 15.8603 19.5474 16.5284L18.1118 15.0928Z"
-                fill="#0F0F0F"
-              />
-              <path
-                d="M2.00789 3.42207C1.61736 3.03155 1.61736 2.39838 2.00789 2.00786C2.39841 1.61733 3.03158 1.61733 3.4221 2.00786L22.0004 20.5862C22.391 20.9767 22.391 21.6099 22.0004 22.0004C21.6099 22.3909 20.9767 22.3909 20.5862 22.0004L2.00789 3.42207Z"
-                fill="#0F0F0F"
-              />
-            </svg>
-          <svg
-            class="eye eye-opened"
-            id="eye-open2"
-            onclick="showPassword2()"
-            width="20px"
-            height="20px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M11.9944 15.5C13.9274 15.5 15.4944 13.933 15.4944 12C15.4944 10.067 13.9274 8.5 11.9944 8.5C10.0614 8.5 8.49439 10.067 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5ZM11.9944 13.4944C11.1691 13.4944 10.5 12.8253 10.5 12C10.5 11.1747 11.1691 10.5056 11.9944 10.5056C12.8197 10.5056 13.4888 11.1747 13.4888 12C13.4888 12.8253 12.8197 13.4944 11.9944 13.4944Z"
-              fill="#0F0F0F"
-            />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M12 5C7.18879 5 3.9167 7.60905 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C16.8112 19 20.0833 16.391 21.8107 14.5202C23.1426 13.0778 23.1426 10.9222 21.8107 9.47978C20.0833 7.60905 16.8112 5 12 5ZM3.65868 10.8366C5.18832 9.18002 7.9669 7 12 7C16.0331 7 18.8117 9.18002 20.3413 10.8366C20.9657 11.5128 20.9657 12.4872 20.3413 13.1634C18.8117 14.82 16.0331 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366Z"
-              fill="#0F0F0F"
-            />
-          </svg>
-            <input
-              class="input_fields"
-              type="password"
-              name="password1"
-              id="password1"
-              {% if form.is_bound %}
-              value="{{form.password1}}"
-              {% endif %}
-              required
-            />
-            <label for="password1">Password</label>
-          </div>
-          <div class="input_box">
-            <svg
-            class="eye eye-closed"
-            id="eye-closed3"
-            onclick="showPassword3()"
-            width="20px"
-            height="20px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            >
-            <path
-              d="M4.4955 7.44088C3.54724 8.11787 2.77843 8.84176 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C13.2958 19 14.4799 18.8108 15.5523 18.4977L13.8895 16.8349C13.2936 16.9409 12.6638 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366C4.23754 10.2097 4.99526 9.50784 5.93214 8.87753L4.4955 7.44088Z"
-              fill="#0F0F0F"
-            />
-            <path
-              d="M8.53299 11.4784C8.50756 11.6486 8.49439 11.8227 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5C12.1716 15.5 12.3458 15.4868 12.516 15.4614L8.53299 11.4784Z"
-              fill="#0F0F0F"
-            />
-            <path
-              d="M15.4661 12.4471L11.5473 8.52829C11.6937 8.50962 11.8429 8.5 11.9944 8.5C13.9274 8.5 15.4944 10.067 15.4944 12C15.4944 12.1515 15.4848 12.3007 15.4661 12.4471Z"
-              fill="#0F0F0F"
-            />
-            <path
-              d="M18.1118 15.0928C19.0284 14.4702 19.7715 13.7805 20.3413 13.1634C20.9657 12.4872 20.9657 11.5128 20.3413 10.8366C18.8117 9.18002 16.0331 7 12 7C11.3594 7 10.7505 7.05499 10.1732 7.15415L8.50483 5.48582C9.5621 5.1826 10.7272 5 12 5C16.8112 5 20.0833 7.60905 21.8107 9.47978C23.1426 10.9222 23.1426 13.0778 21.8107 14.5202C21.2305 15.1486 20.476 15.8603 19.5474 16.5284L18.1118 15.0928Z"
-              fill="#0F0F0F"
-            />
-            <path
-              d="M2.00789 3.42207C1.61736 3.03155 1.61736 2.39838 2.00789 2.00786C2.39841 1.61733 3.03158 1.61733 3.4221 2.00786L22.0004 20.5862C22.391 20.9767 22.391 21.6099 22.0004 22.0004C21.6099 22.3909 20.9767 22.3909 20.5862 22.0004L2.00789 3.42207Z"
-              fill="#0F0F0F"
-            />
-          </svg>
-          <svg
-            class="eye eye-opened"
-            id="eye-open3"
-            onclick="showPassword3()"
-            width="20px"
-            height="20px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M11.9944 15.5C13.9274 15.5 15.4944 13.933 15.4944 12C15.4944 10.067 13.9274 8.5 11.9944 8.5C10.0614 8.5 8.49439 10.067 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5ZM11.9944 13.4944C11.1691 13.4944 10.5 12.8253 10.5 12C10.5 11.1747 11.1691 10.5056 11.9944 10.5056C12.8197 10.5056 13.4888 11.1747 13.4888 12C13.4888 12.8253 12.8197 13.4944 11.9944 13.4944Z"
-              fill="#0F0F0F"
-            />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M12 5C7.18879 5 3.9167 7.60905 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C16.8112 19 20.0833 16.391 21.8107 14.5202C23.1426 13.0778 23.1426 10.9222 21.8107 9.47978C20.0833 7.60905 16.8112 5 12 5ZM3.65868 10.8366C5.18832 9.18002 7.9669 7 12 7C16.0331 7 18.8117 9.18002 20.3413 10.8366C20.9657 11.5128 20.9657 12.4872 20.3413 13.1634C18.8117 14.82 16.0331 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366Z"
-              fill="#0F0F0F"
-            />
-          </svg>
-            <input
-              class="input_fields"
-              type="password"
-              name="password2"
-              id="password2"
-              {% if form.is_bound %}
-              value="{{form.password2}}"
-              {% endif %}
-              required
-            />
-            <label for="password2">Confirm Password</label>
-          </div>
-          <input class="register-btn" type="submit" value="Register" />
-          <div class='error_container'>
-            {% if errors %}
-              {{ errors }}
-            {% endif %}
-          </div>
-          <p class='login-text'>You will be logged in automatically once pressing register</p>
-        </form>
+      <div class="flowers-or-container">
+        <img
+          src="{% static 'images/roses-intertwined.png' %}"
+          alt="flower"
+          class="flower flower-left"
+        />
+        <div>
+          <h3 class="or">OR</h3>
+          <p class="or-text">Log in with</p>
+        </div>
+        <img
+          src="{% static 'images/roses-intertwined.png' %}"
+          alt="flower"
+          class="flower flower-right"
+        />
       </div>
-      <p class='register-text'>Already have an account?<a type="button" class ='login-link' href="{% url 'accounts:login' %}"> Log in here</a></p>
-    {% endif %}
-    <script src="{% static 'scripts/login.js'%}"></script>
-  </body>
-</html>
+      <a
+        href="{% provider_login_url 'google' next='/' %}"
+        class="google-button"
+        id="customGoogleButton"
+      >
+        <div class="google-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 186.69 190.5"
+            xmlns:v="https://vecta.io/nano"
+          >
+            <g transform="translate(1184.583 765.171)">
+              <path
+                clip-path="none"
+                mask="none"
+                d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z"
+                fill="#4285f4"
+              ></path>
+              <path
+                clip-path="none"
+                mask="none"
+                d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z"
+                fill="#34a853"
+              ></path>
+              <path
+                clip-path="none"
+                mask="none"
+                d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z"
+                fill="#fbbc05"
+              ></path>
+              <path
+                d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z"
+                fill="#ea4335"
+                clip-path="none"
+                mask="none"
+              ></path>
+            </g>
+          </svg>
+        </div>
+        <p class="google-text">Sign up with Google</p>
+      </a>
+    </form>
+  </div>
+  <p class="register-text">
+    Don't have an account?<a
+      href="{% url 'register' %}"
+      type="button"
+      class="register-link"
+    >
+      Register here</a
+    >
+  </p>
+  {% else %}
+  <div class="container">
+    <h1>Register</h1>
+    <p class="error"></p>
+    <form action="{% url 'register' %}" method="POST" autocomplete="off">
+      {% csrf_token %}
+      <div class="input_box">
+        <input
+          class="input_fields"
+          type="text"
+          name="username"
+          id="username"
+          required
+        />
+        <label for="username">Username/Email</label>
+      </div>
+      <div class="input_box">
+        <svg
+          class="eye eye-closed"
+          id="eye-closed2"
+          onclick="showPassword2()"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.4955 7.44088C3.54724 8.11787 2.77843 8.84176 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C13.2958 19 14.4799 18.8108 15.5523 18.4977L13.8895 16.8349C13.2936 16.9409 12.6638 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366C4.23754 10.2097 4.99526 9.50784 5.93214 8.87753L4.4955 7.44088Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M8.53299 11.4784C8.50756 11.6486 8.49439 11.8227 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5C12.1716 15.5 12.3458 15.4868 12.516 15.4614L8.53299 11.4784Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M15.4661 12.4471L11.5473 8.52829C11.6937 8.50962 11.8429 8.5 11.9944 8.5C13.9274 8.5 15.4944 10.067 15.4944 12C15.4944 12.1515 15.4848 12.3007 15.4661 12.4471Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M18.1118 15.0928C19.0284 14.4702 19.7715 13.7805 20.3413 13.1634C20.9657 12.4872 20.9657 11.5128 20.3413 10.8366C18.8117 9.18002 16.0331 7 12 7C11.3594 7 10.7505 7.05499 10.1732 7.15415L8.50483 5.48582C9.5621 5.1826 10.7272 5 12 5C16.8112 5 20.0833 7.60905 21.8107 9.47978C23.1426 10.9222 23.1426 13.0778 21.8107 14.5202C21.2305 15.1486 20.476 15.8603 19.5474 16.5284L18.1118 15.0928Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M2.00789 3.42207C1.61736 3.03155 1.61736 2.39838 2.00789 2.00786C2.39841 1.61733 3.03158 1.61733 3.4221 2.00786L22.0004 20.5862C22.391 20.9767 22.391 21.6099 22.0004 22.0004C21.6099 22.3909 20.9767 22.3909 20.5862 22.0004L2.00789 3.42207Z"
+            fill="#0F0F0F"
+          />
+        </svg>
+        <svg
+          class="eye eye-opened"
+          id="eye-open2"
+          onclick="showPassword2()"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M11.9944 15.5C13.9274 15.5 15.4944 13.933 15.4944 12C15.4944 10.067 13.9274 8.5 11.9944 8.5C10.0614 8.5 8.49439 10.067 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5ZM11.9944 13.4944C11.1691 13.4944 10.5 12.8253 10.5 12C10.5 11.1747 11.1691 10.5056 11.9944 10.5056C12.8197 10.5056 13.4888 11.1747 13.4888 12C13.4888 12.8253 12.8197 13.4944 11.9944 13.4944Z"
+            fill="#0F0F0F"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12 5C7.18879 5 3.9167 7.60905 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C16.8112 19 20.0833 16.391 21.8107 14.5202C23.1426 13.0778 23.1426 10.9222 21.8107 9.47978C20.0833 7.60905 16.8112 5 12 5ZM3.65868 10.8366C5.18832 9.18002 7.9669 7 12 7C16.0331 7 18.8117 9.18002 20.3413 10.8366C20.9657 11.5128 20.9657 12.4872 20.3413 13.1634C18.8117 14.82 16.0331 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366Z"
+            fill="#0F0F0F"
+          />
+        </svg>
+        <input
+          class="input_fields"
+          type="password"
+          name="password1"
+          id="password1"
+          required
+        />
+        <label for="password1">Password</label>
+      </div>
+      <div class="input_box">
+        <svg
+          class="eye eye-closed"
+          id="eye-closed3"
+          onclick="showPassword3()"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.4955 7.44088C3.54724 8.11787 2.77843 8.84176 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C13.2958 19 14.4799 18.8108 15.5523 18.4977L13.8895 16.8349C13.2936 16.9409 12.6638 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366C4.23754 10.2097 4.99526 9.50784 5.93214 8.87753L4.4955 7.44088Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M8.53299 11.4784C8.50756 11.6486 8.49439 11.8227 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5C12.1716 15.5 12.3458 15.4868 12.516 15.4614L8.53299 11.4784Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M15.4661 12.4471L11.5473 8.52829C11.6937 8.50962 11.8429 8.5 11.9944 8.5C13.9274 8.5 15.4944 10.067 15.4944 12C15.4944 12.1515 15.4848 12.3007 15.4661 12.4471Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M18.1118 15.0928C19.0284 14.4702 19.7715 13.7805 20.3413 13.1634C20.9657 12.4872 20.9657 11.5128 20.3413 10.8366C18.8117 9.18002 16.0331 7 12 7C11.3594 7 10.7505 7.05499 10.1732 7.15415L8.50483 5.48582C9.5621 5.1826 10.7272 5 12 5C16.8112 5 20.0833 7.60905 21.8107 9.47978C23.1426 10.9222 23.1426 13.0778 21.8107 14.5202C21.2305 15.1486 20.476 15.8603 19.5474 16.5284L18.1118 15.0928Z"
+            fill="#0F0F0F"
+          />
+          <path
+            d="M2.00789 3.42207C1.61736 3.03155 1.61736 2.39838 2.00789 2.00786C2.39841 1.61733 3.03158 1.61733 3.4221 2.00786L22.0004 20.5862C22.391 20.9767 22.391 21.6099 22.0004 22.0004C21.6099 22.3909 20.9767 22.3909 20.5862 22.0004L2.00789 3.42207Z"
+            fill="#0F0F0F"
+          />
+        </svg>
+        <svg
+          class="eye eye-opened"
+          id="eye-open3"
+          onclick="showPassword3()"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M11.9944 15.5C13.9274 15.5 15.4944 13.933 15.4944 12C15.4944 10.067 13.9274 8.5 11.9944 8.5C10.0614 8.5 8.49439 10.067 8.49439 12C8.49439 13.933 10.0614 15.5 11.9944 15.5ZM11.9944 13.4944C11.1691 13.4944 10.5 12.8253 10.5 12C10.5 11.1747 11.1691 10.5056 11.9944 10.5056C12.8197 10.5056 13.4888 11.1747 13.4888 12C13.4888 12.8253 12.8197 13.4944 11.9944 13.4944Z"
+            fill="#0F0F0F"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12 5C7.18879 5 3.9167 7.60905 2.1893 9.47978C0.857392 10.9222 0.857393 13.0778 2.1893 14.5202C3.9167 16.391 7.18879 19 12 19C16.8112 19 20.0833 16.391 21.8107 14.5202C23.1426 13.0778 23.1426 10.9222 21.8107 9.47978C20.0833 7.60905 16.8112 5 12 5ZM3.65868 10.8366C5.18832 9.18002 7.9669 7 12 7C16.0331 7 18.8117 9.18002 20.3413 10.8366C20.9657 11.5128 20.9657 12.4872 20.3413 13.1634C18.8117 14.82 16.0331 17 12 17C7.9669 17 5.18832 14.82 3.65868 13.1634C3.03426 12.4872 3.03426 11.5128 3.65868 10.8366Z"
+            fill="#0F0F0F"
+          />
+        </svg>
+        <input
+          class="input_fields"
+          type="password"
+          name="password2"
+          id="password2"
+          required
+        />
+        <label for="password2">Confirm Password</label>
+      </div>
+      <input class="register-btn" type="submit" value="Register" />
+      <div class="error_container">{% if errors %} {{ errors }} {% endif %}</div>
+      <p class="login-text">
+        You will be logged in automatically once pressing register
+      </p>
+    </form>
+  </div>
+  <p class="register-text">
+    Already have an account?<a
+      type="button"
+      class="login-link"
+      href="{% url 'login' %}"
+    >
+      Log in here</a
+    >
+  </p>
+  {% endif %} 
+{% endblock %}

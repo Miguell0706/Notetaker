@@ -24,10 +24,8 @@ def login_page(request):
         if user is not None:
             login(request, user)
             if not remember_me:
-                print('what=======================================================')
                 request.session.set_expiry(0)  # Session expires on browser close
             else:
-                print('here=================================================')
                 request.session.set_expiry(1209600)  # Session expires in 2 weeks
             return redirect('')  # Redirect to the home page or any other page after login
         else:

@@ -17,7 +17,7 @@ import os
 import json
 # Create your views here.
 #Render the dashboard page here
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def home(request):
     folders = request.user.folders.all()
     current_date = timezone.now().date()
@@ -27,16 +27,16 @@ def home(request):
     recent_notes = request.user.notes.order_by('-created')
     context = {'folders':folders,'urgent_notes':urgent_notes,'pinned_notes':pinned_notes,'recent_notes':recent_notes}
     if request.user.is_authenticated == False:
-        return redirect('accounts:login')
+        return redirect('accounts/login')
     return render(request, 'firstapp/dashboard.html', context)
 
 
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def folders(request):
     folders = request.user.folders.all()
     context = {'folders':folders}
     return render(request, 'firstapp/folders.html',context)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def all_search(request,search=''):
     folders = request.user.folders.all()
     context = {'folders':folders}
@@ -49,7 +49,7 @@ def convert_time_string(time_str):
     formatted_time = time_obj.strftime('%H:%M:%S')
 
     return formatted_time
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def get_note(request, note_id):
     try:
         note = Note.objects.get(pk=note_id)
@@ -66,7 +66,7 @@ def get_note(request, note_id):
         return JsonResponse(note_data)
     except Note.DoesNotExist:
         return JsonResponse({'error': 'Note not found'}, status=404)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def update_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
 
@@ -106,7 +106,7 @@ def update_note(request, pk):
             return JsonResponse(note_data)  # Return note data as JSON response
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def create_note(request):
     if request.method == 'POST':
         post_data = deepcopy(json.loads(request.body))
@@ -177,7 +177,7 @@ def create_folder(request):
         form = FolderForm()
     
 ########################################################################################################CODE FOR MODAL AJAX REQUEST GOES HERE#############################
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def delete_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
     note_data = {
@@ -188,12 +188,12 @@ def delete_note(request, pk):
         return JsonResponse(note_data)  # Return note data as JSON response
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def logout_page(request):
     logout(request)
     request.session.flush()
-    return redirect('accounts:login')
-@login_required(login_url='accounts:login')
+    return redirect('accounts/login')
+@login_required(login_url='accounts/login')
 def delete_user(request):
     if request.method == 'POST':
         try:
@@ -213,7 +213,7 @@ def delete_user(request):
         # Return JsonResponse for unsupported request method
         return JsonResponse({'error': 'Method Not Allowed'}, status=405)
     
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def change_password(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -241,7 +241,7 @@ def change_password(request):
     
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def open_folder(request,id):
     folder = Folder.objects.get(id=id)
     all_notes = Note.objects.filter(user=request.user, folder=folder)
@@ -268,14 +268,14 @@ def open_folder(request,id):
     folder_name = folder.name
     context = {'all_notes':formatted_all_notes,'pinned_notes':formatted_pinned_notes,'folder_name':folder_name}
     return JsonResponse(context)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def delete_folder(request,id):
     folder = Folder.objects.get(id=id)
     print(folder)
     folder.delete()
     return JsonResponse({'success': True,'deletedFolderId':id})
 ############################VIEW CODE FOR SEARCHING GOES HERE###################################################
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def search_all(request, search_text=None):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
@@ -302,7 +302,7 @@ def search_all(request, search_text=None):
     
     context = {'all_notes': formatted_all_notes}
     return JsonResponse(context)
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def search_all_from_dash(request, search_text=None):
     folders = request.user.folders.all()
     fromDash = True
@@ -311,7 +311,7 @@ def search_all_from_dash(request, search_text=None):
     searchText= search_text
     context = {'folders':folders,'fromDash':fromDash, 'search_text':searchText}
     return render(request, 'firstapp/all-search.html',context) 
-@login_required(login_url='accounts:login')
+@login_required(login_url='accounts/login')
 def search_folder(request):
     folder = request.GET.get('folder')
     folder = Folder.objects.get(name=folder)
