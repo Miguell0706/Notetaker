@@ -70,4 +70,34 @@ function showPassword3() {
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
   // change eyeclosed to dsiplay None and eyeopen to display block
 }
+function showPasswordReset1() {
+  var passwordInput = document.getElementById("passwordReset1");
+  var eyeOpen = document.getElementById("eye-openReset1");
+  var eyeClosed = document.getElementById("eye-closedReset1");
+  // Toggle the input type between 'password' and 'text'
+  if (passwordInput.type === "password") {
+    eyeOpen.style.display = "block";
+    eyeClosed.style.display = "none";
+  } else {
+    eyeOpen.style.display = "none";
+    eyeClosed.style.display = "block";
+  }
+  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+  // change eyeclosed to dsiplay None and eyeopen to display block
+}
+function showPasswordReset2() {
+  var passwordInput = document.getElementById("passwordReset2");
+  var eyeOpen = document.getElementById("eye-openReset2");
+  var eyeClosed = document.getElementById("eye-closedReset2");
+  // Toggle the input type between 'password' and 'text'
+  if (passwordInput.type === "password") {
+    eyeOpen.style.display = "block";
+    eyeClosed.style.display = "none";
+  } else {
+    eyeOpen.style.display = "none";
+    eyeClosed.style.display = "block";
+  }
+  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+  // change eyeclosed to dsiplay None and eyeopen to display block
+}
 

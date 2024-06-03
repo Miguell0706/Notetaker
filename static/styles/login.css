@@ -187,6 +187,7 @@ body::after{
     width:5rem;
     text-shadow: 2px 2px 0px black;
     margin-inline: 40px;
+    padding: 5px;
 
 }
 .login-btn:hover,
@@ -411,7 +412,7 @@ body::after{
 }
 /* =============================================CODE FOR RESETTING PASSWORD TEMPLATES GOES HERE====================================*/
 
-/* password reset form*/
+/*============================================CODE FOR password reset form*/
 .password-reset-container{
     display: flex;
     flex-direction: column;
@@ -493,7 +494,7 @@ body::after{
     transform: translateY(-5px);
 
 }
-/*password reset done*/
+/*============================================password reset done*/
 .password-reset-done-container {
     display: flex;
     flex-direction: column;
@@ -525,7 +526,7 @@ body::after{
 .password-reset-done-container div a:hover {
     color:rgb(230, 152, 230);
 }
-/* Password recent complete */
+/* ===========================================Password recent complete */
 .password-reset-complete {
     display: flex;
     flex-direction: column;
@@ -556,4 +557,69 @@ body::after{
 .password-reset-complete p a:hover {
     color:rgb(255, 255, 255);
     transition: 250ms ease;
+}
+/*============================================Password reset confirm*/
+.password-reset-confirm h2 {
+    color:var(--white-color);
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    font-weight: 700;
+}
+.password-reset-confirm div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 55px 10px;
+    position: relative;
+}
+.password-reset-confirm div .eye {
+    right:40px;
+}
+.password-reset-confirm div label {
+    color:var(--white-color);
+    font-weight: 700;
+    font-size: 20px;
+    margin-right: 20px;
+}
+.password-reset-confirm div input {
+    margin:auto;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    color:var(--white-color);
+    background-color: rgba(255, 255, 255,0);
+    border:none;
+    border-bottom: 3px solid rgb(2, 2, 2,.5);
+    transition: 0.5s;
+    margin-right: 40px;
+    outline: none;
+}
+.password-reset-confirm button {
+    display:inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255,0);
+    color:var(--white-color);
+    border:none;
+    border-bottom: 3px solid rgb(2, 2, 2,.5);
+    transition: 0.5s;
+    outline: none;
+    cursor: pointer;    
+    text-shadow: 2px 2px 0px black;
+    margin-inline: 31%;
+    padding: 10px 5px;
+
+}
+.password-reset-confirm button:hover,
+.password-reset-confirm button:focus {
+    background-color: rgb(230, 152, 230,.5);
+    color:rgb(0, 0, 0);
+    text-shadow: none;
+}
+.password-reset-confirm button:active{
+    background-color: rgb(230, 152, 230);
+    border-bottom: 3px solid rgb(230, 152, 230);
+    transform: translateY(-5px);
+
 }
