@@ -502,3 +502,58 @@ body::after{
     width: 100%;
 
 }
+.password-reset-done-container p {
+    color:white;
+    font-weight:700;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
+.password-reset-done-container h2 {
+    color:var(--white-color);
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+.password-reset-done-container div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.password-reset-done-container div a {
+    margin:40px;
+    transition: 250ms ease;
+}
+.password-reset-done-container div a:hover {
+    color:rgb(230, 152, 230);
+}
+/* Password recent complete */
+.password-reset-complete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.password-reset-complete h2 {
+    color:var(--white-color);
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.password-reset-complete p {
+    color:white;
+    font-weight:700;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.password-reset-complete p a {
+    text-decoration: none;
+    color:rgb(230, 152, 230);
+    font-size: 22px;
+    transition: 250ms ease;
+    padding:5px;
+}
+.password-reset-complete p a:hover {
+    color:rgb(255, 255, 255);
+    transition: 250ms ease;
+}
