@@ -44,11 +44,11 @@ def register_page(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(request, username=username, password=password)
+            email = form.cleaned_data['email']
+            user = authenticate(request, username=username, password=password,email=email)
             login(request, user)
             return redirect('')
         errors = form.errors
-        print(errors)
     form = RegistrationForm()
     context = {'login_page':login_page,'form': form,'errors':errors}
     return render(request, 'accounts/login.html',context)

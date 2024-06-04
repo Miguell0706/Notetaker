@@ -13,6 +13,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 import os
 import json
 # Create your views here.
@@ -241,6 +244,34 @@ def change_password(request):
     
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+@login_required
+def add_email(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+            
+            # Validate email format
+            try:
+                validate_email(email)
+            except ValidationError:
+                return JsonResponse({'error': 'Invalid email format'}, status=400)
+            
+            # Check if the email already exists for the user
+            email = email.lower()
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({'error': 'Email already exists'}, status=400)
+            if email and email != request.user.email:
+                request.user.email = email
+                request.user.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'error': 'Email already exists or is the same as current email'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 @login_required(login_url='accounts/login')
 def open_folder(request,id):
     folder = Folder.objects.get(id=id)

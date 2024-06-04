@@ -20,4 +20,5 @@ urlpatterns = [
     path('search_all_from_dash/<str:search_text>/', views.search_all_from_dash, name='search_all_from_dash'),
     path('search_all//', views.search_all, name='search_all'),
     path('search_folder/', views.search_folder, name='search_folder'),
+    path('add_email', views.add_email, name='add_email'),
 ]

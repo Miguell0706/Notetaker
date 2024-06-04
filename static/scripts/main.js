@@ -265,7 +265,7 @@ function convertToTimeInputFormat(timeString) {
 const logout_modal = document.querySelector(".logout-modal");
 const change_password_modal = document.querySelector(".change-password-modal");
 const delete_user_modal = document.querySelector(".delete-user-modal");
-
+const email_modal = document.querySelector(".email-modal");
 function clickOutsideModalHandler(modal) {
   document.addEventListener("click", function (event) {
     if (
@@ -303,6 +303,7 @@ function closeModals() {
   closeModal(logout_modal);
   closeModal(change_password_modal);
   closeModal(delete_user_modal);
+  closeModal(email_modal)
 }
 //Code for delete node modal//
 function openDeleteModal() {
@@ -546,6 +547,38 @@ function logoutUser(event) {
     if (response.ok) {
       // Redirect to the login page after successful logout
       window.location.href = "/accounts/login"; // Replace '/accounts/login' with your actual login page URL
+    }
+  });
+}
+function addEmail(event) {
+  event.preventDefault();
+  const csrftoken = getCookie("csrftoken");
+  fetch("add_email", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({
+      email: document.querySelector(".email").value,
+    }),
+  }).then((response) => {
+    if (response.ok) {
+      closeModal(document.querySelector(".email-modal"));
+    }
+    else {
+      // Handle error response
+      response.json().then((data) => {
+        if (data && data.error) {
+          // Access the error message from the JSON response
+          const errorMessage = data.error;
+          alert("Failed to add email: " + errorMessage);
+          console.error("Failed to add email:", errorMessage);
+        } else {
+          // Handle case when error message is not provided
+          alert("Failed to add email");
+          console.error("Failed to add email:", response.statusText);
+        }
+      });
     }
   });
 }

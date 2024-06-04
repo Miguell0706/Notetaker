@@ -50,6 +50,22 @@
         </div>
     </form>
 </div>
+<div class="email-modal modal">
+    <form onsubmit="addEmail(event)">
+        {% csrf_token %}
+        <div class="modal-content">
+            <form class="email-form">
+                {% csrf_token %}
+                <p>Enter your email below for password recovery</p>
+                <input type="email" name="email" id="email" class="email">
+                <div>
+                    <button type="button" class="confirm-delete" onclick="closeModal(document.querySelector('.email-modal'))">Cancel</button>
+                    <button type="submit" class="cancel-delete">Submit</button>
+                </div>  
+            </form>                
+        </div>
+    </form>
+</div>
 <div class="create-folder-modal modal" >
     <form onsubmit="createFolder(event)">
         {% csrf_token %}
