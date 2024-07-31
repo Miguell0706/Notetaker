@@ -15,7 +15,9 @@ const note_container = document.querySelector(".note-container");
 const urgent_notes_container = document.querySelector(".urgent-notes");
 const note_folder_arrow = document.querySelector(".note-folder-arrow");
 const note_folder_select = document.querySelector(".note-folder-select");
-const selected_folder_display = document.querySelector(".selected-folder-display");
+const selected_folder_display = document.querySelector(
+  ".selected-folder-display"
+);
 const cancel_note = document.querySelector(".note-cancel");
 const small_note = document.querySelectorAll(".small-note");
 const noteForm = document.querySelector(".note-form");
@@ -26,22 +28,36 @@ const create_folder_button = document.querySelector(".create-folder-button");
 const folder_delete_buttons = document.querySelectorAll(".folder-delete");
 const delete_folder_modal = document.querySelector(".delete-folder-modal");
 const delete_folder_text = document.querySelector(".delete-folder-text");
+const moon = document.querySelector(".moon");
+const sun = document.querySelector(".sun");
+const profile_dropdown_links = document.querySelectorAll(".profile-dropdown-link"); 
 /*This code is for setting up all the class changes for dark mode and keeping them in local storage*/
 const toggleDarkMode = () => {
   darkModeCheckbox.checked = localStorage.getItem("darkMode") === "true";
- if (darkModeCheckbox.checked) {
-   bodyElement.classList.add("body-dark-mode");
-   menu_container.classList.add("menu-container-dark");
-   profile_dropdown.classList.add("profile-dropdown-dark");
-   create_note_button.classList.add("create-note-button-dark");
- }
- else {
-   bodyElement.classList.remove("body-dark-mode");
-   menu_container.classList.remove("menu-container-dark");
-   profile_dropdown.classList.remove("profile-dropdown-dark");
-   create_note_button.classList.remove("create-note-button-dark");
- }
-}
+  if (darkModeCheckbox.checked) {
+    console.log("Dark mode is on",moon,sun);
+    bodyElement.classList.add("body-dark-mode");
+    menu_container.classList.add("menu-container-dark");
+    profile_dropdown.classList.add("profile-dropdown-dark");
+    create_note_button.classList.add("create-note-button-dark");
+    moon.classList.add("moon-dark");
+    sun.classList.add("sun-dark");
+    profile_dropdown_links.forEach((profile_dropdown_link) => {
+      profile_dropdown_link.classList.add("profile-dropdown-link-dark");
+    });
+  } else {
+    console.log("Dark mode is off",moon,sun);
+    bodyElement.classList.remove("body-dark-mode");
+    menu_container.classList.remove("menu-container-dark");
+    profile_dropdown.classList.remove("profile-dropdown-dark");
+    create_note_button.classList.remove("create-note-button-dark");
+    moon.classList.remove("moon-dark");
+    sun.classList.remove("sun-dark");
+    profile_dropdown_links.forEach((profile_dropdown_link) => {
+      profile_dropdown_link.classList.remove("profile-dropdown-link-dark");
+    });
+  }
+};
 darkModeCheckbox.addEventListener("change", function () {
   if (darkModeCheckbox.checked) {
     localStorage.setItem("darkMode", "true");
@@ -59,7 +75,6 @@ window.addEventListener("click", function (event) {
     profile_dropdown.classList.contains("opened")
   ) {
     profile_dropdown.classList.remove("opened");
-
   }
 
   if (
@@ -113,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   if (localStorage.getItem("darkMode") === "true") {
     darkModeCheckbox.checked = true;
-    
   }
   if (localStorage.getItem("darkMode") === "false") {
     darkModeCheckbox.checked = false;
@@ -311,7 +325,7 @@ function closeModals() {
   closeModal(logout_modal);
   closeModal(change_password_modal);
   closeModal(delete_user_modal);
-  closeModal(email_modal)
+  closeModal(email_modal);
 }
 //Code for delete node modal//
 function openDeleteModal() {
@@ -572,8 +586,7 @@ function addEmail(event) {
   }).then((response) => {
     if (response.ok) {
       closeModal(document.querySelector(".email-modal"));
-    }
-    else {
+    } else {
       // Handle error response
       response.json().then((data) => {
         if (data && data.error) {
@@ -776,13 +789,14 @@ if (all_search_form) {
   });
 }
 if (search_dash) {
-  search_dash.addEventListener("submit", function(event) {
-      event.preventDefault();
-      var search = document.querySelector(".search-input-dash").value;
-      if (!search) {
-        search = ' '
-      }
-      window.location.href = "/search_all_from_dash/" + encodeURIComponent(search) + "/" ;
+  search_dash.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var search = document.querySelector(".search-input-dash").value;
+    if (!search) {
+      search = " ";
+    }
+    window.location.href =
+      "/search_all_from_dash/" + encodeURIComponent(search) + "/";
   });
 }
 function updateSearchNotes(data) {
@@ -829,21 +843,18 @@ function updateFolderSearchNotes(notes) {
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.body.contains(document.querySelector('.from_dash_activate'))) {
-    document.querySelector('.from_dash_activate').click()
-  };
+  if (document.body.contains(document.querySelector(".from_dash_activate"))) {
+    document.querySelector(".from_dash_activate").click();
+  }
 });
 function fromDash() {
-  search = document.querySelector('.from_dash_activate').textContent
-  currently_searching.textContent = search
-    ? search
-    : "Searching All Notes..."; // Set 'all' if search is empty
+  search = document.querySelector(".from_dash_activate").textContent;
+  currently_searching.textContent = search ? search : "Searching All Notes..."; // Set 'all' if search is empty
   var url = "/search_all/" + encodeURIComponent(search) + "/";
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
+      console.log(data);
       updateSearchNotes(data);
     });
-  
 }
