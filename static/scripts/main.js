@@ -15,9 +15,7 @@ const note_container = document.querySelector(".note-container");
 const urgent_notes_container = document.querySelector(".urgent-notes");
 const note_folder_arrow = document.querySelector(".note-folder-arrow");
 const note_folder_select = document.querySelector(".note-folder-select");
-const selected_folder_display = document.querySelector(
-  ".selected-folder-display"
-);
+const selected_folder_display = document.querySelector(".selected-folder-display");
 const cancel_note = document.querySelector(".note-cancel");
 const small_note = document.querySelectorAll(".small-note");
 const noteForm = document.querySelector(".note-form");
@@ -28,28 +26,31 @@ const create_folder_button = document.querySelector(".create-folder-button");
 const folder_delete_buttons = document.querySelectorAll(".folder-delete");
 const delete_folder_modal = document.querySelector(".delete-folder-modal");
 const delete_folder_text = document.querySelector(".delete-folder-text");
-/*This code is for setting up all the class changes for dark mode */
+/*This code is for setting up all the class changes for dark mode and keeping them in local storage*/
+const toggleDarkMode = () => {
+  darkModeCheckbox.checked = localStorage.getItem("darkMode") === "true";
+ if (darkModeCheckbox.checked) {
+   bodyElement.classList.add("body-dark-mode");
+   menu_container.classList.add("menu-container-dark");
+   profile_dropdown.classList.add("profile-dropdown-dark");
+   create_note_button.classList.add("create-note-button-dark");
+ }
+ else {
+   bodyElement.classList.remove("body-dark-mode");
+   menu_container.classList.remove("menu-container-dark");
+   profile_dropdown.classList.remove("profile-dropdown-dark");
+   create_note_button.classList.remove("create-note-button-dark");
+ }
+}
 darkModeCheckbox.addEventListener("change", function () {
-  // Toggle dark mode class on the body
-  bodyElement.classList.toggle("body-dark-mode", darkModeCheckbox.checked);
-
-  // Toggle dark mode class on the menu container
-  menu_container.classList.toggle(
-    "menu-container-dark",
-    darkModeCheckbox.checked
-  );
-  //Toggledark mode class on the profile dropdown
-  profile_dropdown.classList.toggle(
-    "profile-dropdown-dark",
-    darkModeCheckbox.checked
-  );
-
-  // Toggle dark mode class on the create note button
-  create_note_button.classList.toggle(
-    "create-note-button-dark",
-    darkModeCheckbox.checked
-  );
+  if (darkModeCheckbox.checked) {
+    localStorage.setItem("darkMode", "true");
+  } else {
+    localStorage.setItem("darkMode", "false");
+  }
+  toggleDarkMode();
 });
+document.addEventListener("DOMContentLoaded", toggleDarkMode);
 /*This code is for seeting up the dropdown menus in the nav bar for small screens */
 /* This code is for setting up listeners for when the user clicks outside of any open menus causing them to close*/
 window.addEventListener("click", function (event) {
@@ -58,7 +59,7 @@ window.addEventListener("click", function (event) {
     profile_dropdown.classList.contains("opened")
   ) {
     profile_dropdown.classList.remove("opened");
-    profile_icon.classList.remove("active");
+
   }
 
   if (
@@ -66,7 +67,6 @@ window.addEventListener("click", function (event) {
     menu_container.classList.contains("opened")
   ) {
     menu_container.classList.remove("opened");
-    menu_icon.classList.remove("active");
   }
 });
 function displayProfile() {
@@ -111,6 +111,14 @@ document.addEventListener("DOMContentLoaded", function () {
       menu_links.classList.add("active");
     }
   });
+  if (localStorage.getItem("darkMode") === "true") {
+    darkModeCheckbox.checked = true;
+    
+  }
+  if (localStorage.getItem("darkMode") === "false") {
+    darkModeCheckbox.checked = false;
+    bodyElement.classList.remove("body-dark-mode");
+  }
 });
 function hideFolders() {
   folders_container.classList.toggle("closed");
