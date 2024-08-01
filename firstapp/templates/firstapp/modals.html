@@ -2,18 +2,20 @@
 <div class="change-password-modal modal">
     <form class="change-password-form " onsubmit="changePassword(event)">
         {% csrf_token %}
-        <div class="modal-content">
+        <div>
             <label for "oldPassword">Current Password</label>
             <input type="password" name="oldPassword" id="oldPassword" class="oldPassword" value="">
+        </div>
+        <div>
             <label for "newPassword">New Password</label>
             <input type="password" name="newPassword" id="newPassword" class="newPassword">
+        </div>
+        <div>
             <label for "confirmPassword">Confirm Password</label>
             <input type="password" name="confirmPassword" id="confirmPassword" class="confirmPassword">
-            <div>
-                <button type="button" class="cancel-logout-modal" onclick="closeModal(document.querySelector('.change-password-modal'))">Cancel</button>
-                <button type="submit" class="confirm-password-change">Enter</button>
-            </div>  
         </div>
+        <button type="button" class="cancel-logout-modal" onclick="closeModal(document.querySelector('.change-password-modal'))">Cancel</button>
+        <button type="submit" class="confirm-password-change">Enter</button>
     </form>
 </div>    
 <div class="delete-user-modal modal">

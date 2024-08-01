@@ -30,7 +30,9 @@ const delete_folder_modal = document.querySelector(".delete-folder-modal");
 const delete_folder_text = document.querySelector(".delete-folder-text");
 const moon = document.querySelector(".moon");
 const sun = document.querySelector(".sun");
-const profile_dropdown_links = document.querySelectorAll(".profile-dropdown-link"); 
+const profile_dropdown_links = document.querySelectorAll(".profile-dropdown-link");
+const modals = document.querySelectorAll(".modal"); 
+const open_door = document.querySelector(".open-door");
 /*This code is for setting up all the class changes for dark mode and keeping them in local storage*/
 const toggleDarkMode = () => {
   darkModeCheckbox.checked = localStorage.getItem("darkMode") === "true";
@@ -44,6 +46,10 @@ const toggleDarkMode = () => {
     sun.classList.add("sun-dark");
     profile_dropdown_links.forEach((profile_dropdown_link) => {
       profile_dropdown_link.classList.add("profile-dropdown-link-dark");
+    modals.forEach((modal) => {
+      modal.classList.add("modal-dark");
+    open_door.classList.add("open-door-dark");
+    })
     });
   } else {
     console.log("Dark mode is off",moon,sun);
@@ -55,6 +61,10 @@ const toggleDarkMode = () => {
     sun.classList.remove("sun-dark");
     profile_dropdown_links.forEach((profile_dropdown_link) => {
       profile_dropdown_link.classList.remove("profile-dropdown-link-dark");
+    modals.forEach((modal) => {
+      modal.classList.remove("modal-dark");
+    open_door.classList.remove("open-door-dark");  
+    })
     });
   }
 };

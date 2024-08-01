@@ -33,7 +33,7 @@
 /*Code for body defaults*/
 :root {
   --white-color: rgb(198, 203, 211);
-  --brown-color: rgb(156, 130, 91);
+  --brown-color: rgb(225, 195, 154);
   --dark-brown-color: rgb(65, 44, 13);
   --black-color: rgb(19, 19, 19);
   --dark-pink-color: rgb(48, 9, 63);
@@ -361,13 +361,10 @@ body::-webkit-scrollbar-thumb {
 
 /*code for the navbar ends here*/
 /*--------------MODALS GO HERE-------------*/
-.change-password-modal,
-.delete-user-modal,
-.logout-modal,
-.email-modal {
+.modal {
   display: none;
   border-radius:15%;
-  background-color: ;
+  background: linear-gradient(110deg, var(--lilac-color) 0%, var(--pink-color) 100%);
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -381,79 +378,86 @@ body::-webkit-scrollbar-thumb {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   z-index: 2;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  border:2px groove var(--lilac-color);
+  color:var(--dark-brown-color);
+}
+.modal-dark {
+  background: linear-gradient(110deg, var(--black-color) 0%, var(--dark-pink-color) 100%);
+  color: var(--brown-color);
 }
 /*---------- logout modal--------*/
-.logout-modal {
-  border: 3px solid #3a3a3a;
-}
 .open-door {
-  fill: rgb(82, 69, 82);
-  width: 100px;
-  height: 100px;
+  fill: var(--dark-brown-color);
+  width: 125px;
+  height: 125px;
   margin: 30px;
 }
+.open-door-dark {
+  fill:var(--brown-color);
+}
 .logout-modal p {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
-  color: rgb(82, 69, 82);
-  margin: 0;
+  margin:0;
+  margin-top: 40;
 }
 .logout-modal div button {
-  margin: 15px;
-  background-color: rgb(82, 69, 82);
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
-  font-weight: 700;
-  font-size: 1.3rem;
+  background-color: transparent;
+  color: var(--brown-color);
+  border:none;
+  border-bottom:2px solid var(--brown-color);
+  padding: 10px; 
+  font-weight: 900;
+  font-size: 1.7rem;
   cursor: pointer;
-  transition: 250ms;
+  transition: 100ms;
+  margin:30px;
 }
 .logout-modal div button:hover {
-  background-color: rgb(186, 181, 186);
-  color: rgb(137, 115, 115);
+  background-color: var(--dark-brown-color);
+
 }
 
 /*----------change password modal -----------*/
-.change-password-modal {
-  border: 3px solid #3a3a3a;
+.change-password-modal form div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
 }
-.change-password-modal .modal-content label {
+.change-password-modal form label {
   font-size: 1.3rem;
   font-weight: 700;
-  color: rgb(82, 69, 82);
-  margin: 0;
 }
-.change-password-modal .modal-content input {
+.change-password-modal form input {
   border-radius: 5px;
-  background-color: rgb(0, 0, 0, 0);
+  background-color: transparent;
   border: none;
   border-bottom: 2px solid var(--lilac-color);
   font-size: 1.3rem;
   font-weight: 700;
-  color: rgb(82, 69, 82);
-  margin: 0;
-  outline: none;
+  color: var(--lilac-color);
 }
-.change-password-modal .modal-content div button {
-  margin: 20px;
-  background-color: rgb(82, 69, 82);
-  color: white;
+.change-password-modal form button {
+  display: inline-block;
+  margin: 40px;
+  background-color: transparent;
+  color: var(--brown-color);
+  border:none;
+  border-bottom: 2px solid var(--brown-color);
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   cursor: pointer;
-  transition: 250ms;
+  transition: 200ms;
 }
-.change-password-modal .modal-content div button:hover {
-  background-color: rgb(186, 181, 186);
-  color: rgb(137, 115, 115);
+.change-password-modal form button:hover {
+  background-color: var(--dark-brown-color);
 }
 /*---------- delete user modal ----------*/
-.delete-user-modal {
-  border: #777 3px solid;
-}
 .delete-user-modal .modal-content div button {
   margin: 20px;
   background-color: rgb(30, 25, 30);
@@ -466,10 +470,10 @@ body::-webkit-scrollbar-thumb {
   transition: 250ms;
 }
 .delete-user-modal .modal-content p {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: rgb(176, 106, 176);
-  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin: 20px;
+  letter-spacing: 3px;
 }
 .delete-user-modal .modal-content input {
   border-radius: 5px;
@@ -482,20 +486,30 @@ body::-webkit-scrollbar-thumb {
   margin: 0;
   outline: none;
 }
+.delete-user-modal .modal-content div button {
+  margin: 20px;
+  background-color: transparent;
+  color: var(--brown-color);
+  border-radius: 5px;
+  border:none;
+  border-bottom: 2px solid var(--brown-color);
+  padding: 20px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: 200ms;
+}
 .delete-user-modal .modal-content div button:hover {
-  background-color: rgb(186, 181, 186);
-  color: rgb(137, 115, 115);
+  background-color: var(--dark-brown-color);
 }
 /*---------------------------------------------- email modal ----------*/
-.email-modal {
-  border: 3px solid #3a3a3a;
-}
 .email-modal p {
   font-size: 1.3rem;
-  font-weight: 700;
-  color: rgb(82, 69, 82);
+  font-weight: 900;
   margin: 20px;
+  letter-spacing: 3px;
 }
+
 .email-modal input {
   border-radius: 5px;
   background-color: rgb(0, 0, 0, 0);
@@ -503,23 +517,23 @@ body::-webkit-scrollbar-thumb {
   border-bottom: 2px solid var(--lilac-color);
   font-size: 1.3rem;
   font-weight: 700;
-  color: rgb(82, 69, 82);
-  margin-bottom: 20px;
+  color: var(--pink-color);
+  margin: 20px;
   outline: none;
 }
 .email-modal button {
-  background-color: rgb(82, 69, 82);
-  color: white;
+  background-color: transparent;
+  color: var(--brown-color);
   border-radius: 5px;
-  padding: 10px;
+  border:none;
+  border-bottom: 2px solid var(--brown-color);
+  padding: 20px;
   font-weight: 700;
   font-size: 1.3rem;
   cursor: pointer;
-  transition: 250ms;
-  margin: 10px;
-  margin-inline: 20px;
+  transition: 200ms;
+  margin: 20px;
 }
 .email-modal button:hover {
-  background-color: rgb(186, 181, 186);
-  color: rgb(137, 115, 115);
+  background-color: var(--dark-brown-color);
 }
