@@ -44,6 +44,7 @@
   --dark-blue-color: rgb(6, 43, 72);
   --dark-violet-color: rgb(85, 26, 91);
   --maroon-color: rgb(128, 0, 0);
+  --light-maroon-color: rgb(191, 0, 0);
   --background-gradient-light: linear-gradient(
     90deg,
     rgba(238, 174, 202, 1) 0%,
