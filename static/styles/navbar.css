@@ -20,6 +20,22 @@
   font-family: "prettyhandwriting4";
   src: url("../fonts/prettyhandwriting4.ttf") format("truetype");
 }
+@font-face {
+  font-family: "prettyhandwriting5";
+  src: url("../fonts/prettyhandwriting5.ttf") format("truetype");
+}
+@font-face {
+  font-family: "prettyhandwriting6";
+  src: url("../fonts/prettyhandwriting6.ttf") format("truetype");
+}
+@font-face {
+  font-family: "prettyhandwriting7";
+  src: url("../fonts/prettyhandwriting7.ttf") format("truetype");
+}
+@font-face {
+  font-family: "prettyhandwriting8";
+  src: url("../fonts/prettyhandwriting8.ttf") format("truetype");
+}
 /*Keyframe animations*/
 @keyframes background-gradient {
   0% {
@@ -103,6 +119,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  overflow: none;
   z-index: 2;
 }
 /*code for the fist nav container starts here*/
@@ -322,6 +339,7 @@ body::-webkit-scrollbar-thumb {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   transition: 300ms ease-in-out;
   z-index: 3;
+  overflow:none;
 }
 .profile-dropdown-dark {
   box-shadow: -4px 3px 10px 0 rgba(246, 246, 246, 0.5);
