@@ -19,6 +19,10 @@
     border: 3px solid rgb(112, 111, 111);
     justify-content: space-between;
 }
+.note-container-dark {
+    background:linear-gradient(120deg, var(--dark-lilac-color), var(--dark-pink-color));
+    border: 3px solid var(--dark-blue-color);
+}
 .note-container.opened{
     display:flex;
     opacity: 1;
@@ -32,7 +36,7 @@
 
 
 }
-.note-header input {
+.note-title {
     width: 100%;
     height:0px;
     outline:none;
@@ -44,6 +48,15 @@
     color: var(--dark-brown-color);
     text-decoration: underline;
     text-decoration-color: var(--dark-pink-color);
+
+}
+.note-title::placeholder {
+    color: var(--dark-pink-color);
+    opacity:.5;
+}
+.note-title-dark {
+    color: var(--brown-color);
+    text-decoration-color: var(--dark-lilac-color);
 
 }
 /* Style for delete note button*/
@@ -84,7 +97,10 @@
     transition: fill 0.3s ease; /* Transition for fill color */
     transform: rotate(45deg);
 }
-
+.pin-icon-dark {
+    fill: var(--brown-color);
+    opacity: .7;
+}
 /* Style the checkbox to be visually hidden */
 input[type="checkbox"] {
     position: absolute;
@@ -114,7 +130,7 @@ input[type="checkbox"]:checked + .pin-icon {
 .note-text {
     flex-grow: 1;
     padding: 10px;
-    font-size: 22px;
+    font-size: 18px;
     width: 100%; 
     resize: none;
     border: none;
@@ -124,6 +140,9 @@ input[type="checkbox"]:checked + .pin-icon {
     background: transparent;
     overflow-y: scroll;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.note-text-dark {
+    color: var(--brown-color);
 }
 /* style the notebody scrollbar*/
 .note-text::-webkit-scrollbar {
@@ -151,16 +170,19 @@ input[type="checkbox"]:checked + .pin-icon {
 .due-date {
     margin-left:2rem;
     margin-top:1rem;
+    color: var(--dark-brown-color)
 
+}
+.due-date-dark {
+    color: var(--brown-color)
 }
 .due-date > h3,
 .folder-selection > h3{
     font-size: 16px;
     font-weight: bold;
-    color: var(--dark-brown-color);
     border-bottom: 1px solid var(--dark-brown-color);
     width: fit-content;
-    margin-right:20px;
+    margin-right:0px;
     display:flex;
     justify-content: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -168,12 +190,23 @@ input[type="checkbox"]:checked + .pin-icon {
 }
 .folder-selection {
     position:relative;
-    margin-bottom:36px;
+    margin-bottom:35px;
+    margin-left:10px;
+    margin-right:10px;
+    color: var(--dark-brown-color);
+   
+}
+.folder-selection-dark {
+    color: var(--brown-color);
+
 }
 .folder-selection select {
     position:absolute;
-    right:50%;
+    right:63%;
+    bottom:-36%;
     border:none;
+    width:20px;
+    height:14px;
     outline:none;
     color: transparent;
     background-color: transparent;
@@ -181,10 +214,9 @@ input[type="checkbox"]:checked + .pin-icon {
 
 .folder-selection p {
     margin:0;
-    margin-right:50px;
-    font-weight:900;
-    font-size:1.4rem;
-    color:var(--dark-brown-color);
+    margin-right:20px;
+    font-weight:700;
+    font-size:1.2rem;
 }
 .note-folder-arrow{
     display:block;
@@ -200,6 +232,9 @@ input[type="checkbox"]:checked + .pin-icon {
     transform: rotate(90deg);
     transition: 250ms ease-in-out;
     pointer-events: none;
+}
+.note-folder-arrow-dark {
+    fill:var(--brown-color);
 }
 .note-folder-select {
     background-color: transparent;
@@ -248,6 +283,10 @@ input[type="checkbox"]:checked + .pin-icon {
     border:none;
     transition: 70ms ease-in-out;
 
+}
+.note-cancel-dark,
+.note-save-dark{
+    color:var(--brown-color);
 }
 .note-cancel:hover{
     color:var(--dark-lilac-color);

@@ -33,11 +33,16 @@ const sun = document.querySelector(".sun");
 const profile_dropdown_links = document.querySelectorAll(".profile-dropdown-link");
 const modals = document.querySelectorAll(".modal"); 
 const open_door = document.querySelector(".open-door");
+const note_title = document.querySelector(".note-title");
+const pin_icon = document.querySelector(".pin-icon");
+const note_text = document.querySelector(".note-text");
+const due_date = document.querySelector(".due-date");
+const folder_selection = document.querySelector(".folder-selection");
 /*This code is for setting up all the class changes for dark mode and keeping them in local storage*/
 const toggleDarkMode = () => {
   darkModeCheckbox.checked = localStorage.getItem("darkMode") === "true";
   if (darkModeCheckbox.checked) {
-    console.log("Dark mode is on",moon,sun);
+    console.log("Dark mode is on",note_title);
     bodyElement.classList.add("body-dark-mode");
     menu_container.classList.add("menu-container-dark");
     profile_dropdown.classList.add("profile-dropdown-dark");
@@ -49,6 +54,15 @@ const toggleDarkMode = () => {
     modals.forEach((modal) => {
       modal.classList.add("modal-dark");
     open_door.classList.add("open-door-dark");
+    note_container.classList.add("note-container-dark");
+    note_title.classList.add("note-title-dark");
+    pin_icon.classList.add("pin-icon-dark");
+    note_text.classList.add("note-text-dark");
+    cancel_note.classList.add("note-cancel-dark");
+    create_or_update_note.classList.add("note-save-dark");
+    due_date.classList.add("due-date-dark");
+    folder_selection.classList.add("folder-selection-dark");
+    note_folder_arrow.classList.add("note-folder-arrow-dark");
     })
     });
   } else {
@@ -64,6 +78,15 @@ const toggleDarkMode = () => {
     modals.forEach((modal) => {
       modal.classList.remove("modal-dark");
     open_door.classList.remove("open-door-dark");  
+    note_container.classList.remove("note-container-dark");
+    note_title.classList.remove("note-title-dark");
+    pin_icon.classList.remove("pin-icon-dark");
+    note_text.classList.remove("note-text-dark");
+    cancel_note.classList.remove("note-cancel-dark");
+    create_or_update_note.classList.remove("note-save-dark");
+    due_date.classList.remove("due-date-dark");
+    folder_selection.classList.remove("folder-selection-dark");
+    note_folder_arrow.classList.remove("note-folder-arrow-dark");
     })
     });
   }
