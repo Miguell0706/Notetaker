@@ -141,6 +141,11 @@ input[type="checkbox"]:checked + .pin-icon {
     overflow-y: scroll;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+.note-text::placeholder {
+    color: var(--dark-pink-color);
+    opacity:.3;
+    font-family: 'prettyhandwriting5';
+}
 .note-text-dark {
     color: var(--brown-color);
 }
@@ -180,7 +185,7 @@ input[type="checkbox"]:checked + .pin-icon {
 .folder-selection > h3{
     font-size: 16px;
     font-weight: bold;
-    border-bottom: 1px solid var(--dark-brown-color);
+    border-bottom: 2px solid var(--black-color);
     width: fit-content;
     margin-right:0px;
     display:flex;
@@ -190,7 +195,7 @@ input[type="checkbox"]:checked + .pin-icon {
 }
 .folder-selection {
     position:relative;
-    margin-bottom:35px;
+    margin-bottom:15px;
     margin-left:10px;
     margin-right:10px;
     color: var(--dark-brown-color);
@@ -261,6 +266,7 @@ input[type="checkbox"]:checked + .pin-icon {
     font-weight: 700;
     color:var(--dark-brown-color);
     border-radius: 5px;
+    background-color: var(--lilac-color);
     border:2px solid #747474;
     cursor:pointer;
     position: relative;
@@ -305,7 +311,6 @@ input[type="checkbox"]:checked + .pin-icon {
     position: absolute;
     display: inline-block;
     padding:10px;
-    background: #473338;
     border-radius: 5px;
 }
 .time-picker-select {
@@ -314,12 +319,12 @@ input[type="checkbox"]:checked + .pin-icon {
     -moz-appearance: none; /* For Firefox */
     outline: none;
     text-align: center;
-    border: 1px solid gray;
+    border: 1px solid var(--dark-blue-color);
     padding: 6px 10px;
     border-radius:6px;
-    background: #454040;
-    color:white;
+    background: var(--dark-brown-color);
     cursor:pointer;
+    color: var(--lilac-color);
 }
 .time-container,
 .date-container {
@@ -333,24 +338,25 @@ input[type="checkbox"]:checked + .pin-icon {
     left:95px;
     width:20px;
     height:20px;
-    fill: #a28089;
+    fill: var(--dark-brown-color);
+    opacity: .8;
     cursor:pointer;
     transform-origin: top left;
 }
 
 .clear-time:hover {
-    fill: #d7b9a4;
+    fill: var(--brown-color);
 }
 .clear-time:active {
-    fill: #da6512;
+    fill: var(--maroon-color);
 }
 /* CODE FOR DATE SELECTION GOES HERE */
 .calender-container { 
     position: absolute;
     display: none;
     padding:10px;
-    background: #6b6063;
-    border-radius: 5px;
+    background: var(--pink-color);
+    border-radius: 10px;
     width:230px;
     z-index:1000;
     overflow:hidden;
@@ -359,17 +365,16 @@ input[type="checkbox"]:checked + .pin-icon {
 }
 .calender-header{
     height:15%;
-    background-color: blue;
+    background-color: var(--dark-blue-color);
     width:100%;
     display:flex;
     justify-content: space-between;
     overflow: hidden;
     align-items: center;
-    color:white;
+    color:var(--brown-color);
     font-weight:700;
 }
 .month,.year {
-    color: white !important;
     border: none !important;;
 }
 .month-day-container {
@@ -378,7 +383,6 @@ input[type="checkbox"]:checked + .pin-icon {
 
 }
 .day {
-    color:white;
     text-decoration: none;
     font-size:18px;
     padding-left: 10px;
@@ -387,7 +391,7 @@ input[type="checkbox"]:checked + .pin-icon {
 .next-arrow {
     height:20px;
     width:20px;
-    fill: #fffdfd;
+    fill: var(--brown-color);
     font-weight: 800;
     cursor: pointer;
 }
