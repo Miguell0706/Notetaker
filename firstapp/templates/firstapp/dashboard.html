@@ -34,8 +34,8 @@
                 <div class="small-note" data-note-id="{{ note.id }}" onclick="viewNote(this)">
                     <p class="small-note-title">{{note.title}}</p>
                     <p class="small-note-body">{{note.text}}</p>
-                    <p class="small-note-date" data-note-created="{{note.created}}">Due:{{note.due_date}}</p>
-                    </div>
+                    <p class="small-note-date" data-note-created="{{note.created}}">Due: {{note.due_date}}</p>
+                </div>
                 {% endfor %}
             </div>
 
@@ -64,7 +64,7 @@
                     <div class="small-note" data-note-id="{{ note.id }}" onclick="viewNote(this)">
                         <p class="small-note-title">{{note.title}}</p>
                         <p class="small-note-body">{{note.text}}</p>
-                        <p class="small-note-date">{{ note.created|date:"M d, Y" }}</p>
+                        <p class="small-note-date">Created: {{ note.created|date:"M d, Y" }}</p>
                     </div>
                     {% endfor %}
                 </div>

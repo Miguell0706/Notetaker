@@ -63,6 +63,9 @@ const toggleDarkMode = () => {
     due_date.classList.add("due-date-dark");
     folder_selection.classList.add("folder-selection-dark");
     note_folder_arrow.classList.add("note-folder-arrow-dark");
+    document.querySelectorAll(".small-note").forEach((small_note) => {
+      small_note.classList.add("small-note-dark");
+    })
     })
     });
   } else {
@@ -87,6 +90,9 @@ const toggleDarkMode = () => {
     due_date.classList.remove("due-date-dark");
     folder_selection.classList.remove("folder-selection-dark");
     note_folder_arrow.classList.remove("note-folder-arrow-dark");
+    document.querySelectorAll(".small-note").forEach((small_note) => {
+      small_note.classList.remove("small-note-dark");
+    })
     })
     });
   }
