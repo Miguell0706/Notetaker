@@ -192,39 +192,58 @@
   border-radius: 10px;
 }
 .small-note {
-  border: #a09b9b 3px solid;
-  background-color: rgba(255, 255, 255);
-  padding:3px;
+  border: 2px solid rgb(112, 111, 111);
+  background:linear-gradient(120deg, var(--lilac-color), var(--dark-lilac-color));
+  border-radius: 3px;
   overflow:hidden;
-  text-align: start;
-  transition: 250ms ease;
+  transition: 150ms ease;
   cursor:pointer;
   margin-right: 1rem;
   margin-bottom: 1rem;
-  width:130px;
-  min-width:130px;
-  max-width: 130px;
-  height:130px;
-  min-height: 130px;
-  max-height: 130px;
+  min-width:100px;
+  min-height:130px;
+  max-width:100px;
+  max-height:130px;
 }
 .small-note:hover{
-  background-color: rgb(205, 199, 199);
-  transition: 250ms ease;
+  background:linear-gradient(120deg, var(--dark-lilac-color), var(--lilac-color));
+  transform: scale(1.1);
 
 }
 .small-note-title {
+  text-align: center;
+  margin:0px;
   font-weight: 700;
-  font-size: 1.4rem;
-  color:rgb(113, 74, 94);
-
-
+  max-height:20px;
+  overflow: hidden;
+  font-size: 1rem;
+  color:var(--dark-brown-color);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  border-bottom:1px solid var(--dark-brown-color);
 }
-.small-note-date{
-  font-weight: 500;
-  font-size: 1.1rem;
-  color:rgb(77, 60, 68);
-  
+.small-note-body {
+  text-align: center;
+  margin:0px;
+  font-weight: 700;
+  font-size: .8rem;
+  opacity: .7;
+  height:70%;
+  min-height: 70%;
+  min-height:80px;
+  overflow: hidden;
+  color:var(--dark-brown-color);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  border-bottom:1px solid var(--dark-brown-color);
+}
+.small-note-date {
+  text-align:start;
+  margin:0px;
+  font-weight: 700;
+  font-size: .6rem;
+  opacity: .7;
+  color:var(--dark-brown-color);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
 }
 .pinned-notes-header h2{
   color:rgb(161, 25, 93);
