@@ -164,7 +164,7 @@
   align-items: center;
   justify-content: center;
   margin-left: 3.5rem;
-  margin-top: 7px;
+  margin-top: 4px;
 }
 
 /* code for important-recent container goes here*/
@@ -226,7 +226,7 @@
   overflow:hidden;
   transition: 150ms ease;
   cursor:pointer;
-  margin-left: 1rem;
+  margin: 3px;
   min-width:100px;
   min-height:130px;
   max-width:100px;
