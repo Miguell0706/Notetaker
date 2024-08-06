@@ -9,7 +9,17 @@
     opacity: 0;
   }
 }
+.messages {
+  display: flex;
+  flex-direction: column; 
+  color:white;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin:0;
+  padding:0;
 
+}
 /******code for the first container starts here*******/
 .dash-first-container{
   width:100%;
@@ -142,7 +152,7 @@
 }
 .urgent-note-container::-webkit-scrollbar {
   height:6px;
-  background-color: rgba(7, 7, 7, 0.2);
+  background-color: var(--lilac-color);
   border-radius: 10px;
 }
 .urgent-note-container::-webkit-scrollbar-thumb {

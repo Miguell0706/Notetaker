@@ -25,9 +25,10 @@ def home(request):
     folders = request.user.folders.all()
     current_date = timezone.now().date()
     future_date = current_date + timedelta(days=2)
+    ninety_days = current_date - timedelta(days=90)
     urgent_notes = request.user.notes.filter(due_date__range=[current_date, future_date]).order_by('due_date')
     pinned_notes = request.user.notes.filter(pinned=True)
-    recent_notes = request.user.notes.order_by('-created')
+    recent_notes = request.user.notes.filter(created__gte=ninety_days).order_by('-created')
     context = {'folders':folders,'urgent_notes':urgent_notes,'pinned_notes':pinned_notes,'recent_notes':recent_notes}
     if request.user.is_authenticated == False:
         return redirect('accounts/login')

@@ -46,7 +46,9 @@ const toggleDarkMode = () => {
     bodyElement.classList.add("body-dark-mode");
     menu_container.classList.add("menu-container-dark");
     profile_dropdown.classList.add("profile-dropdown-dark");
-    create_note_button.classList.add("create-note-button-dark");
+    if (create_note_button) {
+      create_note_button.classList.add("create-note-button-dark")
+    };
     moon.classList.add("moon-dark");
     sun.classList.add("sun-dark");
     profile_dropdown_links.forEach((profile_dropdown_link) => {
@@ -73,7 +75,9 @@ const toggleDarkMode = () => {
     bodyElement.classList.remove("body-dark-mode");
     menu_container.classList.remove("menu-container-dark");
     profile_dropdown.classList.remove("profile-dropdown-dark");
-    create_note_button.classList.remove("create-note-button-dark");
+    if (create_note_button) {
+      create_note_button.classList.remove("create-note-button-dark")
+    };
     moon.classList.remove("moon-dark");
     sun.classList.remove("sun-dark");
     profile_dropdown_links.forEach((profile_dropdown_link) => {
@@ -181,6 +185,16 @@ function hideFolders() {
     folders_arrow.style.transform = "rotate(0deg)";
   }
 }
+function handleResizeFolders() {
+  if (window.innerWidth > 700) {
+    if (folders_container.classList.contains('closed')) {
+      folders_container.classList.remove('closed');
+    }
+
+  }
+}
+console.log('here')
+window.addEventListener("resize", handleResizeFolders);
 function openNote() {
   const note_container = document.querySelector(".note-container");
   if (!note_container.classList.contains("opened")) {
