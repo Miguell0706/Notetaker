@@ -38,6 +38,8 @@ const pin_icon = document.querySelector(".pin-icon");
 const note_text = document.querySelector(".note-text");
 const due_date = document.querySelector(".due-date");
 const folder_selection = document.querySelector(".folder-selection");
+const details_board_container = document.querySelector(".details-board-container");
+const create_note_button_folder = document.querySelector(".create-note-button-folder");
 /*This code is for setting up all the class changes for dark mode and keeping them in local storage*/
 const toggleDarkMode = () => {
   darkModeCheckbox.checked = localStorage.getItem("darkMode") === "true";
@@ -68,6 +70,15 @@ const toggleDarkMode = () => {
     document.querySelectorAll(".small-note").forEach((small_note) => {
       small_note.classList.add("small-note-dark");
     })
+    if (folders_container) {
+      folders_container.classList.add("folders-container-dark");
+      create_folder_button.classList.add("create-folder-button-dark");
+      folder_delete_buttons.forEach((folder_delete_button) => {
+        folder_delete_button.classList.add("folder-delete-dark");
+      })
+      details_board_container.classList.add("details-board-container-dark");
+      create_note_button_folder.classList.add("create-note-button-folder-dark");
+    }
     })
     });
   } else {
@@ -97,7 +108,16 @@ const toggleDarkMode = () => {
     document.querySelectorAll(".small-note").forEach((small_note) => {
       small_note.classList.remove("small-note-dark");
     })
-    })
+    if (folders_container) {
+      folders_container.classList.remove("folders-container-dark");
+      create_folder_button.classList.remove("create-folder-button-dark");
+      folder_delete_buttons.forEach((folder_delete_button) => {
+        folder_delete_button.classList.remove("folder-delete-dark");
+      })
+      details_board_container.classList.remove("details-board-container-dark");
+      create_note_button_folder.classList.remove("create-note-button-folder-dark");
+    }
+    }) 
     });
   }
 };
@@ -193,7 +213,6 @@ function handleResizeFolders() {
 
   }
 }
-console.log('here')
 window.addEventListener("resize", handleResizeFolders);
 function openNote() {
   const note_container = document.querySelector(".note-container");
