@@ -40,6 +40,7 @@ const due_date = document.querySelector(".due-date");
 const folder_selection = document.querySelector(".folder-selection");
 const details_board_container = document.querySelector(".details-board-container");
 const create_note_button_folder = document.querySelector(".create-note-button-folder");
+const all_search_main = document.querySelector(".all-search-main");
 /*This code is for setting up all the class changes for dark mode and keeping them in local storage*/
 const toggleDarkMode = () => {
   darkModeCheckbox.checked = localStorage.getItem("darkMode") === "true";
@@ -79,6 +80,9 @@ const toggleDarkMode = () => {
       details_board_container.classList.add("details-board-container-dark");
       create_note_button_folder.classList.add("create-note-button-folder-dark");
     }
+    if (all_search_main) {
+      all_search_main.classList.add("all-search-main-dark");
+    }
     })
     });
   } else {
@@ -116,6 +120,9 @@ const toggleDarkMode = () => {
       })
       details_board_container.classList.remove("details-board-container-dark");
       create_note_button_folder.classList.remove("create-note-button-folder-dark");
+    }
+    if (all_search_main) {
+      all_search_main.classList.remove("all-search-main-dark");
     }
     }) 
     });
