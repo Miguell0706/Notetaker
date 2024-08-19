@@ -39,7 +39,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['celestes-notetaker-d707bee4ec26.herokuapp.com']
+ALLOWED_HOSTS = ['.vercel.app']
 
 # Application definition
 SITE_ID = 1
