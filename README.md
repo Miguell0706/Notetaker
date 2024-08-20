@@ -18,7 +18,7 @@ Here is a link to my running website
 ## Technologies
 Python, HTML , CSS, Javascript
 
-This project uses Django for the frontend and backend, database is still set to default sqlite3. 
+This project uses Django for the frontend and backend, database is still set to PostgreSQL using render 
 
 
 ## Features
