@@ -38,9 +38,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-
-ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','celestes-notetaker.onrender.com']
+DEBUG = True
+#os.environ.get('DEBUG', 'False').lower() == 'true'
+ALLOWED_HOSTS = ['127.0.0.1','celestes-notetaker.onrender.com']
 
 # Application definition
 SITE_ID = 1
@@ -124,15 +124,20 @@ WSGI_APPLICATION = "notetaker.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME', 'celestes_notetaker'),
+        'USER': os.getenv('DB_USER', 'celestes_notetaker_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'D1Bri76lcTha3mYSvkW6dr9qiUx15b2E'),
+        'HOST': os.getenv('DB_HOST', 'dpg-cr1ebgq3esus73atogj0-a'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-database_url = os.environ.get("DATABASE_URL")
-DATABASES['default'] = dj_database_url.parse(database_url)
 
-# Password validation
+# Optional: Use DATABASE_URL if it's set
+database_url = os.getenv("DATABASE_URL")
+if database_url:
+    DATABASES['default'] = dj_database_url.parse(database_url)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
