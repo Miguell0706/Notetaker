@@ -8,8 +8,8 @@ folders to make it easier to seperate different notes.
 
 ## Try it out
 Here is a link to my running website
-https://celestes-notetaker-d707bee4ec26.herokuapp.com/
-  
+[https://celestes-notetaker.onrender.com/](https://celestes-notetaker.onrender.com/)
+
 ## Here are some screenshots or usage examples of the Notetaker app:
 
 <img src="https://github.com/user-attachments/assets/d0621bf3-0c09-4c9b-9e8d-1145fd78dc5a" width="700" height="700" alt="Notetaker app Dashboard"/>
@@ -18,7 +18,7 @@ https://celestes-notetaker-d707bee4ec26.herokuapp.com/
 ## Technologies
 Python, HTML , CSS, Javascript
 
-This project uses Django for the frontend and backend, database is still set to default sqlite3. 
+This project uses Django for the frontend and backend, database is still set to PostgreSQL using render 
 
 
 ## Features
